@@ -34,7 +34,7 @@ function comunicacion(mensaje) {
 			salida = xmlhttp.responseText;
 			recibir(salida);
 		}
-	};
+	}
 	//alert ("enviando ,"+mensaje+", ");
 	xmlhttp.open("POST","/casaasturias/server.php",true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -42,7 +42,6 @@ function comunicacion(mensaje) {
 }
 
 function recibir(salida) {
-    //alert("respuesta servidor: "+salida);
 	var recibido = salida.split("_");
 	//alert ("_"+recibido+"_");
 	if (recibido[1] == "ERROR") {

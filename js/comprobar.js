@@ -4,14 +4,6 @@ function reservarPista(entrada) {
 	window.location="/casaasturias/indexReservas.php?v1="+data[0]+"&v2="+data[1]+"&ifecha=0";
 }
 
-function reservarPista2(entrada) {
-    var pistaSeleccionada = document.getElementById(entrada);
-    var data =[];
-    data = entrada.split("_");
-    //alert("/casaasturias/indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0");
-	window.location="/casaasturias/indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0";
-}
-
 function undiamenos (deporte, pista, decremento) {
 	decremento--;
 	window.location="/casaasturias/indexReservas.php?v1="+deporte+"&v2="+pista+"&ifecha="+decremento;

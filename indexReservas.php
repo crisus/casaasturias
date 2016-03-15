@@ -12,7 +12,7 @@
 	include_once "connection.inc";
 	if ( ($_SESSION['nUsuario']) && ($_GET) ) {
 		$deporte = $_GET['v1'];
-		$pista = (int) $_GET['v2'];
+		$pista = $_GET['v2'];
 		$incrementoFecha = $_GET['ifecha'];
 		$enlace = enlazarBBDD();
 	} else {
@@ -379,7 +379,7 @@
 	}
 ?>	
 		<footer id="pie">
-			<p>© ISW 2 | 2015-2016 | Cristian Canseco Blanco </p>
+			<p>© ISW 1 | 2015-2016 | Cristian Canseco Blanco </p>
 		</footer>
 	
 	</body>

@@ -5,24 +5,23 @@ body {
 #cabecera {
   background-color: #29F;
   text-align: center;
-  height: 13ex;
+  height: 12ex;
   width: 100%;
   color:#FFF;
   float: left;
 }
 #cabecera .logo {
   float: left;
-	height: 10ex;
-	width: 8%;
+	height: 9ex;
+	width: 7ex;
   margin: 1%;
-    margin-bottom:2%;
 }
 #cabecera h1 {
 	text-align: center;
   margin-top: 2%;
   display: block;
   float: left;
-	width: 80%;
+	width: 86%;
   height: 100%;
   font-family: cursive;
   font-style: italic;
@@ -106,6 +105,10 @@ select.pistas {
 
 
 
+#principal .apartados:hover {
+  color: #222;
+  background-color: #9F9;
+}
 ul.lista_menu {
   border: none;  
   list-style: none;
@@ -145,10 +148,6 @@ ul.lista_menu li:hover, ul.lista_menu a:hover {
   margin: 1em;
 }
 
-#principal .apartados:hover {
-  color: #222;
-  background-color: #9F9;
-}
 #principal .apartados{
   border: 2px solid #27A;
   background-color: #DFD;
@@ -214,9 +213,7 @@ ul.lista_menu li:hover, ul.lista_menu a:hover {
 }
 #contenido .tablaReservas input{
   width:100%;
-  border-style:none;
-    font-size:12pt;
-    float:left;
+  border-style:none; 
 }
 #contenido .tablaReservas th.firma{
   width:5%;

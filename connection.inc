@@ -1,5 +1,5 @@
 <?php
-	//session_start();
+	session_start();
 	$inactivo = 120; //segundos que tardara en cerrarse la session 
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
@@ -9,30 +9,25 @@
 		}
 	}
 	function enlazarBBDD() {
-        //require("mysqli.so");
-		$host="localhost";
+		$host="Localhost";
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
-        $port="3306";
-        $socket="MySQL57";
-		$enlace = new MySQLi($host,$user,$passBBDD,$nombreBBDD,$port);
-		if (!$enlace) {
+		$enlace = mysqli_connect($host,$user,$passBBDD,$nombreBBDD);
+/*		if (!$enlace) {
 			echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-    			echo "errno de depuración: ".mysqli_connect_errno().PHP_EOL;
-    			echo "error de depuración: ".mysqli_connect_error().PHP_EOL;
+    			echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
+    			echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
 			exit;
 		}
-		return $enlace;
+*/		return $enlace;
 	}
 
 	function copiaSeguridad($descargar) {
-		$host="localhost";
+		$host="Localhost";
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
-        $port="3306";
-        $socket="MySQL57";
 
 		$backup_file = $nombreBBDD.date("Y-m-d-H-i-s").".sql";
 		$command = "mysqldump --opt -h $host  $nombreBBDD -u $user -p$passBBDD --default-character-set=utf8 -r \"./backup/$backup_file\"";
@@ -46,7 +41,7 @@
 	}
 
 	function restaurarCopia($n_file, $tipo) {
-		$host="localhost";
+		$host="Localhost";
 		$user="root";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";

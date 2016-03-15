@@ -1,6 +1,6 @@
 <?php
 	include_once "connection.inc";
-	//session_start();
+	session_start();
 	$inactivo = 120; //segundos que tardara en cerrarse la session 
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
@@ -50,18 +50,16 @@ $responseCont = $responseCont.$tit_deporte.'</h3>';
 			$pistas = getPistas($enlace, $deporte[0]);
 			if ($pistas->num_rows > 0) {
 $responseCont = $responseCont.'						<div class="flecha">	
-								<select id="';
-$responseCont = $responseCont.'selector_'.$deporte[0];
-$responseCont = $responseCont.'" class="pistas" onchange="reservarPista2(this.id)" >';
+								<select class="pistas">';
 
-$responseCont = $responseCont.'<option>Pistas:</option>';					
+					
 				for ($j=0; $pistas->num_rows > $j; $j++) {
 					$pistas->data_seek($j);
 					$pista = $pistas->fetch_row();
-$responseCont = $responseCont.'	
+					$responseCont = $responseCont.'	
 									<option id="';
 $responseCont = $responseCont.$deporte[0]."_".$pista[0];
-$responseCont = $responseCont.'" >Pista ';
+$responseCont = $responseCont.'" onclick="reservarPista(this.id)">Pista ';
 $responseCont = $responseCont.$pista[0].'</option>';				
 				}	
 $responseCont = $responseCont.'
@@ -140,7 +138,7 @@ $cab = $cab.'				USUARIO: ';
 		</section>		
 		
 		<footer id="pie">
-			<p>© ISW 2 | 2015-2016 | Cristian Canseco Blanco </p>
+			<p>© ISW 1 | 2015-2016 | Cristian Canseco Blanco </p>
 		</footer>
 	
 	</body>
