@@ -1,3 +1,5 @@
+var ruta='/casaasturias/';
+
 function validar(id) {
 	entrada = document.getElementById(id);
 	valor = entrada.value;
@@ -25,7 +27,7 @@ function validarHora(id) {
 function comunicacion(mensaje, descargar) {
 	var xmlhttp;
 	var salida;
-	if (window.XMLHttpRequest) { // code ie7+, 
+	if (window.XMLHttpRequest) { // code ie7+,
 		xmlhttp = new XMLHttpRequest();
 	} else { // code ie6-
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
@@ -38,7 +40,7 @@ function comunicacion(mensaje, descargar) {
 		}
 	}
 	//alert ("enviando ,"+mensaje+", ");
-	xmlhttp.open("POST","/casaasturias/server_ajax.php",true);
+	xmlhttp.open("POST",ruta+"server_ajax.php",true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send(mensaje);
 }
@@ -46,7 +48,7 @@ function comunicacion(mensaje, descargar) {
 function enviarArchivo(formData) {
 	var xmlhttp;
 	var salida;
-	if (window.XMLHttpRequest) { // code ie7+, 
+	if (window.XMLHttpRequest) { // code ie7+,
 		xmlhttp = new XMLHttpRequest();
 	} else { // code ie6-
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
@@ -55,11 +57,11 @@ function enviarArchivo(formData) {
 		if ( (xmlhttp.readyState==4) && (xmlhttp.status==200) ) {
 			salida = xmlhttp.responseText;
 			alert("OK");
-			window.location.reload();		
+			window.location.reload();
 		}
 	}
 	//alert ("enviando Archivo");
-	xmlhttp.open("POST","/casaasturias/server_ajax.php",true);
+	xmlhttp.open("POST",ruta+"server_ajax.php",true);
 	//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 	xmlhttp.send(formData);
 }
@@ -99,11 +101,11 @@ function nuevaTarea() {
 function eliminarTarea (){
 	//alert('eliminar Tarea');
 	var entrada = document.getElementById("tareas");
-	var indice = entrada.selectedIndex; 
-	var texto = "indice: " + indice; 
-	var valor = entrada.options[indice].value; 
+	var indice = entrada.selectedIndex;
+	var texto = "indice: " + indice;
+	var valor = entrada.options[indice].value;
 	texto += " valor: " + valor ;
-	//var textoEscogido = entrada.options[indice].text; 
+	//var textoEscogido = entrada.options[indice].text;
 	//texto += " textoEscogido: " + textoEscogido ;
 	//alert(texto);
 	var mensaje = "accion=eliminar&objeto=tarea&posicion="+indice;
@@ -132,7 +134,7 @@ function restaurarBBDD () {
 	//alert('restaurar BBDD');
 	var r=confirm("¿Quieres  subir \n una Copia de Seguridad?");
 	var entrada = document.getElementById("subir");
-	
+
 	var objeto = '<div class="subir">';
 	objeto = objeto+'<h4>RESTAURAR BASE DE DATOS</h4>';
 	objeto = objeto+'<input class="busqueda" id="sql" name="sql"  type="file" value="sql">';
@@ -156,7 +158,7 @@ function subir(tipo) {
 		enviar(mensaje,0);
 	} else if (tipo == 'tipo_file') {
 		var fileSelect = document.getElementById('sql'); // buscar
-	
+
 		var files = fileSelect.files;
 
 		var formData = new FormData();
@@ -171,7 +173,7 @@ function subir(tipo) {
   			//} else {
 			//	alert ("NO ES UNA COPIA DE SEGURIDAD");
 			//}
-  			
+
 		}
 		enviarArchivo(formData);
 	} else {
@@ -189,7 +191,7 @@ function nuevoDeporte(id) {
 	data = id.split("_");
 	var nombreDeporte = prompt("¿Que deporte desea agragar?", "Nombre Deporte");
 	//alert (nombreDeporte);
-	if ( (nombreDeporte != null) && (nombreDeporte != "") ) {	
+	if ( (nombreDeporte != null) && (nombreDeporte != "") ) {
 		var mensaje = "accion="+data[0]+"&objeto="+data[1]+"&elemento="+nombreDeporte+"";
 		enviar(mensaje,0);
 	}
@@ -234,7 +236,7 @@ function modificarPista(id) {
 	for (var i=0; (i< datosPista.length && valido); i++) {
 		valido = valido && validar(datosPista[i].id);
 		mensaje = mensaje+"&valor"+i+"="+datosPista[i].value;
-	} 
+	}
 
 	if (valido) {
 		enviar(mensaje,0);
@@ -246,9 +248,9 @@ function modificarPista(id) {
 function modificarCaracteristicas() {
 	var data = document.getElementsByClassName("caracteristica");
 	var mensaje = "accion=modificar&objeto=caracteristicas";
-	var valido = true;	
+	var valido = true;
 	for (var i=0; (i < data.length && valido); i++) {
-		if (i < 2) 
+		if (i < 2)
 			valido = valido && validarHora(data[i].id);
 		else
 			valido = valido && validar(data[i].id);
@@ -265,4 +267,4 @@ function reloadPage() {
 	location.reload(true);
 }
 
-setInterval("reloadPage()","120000"); 
+setInterval("reloadPage()","120000");

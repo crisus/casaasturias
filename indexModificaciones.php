@@ -1,13 +1,15 @@
-<?php 
+<?php
 	session_start();
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
+    $ruta = '/casaasturias/';
+	$inactivo = 120; //segundos que tardara en cerrarse la session
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
+		if($vida_session > $inactivo) {
        			session_destroy();
-       			header("Location: casaasturias/index.html"); 
+       			header("Location: ".$ruta."index.html");
 		}
 	}
+
 	include_once "connection.inc";
 ?>
 
@@ -16,19 +18,19 @@
 	<head>
 		<title> SOCIEDAD REAL CASA DE ASTURIAS</title>
 		<meta charset="utf-8"/>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">
-		<script type="text/javascript" src="js/modificar.js"></script>
+		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
+		<script type="text/javascript" src="<?php echo $ruta;?>js/modificar.js"></script>
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 	</head>
 	<body>
 		<header id="cabecera">
-			<img class="logo" src="img/casaasturiasescudo.png">
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 			<h1 id="tit_cabecera">Casa De Asturias En Leon</h1>
-			<img class="logo" src="img/casaasturiasescudo.png">
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 		</header>
-		<nav id="menu"> 
+		<nav id="menu">
 			<div class="identificacion">
 <?php
 	if ($_SESSION['tipoUsuario'] == 2)  {
@@ -39,10 +41,10 @@
 	}
 ?>
 			</div>
-			<div class="menu-zona"> 
+			<div class="menu-zona">
 				<ul class = "lista_menu">
-					<li><a href="server.php?inicio=<?php echo $_SESSION['indice'];?>">Inicio</a> </li>
-					<li><a href="index.html">Cambio de Usuario</a></li>
+					<li><a href="<?php echo $ruta;?>server.php?inicio=<?php echo $_SESSION['indice'];?>">Inicio</a> </li>
+					<li><a href="<?php echo $ruta;?>index.html">Cambio de Usuario</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -51,7 +53,7 @@
 				<nav class="lateral">
 					<nav class="bbdd">
 						<h4>BASE DE DATOS</h4>
-						
+
 						<input class="action" type="button" id="copiar" value="Copiar" onclick="guardarBBDD()">
 						<input class="action" type="button" id="restaurar" value="Restaurar" onclick="restaurarBBDD()">
 					</nav>
@@ -63,7 +65,7 @@
 						<input type="text" id="tarea">
 						<input class="anadir" type="button" id="anadir_tarea" value="+" onclick="nuevaTarea()">
 					</div>
-					<div class="tareas_eliminar">	
+					<div class="tareas_eliminar">
 						<select id="tareas">
 	<?php 	$tareas = getTareas($enlace);
 		for ($i=0; $tareas->num_rows > $i; $i++) {
@@ -72,7 +74,7 @@
  	?>
 							<option> <?php echo $tarea[1];?></option>
 	<?php 	} ?>
-						</select>				
+						</select>
 						<input class="eliminar" type="button" id="eliminar_tarea" value="×" onclick="eliminarTarea()">
 					</div>
 				</nav>
@@ -81,7 +83,7 @@
 		$caracteristicas = getCaracteristicas($enlace);
 		$caracteristicas->data_seek(0);
 		$caracteristica = $caracteristicas->fetch_row();
-		
+
 		/*$horaInicial = $caracteristica[0];
 		$horaFinal = $caracteristica[1];
 		$margenTiempoAntesR = $caracteristica[2];
@@ -140,7 +142,7 @@
 	for ($i=0; $deportes->num_rows > $i; $i++) {
 		$deportes->data_seek($i);
 		$deporte = $deportes->fetch_row();
-?>	
+?>
 					<div class="pistas_deporte">
 						<h3 id="<?php echo $deporte[0]; ?>"><?php echo strtoupper($deporte[0]); ?></h3>
 						<div class="boton_titulo">
@@ -174,14 +176,14 @@
 								<th >
 									<input class="actualizar" type="button" id="actualizar_pista_<?php echo $deporte[0]; ?>_<?php echo $pista[0]; ?>" value="(o)" onclick="modificarPista(this.id)">
 								</th>
-								<th > 
+								<th >
 									<input class="eliminar" type="button" id="eliminar_pista_<?php echo $deporte[0]; ?>_<?php echo $pista[0]; ?>" value="×" onclick="eliminarPista(this.id)">
 								</th>
 							</tr>
 <?php		}?>
 						</table>
 					</div>
-					
+
 <?php
 	}
 	if ($_SESSION['tipoUsuario'] == 2) {
@@ -191,9 +193,9 @@
 				</div>
 				</div>
 			</form>
-		</section>	
+		</section>
 		<footer id="pie">
-			<p>© ISW 1 | 2015-2016 | Cristian Canseco Blanco </p>
+			<p>© ISW 2 | 2015-2016 | Cristian Canseco Blanco </p>
 		</footer>
 	</body>
 </html>
