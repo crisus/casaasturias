@@ -10,7 +10,7 @@
 		//echo 'CONECTADO';
 		$mensaje = comprobarUsuario($enlace, $numeroUsuario, $clave);
 		$inactivo = 120; //segundos que tardara en cerrarse la session 
-		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") ){
+		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") && ($mensaje != "3") ){
 			if (!isset($_SESSION['nUsuario'])) {
 				$_SESSION['nUsuario']= $numeroUsuario;
 				$_SESSION['clave']= $clave;
@@ -26,7 +26,9 @@
 			}
 			echo "_".$_SESSION['indice']."_";
 			mysqli_close($enlace);
-		} else {			
+		} else if ($mensaje == "3") {
+			$_SESSION['puede_firmar']=1;
+		}else {
 			echo "_ERROR_$mensaje";
 			mysqli_close($enlace);
 		}
