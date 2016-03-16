@@ -1,19 +1,19 @@
 <?php
 	session_start();
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
+	$inactivo = 120; //segundos que tardara en cerrarse la session
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
+		if($vida_session > $inactivo) {
        			session_destroy();
-       			header("Location: casaasturias/index.html"); 
+       			header("Location: casaasturias/index.html");
 		}
 	}
 	include_once "connection.inc";
-	
+
 	//var mensaje="accion=reservar&nUsuario="+entrada.value+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo;
 	if ($_POST) {
 		//echo 'CONECTANDO';
-		$enlace = enlazarBBDD();	
+		$enlace = enlazarBBDD();
 		//echo 'CONECTADO';
 
 		$accion = $_POST['accion'];
@@ -25,7 +25,7 @@
 			$bloqueActual = $_POST['nbtActual'];
 			$fecha = $_POST['fecha'];
 			//echo $accion." ".$usuario." ".$deporte." ".$pista." ".$bloque." ".$fecha;
-			$response = reservar ($enlace, $usuario ,$deporte, $pista, $bloque, $bloqueActual ,$fecha ); 
+			$response = reservar ($enlace, $usuario ,$deporte, $pista, $bloque, $bloqueActual ,$fecha );
 			echo $response;
 		} else if ($accion == 'firmar') {
 			$deporte = $_POST['deporte'];
@@ -33,7 +33,7 @@
 			$fecha = $_POST['fecha'];
 			$bloque = $_POST['nbTiempo'];
 			$response = firmar ($enlace, $deporte, $pista, $fecha, $bloque);
-			echo $response; 
+			echo $response;
 		} else if ($accion =='eliminarReserva') {
 			//var mensaje="accion=eliminarReserva&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
 			$deporte = $_POST['deporte'];
@@ -60,5 +60,5 @@
 			}
 		}
 		mysqli_close($enlace);
-	} 
+	}
 ?>
