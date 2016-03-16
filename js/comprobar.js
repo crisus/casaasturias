@@ -1,12 +1,14 @@
-var ruta='/casaasturias/';
+var ruta = '/casaasturias/';
 
 function reservarPista(entrada) {
+	var ruta = '/casaasturias/';
 	var data=[];
 	data = entrada.split("_");
 	window.location=ruta+"indexReservas.php?v1="+data[0]+"&v2="+data[1]+"&ifecha=0";
 }
 
 function reservarPista2(entrada) {
+	var ruta = '/casaasturias/';
     var pistaSeleccionada = document.getElementById(entrada);
     var data =[];
     data = entrada.split("_");
@@ -15,11 +17,13 @@ function reservarPista2(entrada) {
 }
 
 function undiamenos (deporte, pista, decremento) {
+	var ruta = '/casaasturias/';
 	decremento--;
 	window.location=ruta+"indexReservas.php?v1="+deporte+"&v2="+pista+"&ifecha="+decremento;
 }
 
 function undiamas(deporte, pista, incremento) {
+	var ruta = '/casaasturias/';
 	incremento++;
 	window.location=ruta+"indexReservas.php?v1="+deporte+"&v2="+pista+"&ifecha="+incremento;
 }
@@ -69,6 +73,7 @@ function firmar (id, deporte, pista, nbTiempo) {
 }
 
 function comunicacion(id,mensaje) {
+	var ruta = '/casaasturias/';
 	var xmlhttp;
 	var salida;
 	if (window.XMLHttpRequest) { // code ie7+,
