@@ -10,7 +10,7 @@
 		//echo 'CONECTADO';
 		$mensaje = comprobarUsuario($enlace, $numeroUsuario, $clave);
 		$inactivo = 120; //segundos que tardara en cerrarse la session 
-		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") && ($mensaje!= "3") ){
+		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") && ($mensaje != "3") ){
 			if (!isset($_SESSION['nUsuario'])) {
 				$_SESSION['nUsuario']= $numeroUsuario;
 				$_SESSION['clave']= $clave;
