@@ -1,5 +1,3 @@
-var ruta = '/casaasturias/';
-
 function reservarPista(entrada) {
 	var ruta = '/casaasturias/';
 	var data=[];
