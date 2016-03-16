@@ -1,11 +1,16 @@
 <?php
 	session_start();
+	$ruta = '/casaasturias/';
 	$inactivo = 120; //segundos que tardara en cerrarse la session
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
 		if($vida_session > $inactivo) {
-       			session_destroy();
-       			header("Location: casaasturias/index.html");
+       			$_SESSION['nUsuario']="";
+				$_SESSION['clave']="";
+				$_SESSION['tipoUsuario']="";
+				$_SESSION['timeout']=0;
+				$_SESSION['indice']=0;
+       			header("Location: ".$ruta."index.html");
 		}
 	}
 

@@ -1,5 +1,3 @@
-var ruta='/casaasturias/';
-
 function comprobar() {
 	var entrada = document.getElementById('nUsuario');
 	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
@@ -24,6 +22,7 @@ function validar() {
 }
 
 function comunicacion(mensaje) {
+	var ruta='/casaasturias/';
 	var xmlhttp;
 	var salida="";
 	if (window.XMLHttpRequest) { // code ie7+,
@@ -44,6 +43,7 @@ function comunicacion(mensaje) {
 }
 
 function recibir(salida) {
+	var ruta='/casaasturias/';
     //alert("respuesta servidor: "+salida);
 	var recibido = salida.split("_");
 	//alert ("_"+recibido+"_");

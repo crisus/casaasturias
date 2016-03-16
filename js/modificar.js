@@ -1,8 +1,6 @@
-var ruta='/casaasturias/';
-
 function validar(id) {
-	entrada = document.getElementById(id);
-	valor = entrada.value;
+	var entrada = document.getElementById(id);
+	var valor = entrada.value;
 	if (/^([0-9])*$/.test(valor)) {
 		entrada.style.color='green';
 		return true;
@@ -13,8 +11,8 @@ function validar(id) {
 }
 
 function validarHora(id) {
-	entrada = document.getElementById(id);
-	valor = entrada.value;
+	var entrada = document.getElementById(id);
+	var valor = entrada.value;
 	if (/^\d{1,2}:\d{2}$/.test(valor)) {
 		entrada.style.color='green';
 		return true;
@@ -27,6 +25,7 @@ function validarHora(id) {
 function comunicacion(mensaje, descargar) {
 	var xmlhttp;
 	var salida;
+	var ruta='/casaasturias/';
 	if (window.XMLHttpRequest) { // code ie7+,
 		xmlhttp = new XMLHttpRequest();
 	} else { // code ie6-
@@ -48,6 +47,7 @@ function comunicacion(mensaje, descargar) {
 function enviarArchivo(formData) {
 	var xmlhttp;
 	var salida;
+	var ruta='/casaasturias/';
 	if (window.XMLHttpRequest) { // code ie7+,
 		xmlhttp = new XMLHttpRequest();
 	} else { // code ie6-
@@ -164,7 +164,7 @@ function subir(tipo) {
 		var formData = new FormData();
 		var file;
 		//alert(files.length);
-		for (i =0; i< files.length; i++) {
+		for (var i =0; i< files.length; i++) {
 			file = files[i];
 			//alert(file.name);
 			//if (file.type.match('text/x-sql')) {
