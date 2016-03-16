@@ -1,16 +1,16 @@
 <?php
 	session_start();
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
+	$inactivo = 120; //segundos que tardara en cerrarse la session
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
+		if($vida_session > $inactivo) {
        			session_destroy();
-       			header("Location: casaasturias/index.html"); 
+       			header("Location: casaasturias/index.html");
 		}
 	}
 
 	include_once "connection.inc";
-	
+
 	if ( ($_FILES) && ($_SESSION['tipoUsuario']== 2) ) {
 		//echo 'Archivo recibido'.$_FILES['sql']["tmp_name"];
 		$nombre_tmp = $_FILES["sql"]["tmp_name"];
@@ -19,7 +19,7 @@
 		if ($tipo == 'text/x-sql') {
 	        	move_uploaded_file($nombre_tmp, "./backup/$nombre");
 			$estado = restaurarCopia("./backup/$nombre","tipo_file");
-			if ($estado == 0) {				
+			if ($estado == 0) {
 				echo "RESTAURACION COMPLETA";
 			} else {
 				echo "ERROR en LA Restauracion";
@@ -30,7 +30,7 @@
 
 	} else if ( (!$_FILES) && ($_POST) && ($_SESSION['tipoUsuario']== 2) ) {
 		//echo 'CONECTANDO';
-		$enlace = enlazarBBDD();	
+		$enlace = enlazarBBDD();
 		//echo 'CONECTADO';
 
 		$accion = $_POST['accion'];
@@ -104,16 +104,16 @@
 		} else if ($accion == 'copia') {
 			$descarga =$_POST['descargar'];
 			//echo "dato:".$descarga;
-			echo copiaSeguridad($descarga);			
+			echo copiaSeguridad($descarga);
 		} else if ($accion == 'recuperar') {
 			$objeto = $_POST['objeto'];
 			if ($objeto=='sql') {
 				$contenido = listar_archivos("./backup");
-				echo $contenido;		
+				echo $contenido;
 			} else if ($objeto=='sql2') {
 				$n_date = $_POST['elemento'];
 				$estado = restaurarCopia($n_date,"tipo_date");
-				if ($estado == 0) {				
+				if ($estado == 0) {
 					echo "RESTAURACION COMPLETA";
 				} else {
 					echo "ERROR en LA Restauracion";
@@ -141,20 +141,20 @@
 	function listar_archivos($carpeta){
 		$contenido = "NO EXISTE BACKUP";
 		if(is_dir($carpeta)){
-			
+
 			if($dir = opendir($carpeta)){
 				$contenido="<select id='sql' name='sql' class='busqueda'>";
 				while(($archivo = readdir($dir)) != false){
 					$ide2= ".sql";
 					if(($archivo != '.') && ($archivo != '..') && ($archivo != '.htaccess') && (strpos($archivo,$ide2)>=0) ){
-						$ide= "programador"; 
-						 
+						$ide= "programador";
+
 						$total= strpos($archivo,$ide2);
-						$cadena = substr ($archivo,0,$total); 
+						$cadena = substr ($archivo,0,$total);
 						$parcial = substr ($cadena,0,strlen($ide));
 						if (strcmp($parcial, $ide) == 0) {
 							$cadena = substr ($cadena,strlen($ide),strlen($cadena));
-						} 
+						}
 						$contenido=$contenido."<option id=$cadena>$cadena</option>";
 					}
 				}
