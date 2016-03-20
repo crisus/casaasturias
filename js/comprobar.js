@@ -10,7 +10,7 @@ function reservarPista2(entrada) {
     var pistaSeleccionada = document.getElementById(entrada);
     var data =[];
     data = entrada.split("_");
-    alert(ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0");
+    //alert(ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0");
 	window.location=ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0";
 }
 
@@ -41,8 +41,8 @@ function comprobar(id, deporte, pista, nbTiempo, nbtActual) {
 
 function eliminarReserva(id, deporte, pista, nbTiempo) {
 	var fecha = document.getElementById("fecha");
-	var entrada = document.getElementById(id);
-	var mensaje="accion=eliminarReserva&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
+	//var entrada = document.getElementById(id);
+	var mensaje = "accion=eliminarReserva&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
 	//alert(mensaje);
 	comunicacion(id,mensaje);
 }
@@ -65,7 +65,7 @@ function reservar(id, deporte, pista, nbTiempo, nbtActual) {
 
 function firmar (id, deporte, pista, nbTiempo) {
 	var fecha = document.getElementById("fecha");
-	mensaje = "accion=firmar&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
+	var mensaje = "accion=firmar&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
 	//alert(mensaje);
 	comunicacion(id,mensaje);
 }
@@ -95,41 +95,49 @@ function comunicacion(id,mensaje) {
 function recibir(id,salida) {
 	var entrada = document.getElementById(id);
 	var data=[];
+	var er=[];
+	er = salida.split("_");
 	data = id.split("_");
+	var s, out;
+	
 	//alert("|"+salida+"|");
-	if ( (salida != 'ERROR_1') && (salida != 'ERROR_2') && (salida != 'ERROR_3')  && (salida != 'ERROR_4') && (salida != 'ERROR_5')) {
-		if (salida == 'OK_1') { // firma
+	if (er[1] == 'OK')  {
+		if (er[2] == '1') { // firma
 			entrada.disabled = true;
-		} else if (salida == 'OK_2') { // eliminar reserva
-			var s = 'nombre_'+data[1]+'_'+data[2];
-			var out = document.getElementById(s);
+		} else if (er[2] == '2') { // eliminar reserva
+			s = 'nombre_'+data[1]+'_'+data[2];
+			out = document.getElementById(s);
 			out.value = "";
 			entrada.disabled = false;
 			entrada.value = 'xxxxx/xx';
-		} else if (salida == 'OK_3') {
+		} else if (er[2] == '3') {
 			alert ("TAREA ARCHIVADA");
-		}else { // reservar
-			var s = 'nombre_'+data[1]+'_'+data[2];
-			var out = document.getElementById(s);
-			out.value = salida;
+		} else if (er[2] == '4') { // reservar
+			s = 'nombre_'+data[1]+'_'+data[2];
+			out = document.getElementById(s);
+			out.value = er[3];
 			entrada.disabled = true;
 		}
 		window.location.reload();
-	} else if (salida == 'ERROR_1') {
-		alert('NUMERO DE USUARIO ERRONEO');
-		entrada.style.color='red';
-	} else if (salida == 'ERROR_2') {
-		alert('NO PUEDES CONFIRMAR TU RESERVA');
-		entrada.style.color='red';
-	} else if (salida == 'ERROR_3') {
-		alert('YA TIENES UNA RESERVA\nPARA ESTE DEPORTE');
-		entrada.value = 'xxxxx/xx';
-	} else if (salida == 'ERROR_4') {
-		alert('LA RESERVA\nCONTINUA ACTIVA');
-		entrada.value = 'xxxxx/xx';
-	} else if (salida == 'ERROR_5') {
-		alert('YA HAS FIRMADO UNA RESERVA\n A ESTA HORA');
-		window.location.reload();
+	} else if (er[1] == 'ERROR') {
+		if (er[2] == '1') {
+			alert('NUMERO DE USUARIO ERRONEO');
+			entrada.style.color='red';
+		} else if (er[2] == '2') {
+			alert('NO PUEDES CONFIRMAR TU RESERVA');
+			entrada.style.color='red';
+		} else if (er[2] == '3') {
+			alert('YA TIENES UNA RESERVA\nPARA ESTE DEPORTE');
+			entrada.value = 'xxxxx/xx';
+		} else if (er[2] == '4') {
+			alert('LA RESERVA\nCONTINUA ACTIVA');
+			entrada.value = 'xxxxx/xx';
+		} else if (er[2] == '5') {
+			alert('YA HAS FIRMADO UNA RESERVA\n A ESTA HORA');
+			window.location.reload();
+		} else if (er[2] == '100') {
+			confirm(salida);
+		}
 	}else {
 		alert(salida);
 		window.location.reload();

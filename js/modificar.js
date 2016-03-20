@@ -68,7 +68,9 @@ function enviarArchivo(formData) {
 
 // metodo de accion de elementos respuesta
 function recibir(salida, descargar){
-	if (salida == -1) {
+	var er = [];
+	er = salida.split("_");
+	if ( (er[1]=='ERROR') && (er[2] == '-1') ) {
 		alert ("ERROR de ACCESO");
 	} else if ( (descargar == 1) && (salida!="reload") ){
 		//alert("OK");

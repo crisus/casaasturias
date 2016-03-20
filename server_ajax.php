@@ -46,24 +46,24 @@
 				$elemento = $_POST['elemento'];
 				//echo $accion." ".$objeto." ".$elemento." OK";
 				if ( nuevoDeporte($enlace, $elemento) ) {
-					echo "OK";
+					echo "_OK_";
 				} else {
-					echo "ERROR";
+					echo "_ERROR_";
 				}
 			} else if ($objeto == 'pista'){
 				// necesitamos el nombre del deporte
 				$elemento = $_POST['elemento'];
 				if ( nuevaPista($enlace, $elemento) ) {
-					echo "OK";
+					echo "_OK_";
 				} else {
-					echo "ERROR";
+					echo "_ERROR_";
 				}
 			} else if ($objeto == 'tarea') {
 				$elemento = $_POST['elemento'];
 				if ( nuevaTarea($enlace, $elemento) ) {
-					echo "OK";
+					echo "_OK_";
 				} else {
-					echo "ERROR";
+					echo "_ERROR_";
 				}
 			}
 		} else if ($accion == 'eliminar') {
@@ -72,25 +72,25 @@
 				$elemento = $_POST['elemento'];
 				//echo $accion." ".$objeto." ".$elemento." OK";
 				if (eliminarDeporte($enlace, $elemento) ){
-					echo "OK";
+					echo "_OK_";
 				} else {
-					echo "ERROR";
+					echo "_ERROR_";
 				}
 			} else if ($objeto == 'pista') {
 				// necesitamos el nombre del deporte
 				$elemento = $_POST['elemento'];
 				$posicion = $_POST['posicion'];
 				if ( eliminarPista($enlace, $elemento, $posicion) ) {
-					echo "OK";
+					echo "_OK_";
 				} else {
-					echo "ERROR";
+					echo "_ERROR_";
 				}
 			} else if ($objeto == 'tarea') {
 				$posicion = $_POST['posicion'];
 				if ( eliminarTarea($enlace, $posicion) ) {
-					echo "OK";
+					echo "_OK_";
 				} else {
-					echo "ERROR";
+					echo "_ERROR_";
 				}
 			}
 		} else if ($accion == 'actualizar') {
@@ -102,9 +102,9 @@
 			$maximo = $_POST['valor2'];
 			if ( actualizar ($enlace, $elemento, $posicion, $tiempo, $minimo, $maximo) )
 			{
-				echo "OK";
+				echo "_OK_";
 			} else {
-				echo "ERROR";
+				echo "_ERROR_";
 			}
 		} else if ($accion == 'copia') {
 			$descarga =$_POST['descargar'];
@@ -119,12 +119,12 @@
 				$n_date = $_POST['elemento'];
 				$estado = restaurarCopia($n_date,"tipo_date");
 				if ($estado == 0) {
-					echo "RESTAURACION COMPLETA";
+					echo "_OK_RESTAURACION COMPLETA";
 				} else {
-					echo "ERROR en LA Restauracion";
+					echo "_ERROR_ en LA Restauracion";
 				}
 			} else {
-				echo 'Problemas en los mensajes';
+				echo '_ERROR_Problemas en los mensajes';
 			}
 		} else if ($accion == 'modificar') {
 			$horaInicial = $_POST['dat0'];
@@ -134,17 +134,18 @@
 			$maxDiasReservas = $_POST['dat4'];
 			echo setCaracteristicas($enlace,$horaInicial,$horaFinal,$margenTiempoAntesR,$margenTiempoDespuesR,$maxDiasReservas);
 		} else {
-			echo 'ERROR'.$accion;
+			echo '_ERROR_'.$accion.'_';
 		}
 		mysqli_close($enlace);
 	} else if ($_SESSION['tipoUsuario']!= 2) {
-		echo "-1";
+		echo "_ERROR_-2_";
 	} else {
-		echo "-2";
+		echo "_ERROR_-2_";
 	}
+	
 
 	function listar_archivos($carpeta){
-		$contenido = "NO EXISTE BACKUP";
+		$contenido = "_ERROR_NO EXISTE BACKUP";
 		if(is_dir($carpeta)){
 
 			if($dir = opendir($carpeta)){

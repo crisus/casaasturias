@@ -2,14 +2,17 @@
 	include_once "respuestasWeb.inc";
 	include_once "connection.inc";
 	$ruta = '/casaasturias/';
+	if (!isset($_SESSION['puede_firmar']) ){
+		$_SESSION['puede_firmar'] = 0; 
+	}
 	if ($_POST) {
+		$inactivo = 120; //segundos que tardara en cerrarse la session
 		$numeroUsuario = $_POST['nUsuario'];
 		$clave = $_POST['pass'];
 		//echo 'CONECTANDO';
         $enlace = enlazarBBDD();
 		//echo 'CONECTADO';
 		$mensaje = comprobarUsuario($enlace, $numeroUsuario, $clave);
-		$inactivo = 120; //segundos que tardara en cerrarse la session
 		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") && ($mensaje != '3') ){
 			if (!isset($_SESSION['nUsuario'])) {
 				$_SESSION['nUsuario']=$numeroUsuario;
@@ -24,12 +27,14 @@
 				$_SESSION['timeout']=time();
 				$_SESSION['indice']=2;
 			}
-			echo "_".$_SESSION['indice']."_";
+			echo "_OK_10_".$_SESSION['indice']."_";
 			mysqli_close($enlace);
 		} else if ($mensaje=='3') {
-			$_SESSION['puede_firmar'] = 1; 
+			$_SESSION['puede_firmar'] = 1;
+			echo "_OK_11_";
+			mysqli_close($enlace);
 		} else {
-			echo "_ERROR_$mensaje";
+			echo "_ERROR_".$mensaje."_";
 			mysqli_close($enlace);
 		}
 	}
