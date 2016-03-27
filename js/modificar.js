@@ -67,7 +67,7 @@ function enviarArchivo(formData) {
 }
 
 // metodo de accion de elementos respuesta
-function recibir(salida, descargar){
+function recibir(salida, descargar){ // descargar = 0, no hace nada; = 1, descarga directa; = 2, coloca elementos para subir un archivo elegido
 	var er = [];
 	er = salida.split("_");
 	if ( (er[1]=='ERROR') && (er[2] == '-1') ) {
@@ -266,7 +266,18 @@ function modificarCaracteristicas() {
 }
 
 function reloadPage() {
-	location.reload(true);
+	var mensaje="";
+	var volvelAlPrincipio = confirm("Va a Finalizarse su Sesion: \n ¿Desea continuar?");
+	if (volvelAlPrincipio) {
+		// mantener sesion activa
+		mensaje = "accion=finSesion&estado=1";
+		comunicacion(mensaje,0);
+		window.location.reload();
+	} else {
+		// finalizar la sesion
+		mensaje = "accion=finSesion&estado=0";
+		comunicacion(mensaje,0);
+	}
 }
 
-setInterval("reloadPage()","120000");
+setInterval(reloadPage,400000);

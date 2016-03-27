@@ -93,12 +93,15 @@ function comunicacion(id,mensaje) {
 }
 
 function recibir(id,salida) {
+	var ruta = '/casaasturias/';
 	var entrada = document.getElementById(id);
 	var data=[];
 	var er=[];
 	er = salida.split("_");
 	data = id.split("_");
 	var s, out;
+	var mensaje ="";
+	var volvelAlPrincipio =false;
 	
 	//alert("|"+salida+"|");
 	if (er[1] == 'OK')  {
@@ -135,17 +138,32 @@ function recibir(id,salida) {
 		} else if (er[2] == '5') {
 			alert('YA HAS FIRMADO UNA RESERVA\n A ESTA HORA');
 			window.location.reload();
-		} else if (er[2] == '100') {
+		} else if (er[2] == '100') { // errores lanzados para pruebas
 			confirm(salida);
 		}
-	}else {
-		alert(salida);
-		window.location.reload();
+	} else if (er[1]=="SESION"){
+		//reloadPage();
+	} else {
+		//alert("DESCONOCIDO _"+salida+"_");
+		//window.location.reload();
+		window.location=ruta+"index.html";
+		alert("LA SESION DEL SERVIDOR\n HABIA FINALIZADO");
 	}
 }
 
 function reloadPage() {
-	location.reload(true);
+	var mensaje="";
+	var volvelAlPrincipio = confirm("Va a Finalizarse su Sesion: \n ¿Desea continuar?");
+	if (volvelAlPrincipio) {
+		// mantener sesion activa
+		mensaje = "accion=finSesion&estado=1";
+		comunicacion("0", mensaje);
+		window.location.reload();
+	} else {
+		// finalizar la sesion
+		mensaje = "accion=finSesion&estado=0";
+		comunicacion("0", mensaje);
+	}
 }
 
-setInterval("reloadPage()","140000");
+setInterval(function(){reloadPage(); },180000);

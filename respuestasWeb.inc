@@ -1,19 +1,8 @@
 <?php
-    $ruta = '/casaasturias/';
-	include_once "connection.inc";
-	//session_start();
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
-       			$_SESSION['nUsuario']="";
-				$_SESSION['clave']="";
-				$_SESSION['tipoUsuario']="";
-				$_SESSION['timeout']=0;
-				$_SESSION['indice']=0;
-       			header("Location: ".$ruta."index.html"); 
-		}
-	}
+    include_once "connection.inc";
+	include_once "sesiones.inc";
+	$ruta = '/casaasturias/';
+	comprobarVidaSesion();	
 		
 	function montar ($enlace) {
         $ruta = '/casaasturias/';

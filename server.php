@@ -1,4 +1,7 @@
-<?php session_start();
+<?php
+	ini_set("session.cookie_lifetime","200");
+	ini_set("session.gc_maxlifetime","200");
+	session_start();
 	include_once "respuestasWeb.inc";
 	include_once "connection.inc";
 	$ruta = '/casaasturias/';
@@ -6,7 +9,7 @@
 		$_SESSION['puede_firmar'] = 0; 
 	}
 	if ($_POST) {
-		$inactivo = 120; //segundos que tardara en cerrarse la session
+		$inactivo = 180; //segundos que tardara en cerrarse la session
 		$numeroUsuario = $_POST['nUsuario'];
 		$clave = $_POST['pass'];
 		//echo 'CONECTANDO';
@@ -14,26 +17,21 @@
 		//echo 'CONECTADO';
 		$mensaje = comprobarUsuario($enlace, $numeroUsuario, $clave);
 		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") && ($mensaje != '3') ){
-			if (!isset($_SESSION['nUsuario'])) {
-				$_SESSION['nUsuario']=$numeroUsuario;
-				$_SESSION['clave']=$clave;
-				$_SESSION['tipoUsuario']=$mensaje;
-				$_SESSION['timeout']=time();
-				$_SESSION['indice']=1;
-			} else {
-				$_SESSION['nUsuario']= $numeroUsuario;
-				$_SESSION['clave']=$clave;
-				$_SESSION['tipoUsuario']=$mensaje;
-				$_SESSION['timeout']=time();
-				$_SESSION['indice']=2;
-			}
+
+			$_SESSION['nUsuario']= $numeroUsuario;
+			$_SESSION['clave']=$clave;
+			$_SESSION['tipoUsuario']=$mensaje;
+			$_SESSION['timeout']=time();
+			$_SESSION['indice']=2;
 			echo "_OK_10_".$_SESSION['indice']."_";
 			mysqli_close($enlace);
 		} else if ($mensaje=='3') {
+
 			$_SESSION['puede_firmar'] = 1;
 			echo "_OK_11_";
 			mysqli_close($enlace);
 		} else {
+
 			echo "_ERROR_".$mensaje."_";
 			mysqli_close($enlace);
 		}
@@ -50,5 +48,4 @@
 			header("Location: ".$ruta."index.html");
 		}
 	}
-    //echo "uy!";
 ?>

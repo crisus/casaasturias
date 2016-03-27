@@ -1,19 +1,9 @@
 <?php
 	session_start();
-	$ruta = '/casaasturias/';
-	$inactivo = 120; //segundos que tardara en cerrarse la session
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) {
-       			$_SESSION['nUsuario']="";
-				$_SESSION['clave']="";
-				$_SESSION['tipoUsuario']="";
-				$_SESSION['timeout']=0;
-				$_SESSION['indice']=0;
-       			header("Location: ".$ruta."index.html");
-		}
-	}
 	include_once "connection.inc";
+	include_once "sesiones.inc";
+	$ruta = '/casaasturias/';
+	comprobarVidaSesion();
 
 	//var mensaje="accion=reservar&nUsuario="+entrada.value+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo;
 	if ($_POST) {
@@ -64,6 +54,15 @@
 				echo '_OK_3_';
 			} else {
 				echo '_ERROR_5_';
+			}
+		} else if ($accion == 'finSesion'){
+			$estado = $_POST['estado'];
+			// mantener sesion
+			if ($estado = 1) {
+				$_SESSION['timeout'] = time();
+			} // cerrar sesion
+			else if ($estado = 0) {
+				eliminarSesion();
 			}
 		}
 		mysqli_close($enlace);

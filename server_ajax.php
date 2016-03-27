@@ -1,20 +1,9 @@
 <?php
 	session_start();
-	$ruta = '/casaasturias/';
-	$inactivo = 120; //segundos que tardara en cerrarse la session
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) {
-       			$_SESSION['nUsuario']="";
-				$_SESSION['clave']="";
-				$_SESSION['tipoUsuario']="";
-				$_SESSION['timeout']=0;
-				$_SESSION['indice']=0;
-       			header("Location: ".$ruta."index.html");
-		}
-	}
-
 	include_once "connection.inc";
+	include_once "sesiones.inc";
+	$ruta = '/casaasturias/';
+	comprobarVidaSesion();
 
 	if ( ($_FILES) && ($_SESSION['tipoUsuario']== 2) ) {
 		//echo 'Archivo recibido'.$_FILES['sql']["tmp_name"];
@@ -119,12 +108,12 @@
 				$n_date = $_POST['elemento'];
 				$estado = restaurarCopia($n_date,"tipo_date");
 				if ($estado == 0) {
-					echo "_OK_RESTAURACION COMPLETA";
+					echo "_OK_RESTAURACION COMPLETA_";
 				} else {
-					echo "_ERROR_ en LA Restauracion";
+					echo "_ERROR_en LA Restauracion_";
 				}
 			} else {
-				echo '_ERROR_Problemas en los mensajes';
+				echo '_ERROR_Problemas en los mensajes_';
 			}
 		} else if ($accion == 'modificar') {
 			$horaInicial = $_POST['dat0'];
@@ -133,6 +122,15 @@
 			$margenTiempoDespuesR = $_POST['dat3'];
 			$maxDiasReservas = $_POST['dat4'];
 			echo setCaracteristicas($enlace,$horaInicial,$horaFinal,$margenTiempoAntesR,$margenTiempoDespuesR,$maxDiasReservas);
+		} else if ($accion == 'finSesion'){
+			$estado = $_POST['estado'];
+			// mantener sesion
+			if ($estado = 1) {
+				$_SESSION['timeout'] = time();
+			} // cerrar sesion
+			else if ($estado = 0) {
+				eliminarSesion();
+			}
 		} else {
 			echo '_ERROR_'.$accion.'_';
 		}
@@ -142,7 +140,6 @@
 	} else {
 		echo "_ERROR_-2_";
 	}
-	
 
 	function listar_archivos($carpeta){
 		$contenido = "_ERROR_NO EXISTE BACKUP";
@@ -170,5 +167,4 @@
 		}
 		return $contenido;
 	}
-
 ?>
