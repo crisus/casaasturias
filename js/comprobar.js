@@ -28,6 +28,9 @@ function undiamas(deporte, pista, incremento) {
 
 function comprobar(id, deporte, pista, nbTiempo, nbtActual) {
 	var entrada = document.getElementById(id);
+	if (entrada.value.length == 5) {
+		entrada.value = entrada.value + "/";
+	}
 	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
 		entrada.style.color='green';
 		//alert("aqui");
@@ -142,7 +145,11 @@ function recibir(id,salida) {
 			confirm(salida);
 		}
 	} else if (er[1]=="SESION"){
-		//reloadPage();
+		if (er[2]=="FIN") {
+			window.location=ruta+"index.html";
+		} else if (er[2]=="CONTINUA") {
+			alert("Sesion sigue activa");
+		}
 	} else {
 		//alert("DESCONOCIDO _"+salida+"_");
 		//window.location.reload();
@@ -158,7 +165,6 @@ function reloadPage() {
 		// mantener sesion activa
 		mensaje = "accion=finSesion&estado=1";
 		comunicacion("0", mensaje);
-		window.location.reload();
 	} else {
 		// finalizar la sesion
 		mensaje = "accion=finSesion&estado=0";
@@ -166,4 +172,4 @@ function reloadPage() {
 	}
 }
 
-setInterval(function(){reloadPage(); },180000);
+setInterval(function(){reloadPage(); },60000);

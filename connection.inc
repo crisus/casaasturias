@@ -1,23 +1,8 @@
 <?php
-	//session_start();
-	$ruta = '/casaasturias/';
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
+	$ruta = '/casaasturias/'; 
 	date_default_timezone_set("Europe/Madrid");
-	
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
-       			$_SESSION['nUsuario']="";
-				$_SESSION['clave']="";
-				$_SESSION['tipoUsuario']="";
-				$_SESSION['timeout']=0;
-				$_SESSION['indice']=0;
-       			header("Location: ".$ruta."index.html"); 
-		}
-	}
 
 	function enlazarBBDD() {
-        //require("mysqli.so");
 		$host="localhost";
 		$user="reservas";
 		$passBBDD="sekret";
@@ -104,15 +89,15 @@
 			if ($resultado->num_rows == 1) {
 				$resultado->data_seek(0);
 				$fila = $resultado->fetch_row();
+				if ($fila[0] == $clave) {
+					$m1 = $fila[1];
+				} else {
+					$m1 = "ERROR";
+				}
 			} else {
 				$m1 = "ERROR";
 			}
-
-			if ($fila[0] == $clave) {
-				$m1 = $fila[1];
-			} else {
-				$m1 = "ERROR";
-			}
+			
 			$resultado->close();
 			return $m1;
 		} else {

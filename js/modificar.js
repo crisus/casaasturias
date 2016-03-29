@@ -82,6 +82,12 @@ function recibir(salida, descargar){ // descargar = 0, no hace nada; = 1, descar
 		objeto = objeto+'<input class="busqueda" type="button" onclick=\"subir(\'tipo_select\')\" value=\"Subir y Restaurar\"></div>';
 		var entrada = document.getElementById("subir");
 		entrada.innerHTML=objeto;
+	} else if (er[1]=="SESION"){
+		if (er[2]=="FIN") {
+			window.location=ruta+"index.html";
+		} else if (er[2]=="CONTINUA") {
+			alert("Sesion sigue activa");
+		}
 	} else {
 		alert("OK");
 		window.location.reload();

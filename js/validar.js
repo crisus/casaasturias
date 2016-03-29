@@ -1,5 +1,8 @@
 function comprobar() {
 	var entrada = document.getElementById('nUsuario');
+	if (entrada.value.length == 5) {
+		entrada.value = entrada.value + "/";
+	}
 	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
 		entrada.style.color='green';
 		return true;
@@ -54,6 +57,7 @@ function recibir(salida) {
 			alert("COMPUTADOR ADECUADO A LA\nCONFIRMACION DE USO DE PISTAS");
 			location.reload(true);
 		} else if (er[2]=='10'){
+			//alert (ruta+'server.php?inicio='+er[3]);
 			location.href=ruta+'server.php?inicio='+er[3];
 		}
 	}

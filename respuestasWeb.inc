@@ -1,8 +1,8 @@
 <?php
     include_once "connection.inc";
-	include_once "sesiones.inc";
+	//include_once "sesiones.inc";
 	$ruta = '/casaasturias/';
-	comprobarVidaSesion();	
+	//comprobarVidaSesion();	
 		
 	function montar ($enlace) {
         $ruta = '/casaasturias/';

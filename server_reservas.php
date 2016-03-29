@@ -58,10 +58,12 @@
 		} else if ($accion == 'finSesion'){
 			$estado = $_POST['estado'];
 			// mantener sesion
-			if ($estado = 1) {
+			if ($estado == 1) {
 				$_SESSION['timeout'] = time();
+				echo "_SESION_CONTINUA_";
 			} // cerrar sesion
-			else if ($estado = 0) {
+			else if ($estado == 0) {
+				echo "_SESION_FIN_";
 				eliminarSesion();
 			}
 		}
