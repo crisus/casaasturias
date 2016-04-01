@@ -397,6 +397,9 @@ ul.deportes li:hover, ul.deportes a:hover {
 .pistas_deporte .th * {
   text-align: center;
 }
+.button-observaciones{
+
+}
 
 th.eliminar, th.anadir, th.actualizar {
   border:none;
