@@ -1,4 +1,4 @@
-function observacion(id){
+function observacion(){
 	var mensaje="accion=observacion";
 	comunicacion2(mensaje);
 }
@@ -20,7 +20,7 @@ function comunicacion2(mensaje) {
 		}
 	}
 	//alert ("enviando ,"+mensaje+", ");
-	xmlhttp.open("POST",ruta+"server_observaciones.php",true);
+	xmlhttp.open("POST",ruta+"server_quejas.php",true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send(mensaje);
 }
