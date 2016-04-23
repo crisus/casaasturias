@@ -12,7 +12,9 @@
 		//echo 'CONECTADO';
 
 		$accion = $_POST['accion'];
+		if (accion=="observacion") {
 
+		}
 
 		mysqli_close($enlace);
 	}
