@@ -27,7 +27,7 @@
 		<![endif]-->
 	</head>
 	<body>
-			<header id="cabecera">
+		<header id="cabecera">
 			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png"></img>
 			<h1>Casa De Asturias En Leon</h1>
 			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png"></img>
@@ -37,11 +37,11 @@
 			<div class="identificacion">
 				USUARIO:
 <?php
-	if ($_SESSION['tipoUsuario'] == 1) {
-		echo 'SOCIO '.$_SESSION['nUsuario'];
-	} else if ($_SESSION['tipoUsuario'] == 2) {
-		echo 'EMPLEADO '.$_SESSION['nUsuario'];
-	}
+				if ($_SESSION['tipoUsuario'] == 1) {
+					echo 'SOCIO '.$_SESSION['nUsuario'];
+				} else if ($_SESSION['tipoUsuario'] == 2) {
+					echo 'EMPLEADO '.$_SESSION['nUsuario'];
+				}
 ?>
 			</div>
 			<div class="menu-zona">
@@ -52,6 +52,10 @@
 			</div>
 		</nav>
 
+		<section id="contenido">
+			<form>
+			</form>
+		</section>
 
 
 		<footer id="pie">
