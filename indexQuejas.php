@@ -8,7 +8,6 @@
 	if ( ($_SESSION['nUsuario']) && ($_GET) ) {
 		$deporte = $_GET['v1'];
 		$pista = (int) $_GET['v2'];
-		$incrementoFecha = $_GET['ifecha'];
 		$enlace = enlazarBBDD();
 	} else {
 		header("Location: ".$ruta."index.html");
@@ -21,7 +20,7 @@
 		<title> SOCIEDAD REAL CASA DE ASTURIAS</title>
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
-		<script type="text/javascript" src="<?php echo $ruta;?>js/tratarobservaciones.js"></script>
+		<script type="text/javascript" src="<?php echo $ruta;?>js/comunicacion_quejas.js"></script>
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -53,8 +52,18 @@
 		</nav>
 
 		<section id="contenido">
-			<form>
-			</form>
+			<div>
+				<h2>OBSERVACIONES</h2>
+				<h2><?php echo $deporte;?></h2>
+				<h2><?php echo $pista;?></h2>
+			</div>
+			<div>
+				<form>
+					<input type="text" id="observacion">
+					<input type="text" id="asunto">
+					<button type="button" onclick="enviarObsevacion()"></button>
+				</form>
+			</div>
 		</section>
 
 

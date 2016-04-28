@@ -358,7 +358,7 @@
 
 <?php			// boton descripcion de desperfectos         ?>
 							<th>
-								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="observacion(this.id)" value="OBSERVACIONES">OBSERVACIONES	</button>
+								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)" value="OBSERVACIONES">OBSERVACIONES	</button>
 							</th>
 						</tr>
 <?php			//} else {
