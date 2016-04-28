@@ -103,9 +103,8 @@
 		} else {
 			return "SIN BBDD";
 		}
-		
 	}
-
+	
 	function getCaracteristicas($enlace) {
 		$tabla = '`caracteristicas`';
 		$nombreBBDD="programador";
@@ -364,6 +363,25 @@
 		} 
 		return "_ERROR_2_";
 	}
+	
+	
+	setQueja($deporte, $pista, $observacion, $asunto) {
+		$exito = false; 
+		$hoy = date("Y-m-d");
+		$user = $_SESSION['nUsuario'];
+
+// INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`) VALUES ('00020/00', 'ana', '2015-12-29', 'tenis', '2', 'altura red', 'El enganche se ha roto');	
+	
+		$peticion = "INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`) VALUES ('".$user."', "'.$hoy."', '".$deporte."', '".$pista."','".$asunto."','".$observacion."');";
+		
+		//echo $peticion;
+		$consulta = $enlace->query($peticion);
+		if ($consulta) {
+			$exito = true;
+		}
+	
+		return $exito;
+	}
 
 	function bucarSiEstasEnOtroLugar($enlace, $date) {	
 		$hoy = date("Y-m-d");
@@ -578,4 +596,5 @@
 		
 		return $resultado;
 	}
+	
 ?>
