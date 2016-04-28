@@ -1,5 +1,14 @@
-function observacion(id){
-	var mensaje="accion=observacion";
+function enviarObservacion(deporte, pista){
+	var mensaje='accion=quejas&objeto='+deporte+'&elemento='+pista;
+
+	var id = 'observacion';
+	var valor = document.getElementById(id);
+	mensaje = mensaje+'&observacion='+valor;
+
+	id = 'asunto';
+	valor = document.getElementById(id);
+	mensaje = mensaje+'&asunto='+valor;
+
 	comunicacion2(mensaje);
 }
 
@@ -45,5 +54,7 @@ function recepcion(salida) {
 		if (er[2] == '1') {
 			alert('ERROR 1');
 		}
+	} else {
+		alert('Error desconocido comunicacion_quejas.js');
 	}
 }
