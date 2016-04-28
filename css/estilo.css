@@ -467,3 +467,27 @@ select.tareas {
 #pie a {
   color: #FA7;
 }
+
+.observaciones {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.observaciones .queja {
+	float: left;
+	width: 100%;
+	height: 80%;
+}
+
+.observaciones .asunto {
+	float: left;
+	width: 75%;
+	height: 15%;
+}
+
+.observaciones .accion {
+	float: left;
+	width: 20%;
+	height: 15%;
+}

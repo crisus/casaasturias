@@ -57,11 +57,11 @@
 				<h2><?php echo $deporte;?></h2>
 				<h2><?php echo $pista;?></h2>
 			</div>
-			<div>
+			<div class="observaciones">
 				<form>
-					<input type="text" id="observacion">
-					<input type="text" id="asunto">
-					<button type="button" onclick="enviarObsevacion()"></button>
+					<input type="text" id="observacion" class="queja">
+					<input type="text" id="asunto" class="asunto">
+					<button type="button" onclick="enviarObsevacion()" class="accion"></button>
 				</form>
 			</div>
 		</section>
