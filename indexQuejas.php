@@ -61,7 +61,7 @@
 				<form>
 					<input type="text" id="observacion" class="queja">
 					<input type="text" id="asunto" class="asunto">
-					<button type="button" onclick="enviarObsevacion()" class="accion"></button>
+					<button type="button" onclick="enviarObsevacion(<?php echo $deporte.', '.$pista;?>)" class="accion"></button>
 				</form>
 			</div>
 		</section>
