@@ -76,6 +76,8 @@ DROP TABLE IF EXISTS `programador`.`observaciones`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `programador`.`observaciones` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `n_socio` VARCHAR(10) NOT NULL,
+  `fecha` DATE NOT NULL,
   `deporte` VARCHAR(45) NOT NULL,
   `pista` INT NOT NULL,
   `asunto` TEXT(150) NOT NULL,
