@@ -82,6 +82,8 @@ CREATE TABLE `programador`.`observaciones` (
   `pista` INT NOT NULL,
   `asunto` TEXT(150) NOT NULL,
   `observacion` LONGTEXT NOT NULL,
+  `archivada` INT(1) NOT NULL,
+  `realizada` INT(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
   ENGINE=InnoDB DEFAULT CHARSET=latin1;
