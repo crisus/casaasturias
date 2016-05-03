@@ -383,16 +383,30 @@
 		return $exito;
 	}
 	
-	getQuejas($archivada, $realizada) {
+	
+	/*
+	*	Funcion que retorna las quejas almacenadas,
+	* 	Se ha desarrollado en base a la prueba de equivalencia, de datos buscados
+	*/
+	getQuejas($archivada, $realizada, $sinVer) {
 		$hoy = date("Y-m-d");
 	
-		$tablaReservas = '`observaciones`';
+		$tablaReservas = '`programador`.`observaciones`';
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaReservas;
 		$consulta = $consulta." WHERE ";
 		$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
-		$consulta = $consulta.' `archivada`=\''.$archivada.'\' AND';
-		$consulta = $consulta.' `realizada`=\''.$realizada.'\';';
+		if ($sinVer == 0) {
+			$consulta = $consulta.' `archivada`=\''.$archivada.'\' AND';
+			$consulta = $consulta.' `realizada`=\''.$realizada.'\';';
+		} else if ($sinVer == 1) {
+			if  ($realizada == 0){
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\';';
+			} else if ($archivada == 0){
+				$consulta = $consulta.' `archivada`=\''.$archivada.'\';';
+			}
+		}
+		
 		//echo $consulta;
 		// SELECT * FROM `programador`.`observaciones`;
 		$resultado = $enlace->query($consulta);
