@@ -60,12 +60,17 @@
 					<input type="checkbox" class="verQuejas" value="SIN LEER" checked onclick="obtenerQuejas()">
 				</form>
 			</div>
-			<div class="observaciones">
-				<form>
-					<input type="text" id="observacion" class="queja">
-					<input type="text" id="asunto" class="asunto">
-					<button type="button" onclick="" class="accion"></button>
-				</form>
+			<div id="observaciones" class="observaciones">
+				<div class="bloque-observacion">
+					<div class="data">
+						<label id="observacion" class="queja"></label>
+						<label id="asunto" class="asunto"></label>
+					</div>
+					<div class="botones">
+						<button type="button" value="Archivar" onclick="" class="accion"></button>
+						<button type="button" value="Agregar \nA Tareas" onclick="" class="accion"></button>
+					</div>
+				</div>
 			</div>
 		</section>
 
