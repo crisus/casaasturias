@@ -63,12 +63,14 @@
 			<div id="observaciones" class="observaciones">
 				<div class="bloque-observacion">
 					<div class="data">
-						<label id="observacion" class="queja"></label>
-						<label id="asunto" class="asunto"></label>
+						<label class="1l_50" id="asunto" class="asunto"></label>
+						<label class="1l_25" id="deporte-oservacion"></label>
+						<label class="1l_25" id="pista-deporte"></label>
+						<label class="2l_100" id="observacion" class="queja"></label>
 					</div>
 					<div class="botones">
-						<button type="button" value="Archivar" onclick="" class="accion"></button>
-						<button type="button" value="Agregar \nA Tareas" onclick="" class="accion"></button>
+						<button class="accion" type="button" value="Archivar" onclick="" ></button>
+						<button class="accion" type="button" value="Agregar \nA Tareas" onclick="" ></button>
 					</div>
 				</div>
 			</div>
