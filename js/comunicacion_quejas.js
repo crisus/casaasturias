@@ -106,9 +106,13 @@ function mostrarQuejas(quejas) {
 }
 
 function archivar(id) {
-
+	var data = id.split('_');
+	var mensaje = 'accion=archivar&objeto='+data[1];
+	comunicacion2(mensaje);
 }
 
 function agregar(id) {
-
+	var data = id.split('_');
+	var mensaje = 'accion=agregar&objeto='+data[1];
+	comunicacion2(mensaje);
 }
