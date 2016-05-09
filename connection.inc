@@ -388,7 +388,7 @@
 	*	Funcion que retorna las quejas almacenadas,
 	* 	Se ha desarrollado en base a la prueba de equivalencia, de datos buscados
 	*/
-	getQuejas($archivada, $realizada, $sinVer) {
+	getQuejas($realizada, $archivada, $sinVer) {
 		$hoy = date("Y-m-d");
 	
 		$tablaReservas = '`programador`.`observaciones`';
@@ -409,7 +409,12 @@
 		
 		//echo $consulta;
 		// SELECT * FROM `programador`.`observaciones`;
-		$resultado = $enlace->query($consulta);
+		$datas = $enlace->query($consulta);
+		$resultado = '';
+		for ($i=0; $i < $datas->num_rows; $i++) {
+			$data = $datas->fetch_row();
+			$resultado = $resultado.$data[0].'_'.$data[1].'_'.$data[2].'_'.$data[3].'_'.$data[4].'_';
+		}
 		return $resultado;
 	}
 
