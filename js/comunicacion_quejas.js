@@ -66,6 +66,8 @@ function recepcion(salida) {
 			alert ("ok 1");
 		} else if (er[2] == '2') {
 			mostrarQuejas(er);
+		} else {
+			window.location.reload();
 		}
 	} else if (er[1] == 'ERROR') {
 		if (er[2] == '1') {
