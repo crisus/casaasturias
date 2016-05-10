@@ -35,8 +35,10 @@
 			}
 		} else if (accion=='archivar') {
 			$id = $_POST['objeto'];
+			archivarQueja(id);
 		} else if (accion=='agregar') {
 			$id = $_POST['objeto'];
+			agregarQueja(id);
 		} else {
 			echo "_ERROR_2_";
 		}
