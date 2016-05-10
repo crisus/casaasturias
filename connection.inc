@@ -421,11 +421,13 @@
 	function archivarQueja($id) {
 		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`=".1." WHERE `actividades`.`id` LIKE ".$id.";";
 		$enlace->query($peticion);
+		return $enlace;
 	}
 	
 	function agregarQueja($id) {
 		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`=".1." WHERE `actividades`.`id` LIKE ".$id.";";
 		$enlace->query($peticion);
+		$return $enlace;
 	}
 
 	function bucarSiEstasEnOtroLugar($enlace, $date) {	
