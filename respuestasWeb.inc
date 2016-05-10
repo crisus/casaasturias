@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 	include_once "connection.inc";
 	session_start();
 	$inactivo = 120; //segundos que tardara en cerrarse la session 
@@ -9,6 +10,12 @@
        			header("Location: /casaasturias/index.html"); 
 		}
 	}
+=======
+    include_once "connection.inc";
+	//include_once "sesiones.inc";
+	$ruta = '/casaasturias/';
+	//comprobarVidaSesion();	
+>>>>>>> aviso_fin_sesion
 		
 	function montar ($enlace) {
 		if(!isset($_SESSION['tipoUsuario']) ) {

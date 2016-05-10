@@ -1,5 +1,6 @@
 <?php
 	session_start();
+<<<<<<< HEAD
 	$inactivo = 120; //segundos que tardara en cerrarse la session 
 	if(isset($_SESSION['timeout']) ) {
 		$vida_session = time() - $_SESSION['timeout'];
@@ -8,8 +9,13 @@
        			header("Location: /casaasturias/index.html"); 
 		}
 	}
+=======
+    include_once "connection.inc";
+	include_once "sesiones.inc";
+	$ruta = '/casaasturias/';
+	comprobarVidaSesion();
+>>>>>>> aviso_fin_sesion
 
-	include_once "connection.inc";
 	if ( ($_SESSION['nUsuario']) && ($_GET) ) {
 		$deporte = $_GET['v1'];
 		$pista = $_GET['v2'];
@@ -88,7 +94,7 @@
 				</div>
 <?php
 	$pistas = getPistas($enlace, $deporte);
-	$pistas->data_seek($pista);
+	$pistas->data_seek($pista-1); // tabla de base de datos se inicia en 0
 	$actual = $pistas->fetch_row();
 //	    numero pista     tiempo		min players	max players
 	if ( ($actual[0]) && ($actual[1]) && ($actual[2]) && ($actual[3]) ) {
@@ -313,7 +319,12 @@
 <?php   // FIRMA
 			$libre = 1;
 			$s = 0;
-			$puedeConfirmar = $cogerPista;
+			if ($_SESSION['puede_firmar'] == 0) {
+				$puedeConfirmar = 0;
+			} else if ($_SESSION['puede_firmar'] == 1) {
+				$puedeConfirmar = $cogerPista;
+			}
+
 			$hayFirmada = false;
 			for ($j=1;($j <= $actual[3]) && (!$hayTarea); $j++) { 
 				if ( $j-1 < $consulta->num_rows)  // firmadas o reservadas 

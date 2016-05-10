@@ -1,21 +1,40 @@
 function reservarPista(entrada) {
+	var ruta = '/casaasturias/';
 	var data=[];
 	data = entrada.split("_");
+<<<<<<< HEAD
 	window.location="/casaasturias/indexReservas.php?v1="+data[0]+"&v2="+data[1]+"&ifecha=0";
+=======
+	window.location=ruta+"indexReservas.php?v1="+data[0]+"&v2="+data[1]+"&ifecha=0";
+}
+
+function reservarPista2(entrada) {
+	var ruta = '/casaasturias/';
+    var pistaSeleccionada = document.getElementById(entrada);
+    var data =[];
+    data = entrada.split("_");
+    //alert(ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0");
+	window.location=ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0";
+>>>>>>> aviso_fin_sesion
 }
 
 function undiamenos (deporte, pista, decremento) {
+	var ruta = '/casaasturias/';
 	decremento--;
 	window.location="/casaasturias/indexReservas.php?v1="+deporte+"&v2="+pista+"&ifecha="+decremento;
 }
 
 function undiamas(deporte, pista, incremento) {
+	var ruta = '/casaasturias/';
 	incremento++;
 	window.location="/casaasturias/indexReservas.php?v1="+deporte+"&v2="+pista+"&ifecha="+incremento;
 }
 
 function comprobar(id, deporte, pista, nbTiempo, nbtActual) {
 	var entrada = document.getElementById(id);
+	if (entrada.value.length == 5) {
+		entrada.value = entrada.value + "/";
+	}
 	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
 		entrada.style.color='green';
 		//alert("aqui");
@@ -29,8 +48,8 @@ function comprobar(id, deporte, pista, nbTiempo, nbtActual) {
 
 function eliminarReserva(id, deporte, pista, nbTiempo) {
 	var fecha = document.getElementById("fecha");
-	var entrada = document.getElementById(id);
-	var mensaje="accion=eliminarReserva&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
+	//var entrada = document.getElementById(id);
+	var mensaje = "accion=eliminarReserva&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
 	//alert(mensaje);
 	comunicacion(id,mensaje);
 }
@@ -53,12 +72,13 @@ function reservar(id, deporte, pista, nbTiempo, nbtActual) {
 
 function firmar (id, deporte, pista, nbTiempo) {
 	var fecha = document.getElementById("fecha");
-	mensaje = "accion=firmar&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
+	var mensaje = "accion=firmar&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
 	//alert(mensaje);
 	comunicacion(id,mensaje);
 }
 
 function comunicacion(id,mensaje) {
+	var ruta = '/casaasturias/';
 	var xmlhttp;
 	var salida;
 	if (window.XMLHttpRequest) { // code ie7+, 
@@ -80,28 +100,36 @@ function comunicacion(id,mensaje) {
 }
 
 function recibir(id,salida) {
+	var ruta = '/casaasturias/';
 	var entrada = document.getElementById(id);
 	var data=[];
+	var er=[];
+	er = salida.split("_");
 	data = id.split("_");
+	var s, out;
+	var mensaje ="";
+	var volvelAlPrincipio =false;
+
 	//alert("|"+salida+"|");
-	if ( (salida != 'ERROR_1') && (salida != 'ERROR_2') && (salida != 'ERROR_3')  && (salida != 'ERROR_4') && (salida != 'ERROR_5')) {
-		if (salida == 'OK_1') { // firma
+	if (er[1] == 'OK')  {
+		if (er[2] == '1') { // firma
 			entrada.disabled = true;
-		} else if (salida == 'OK_2') { // eliminar reserva
-			var s = 'nombre_'+data[1]+'_'+data[2];
-			var out = document.getElementById(s);
+		} else if (er[2] == '2') { // eliminar reserva
+			s = 'nombre_'+data[1]+'_'+data[2];
+			out = document.getElementById(s);
 			out.value = "";
 			entrada.disabled = false;
 			entrada.value = 'xxxxx/xx';
-		} else if (salida == 'OK_3') {
+		} else if (er[2] == '3') {
 			alert ("TAREA ARCHIVADA");
-		}else { // reservar
-			var s = 'nombre_'+data[1]+'_'+data[2];
-			var out = document.getElementById(s);
-			out.value = salida;
+		} else if (er[2] == '4') { // reservar
+			s = 'nombre_'+data[1]+'_'+data[2];
+			out = document.getElementById(s);
+			out.value = er[3];
 			entrada.disabled = true;
 		}
 		window.location.reload();
+<<<<<<< HEAD
 	} else if (salida == 'ERROR_1') {
 		alert('NUMERO DE USUARIO ERRONEO');
 		entrada.style.color='red';
@@ -120,11 +148,53 @@ function recibir(id,salida) {
 	}else {
 		alert(salida);
 		window.location.reload();
+=======
+	} else if (er[1] == 'ERROR') {
+		if (er[2] == '1') {
+			alert('NUMERO DE USUARIO ERRONEO');
+			entrada.style.color='red';
+		} else if (er[2] == '2') {
+			alert('NO PUEDES CONFIRMAR TU RESERVA');
+			entrada.style.color='red';
+		} else if (er[2] == '3') {
+			alert('YA TIENES UNA RESERVA\nPARA ESTE DEPORTE');
+			entrada.value = 'xxxxx/xx';
+		} else if (er[2] == '4') {
+			alert('LA RESERVA\nCONTINUA ACTIVA');
+			entrada.value = 'xxxxx/xx';
+		} else if (er[2] == '5') {
+			alert('YA HAS FIRMADO UNA RESERVA\n A ESTA HORA');
+			window.location.reload();
+		} else if (er[2] == '100') { // errores lanzados para pruebas
+			confirm(salida);
+		}
+	} else if (er[1]=="SESION"){
+		if (er[2]=="FIN") {
+			window.location=ruta+"index.html";
+		} else if (er[2]=="CONTINUA") {
+			alert("Sesion sigue activa");
+		}
+	} else {
+		//alert("DESCONOCIDO _"+salida+"_");
+		//window.location.reload();
+		window.location=ruta+"index.html";
+		alert("LA SESION DEL SERVIDOR\n HABIA FINALIZADO");
+>>>>>>> aviso_fin_sesion
 	}
 }
 
 function reloadPage() {
-	location.reload(true);
+	var mensaje="";
+	var volvelAlPrincipio = confirm("Va a Finalizarse su Sesion: \n ¿Desea continuar?");
+	if (volvelAlPrincipio) {
+		// mantener sesion activa
+		mensaje = "accion=finSesion&estado=1";
+		comunicacion("0", mensaje);
+	} else {
+		// finalizar la sesion
+		mensaje = "accion=finSesion&estado=0";
+		comunicacion("0", mensaje);
+	}
 }
 
-setInterval("reloadPage()","140000");
+setInterval(function(){reloadPage(); },60000);

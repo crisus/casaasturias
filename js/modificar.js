@@ -1,8 +1,6 @@
-var ruta='/casaasturias/';
-
 function validar(id) {
-	entrada = document.getElementById(id);
-	valor = entrada.value;
+	var entrada = document.getElementById(id);
+	var valor = entrada.value;
 	if (/^([0-9])*$/.test(valor)) {
 		entrada.style.color='green';
 		return true;
@@ -13,8 +11,8 @@ function validar(id) {
 }
 
 function validarHora(id) {
-	entrada = document.getElementById(id);
-	valor = entrada.value;
+	var entrada = document.getElementById(id);
+	var valor = entrada.value;
 	if (/^\d{1,2}:\d{2}$/.test(valor)) {
 		entrada.style.color='green';
 		return true;
@@ -27,6 +25,7 @@ function validarHora(id) {
 function comunicacion(mensaje, descargar) {
 	var xmlhttp;
 	var salida;
+	var ruta='/casaasturias/';
 	if (window.XMLHttpRequest) { // code ie7+,
 		xmlhttp = new XMLHttpRequest();
 	} else { // code ie6-
@@ -48,6 +47,7 @@ function comunicacion(mensaje, descargar) {
 function enviarArchivo(formData) {
 	var xmlhttp;
 	var salida;
+	var ruta='/casaasturias/';
 	if (window.XMLHttpRequest) { // code ie7+,
 		xmlhttp = new XMLHttpRequest();
 	} else { // code ie6-
@@ -67,8 +67,10 @@ function enviarArchivo(formData) {
 }
 
 // metodo de accion de elementos respuesta
-function recibir(salida, descargar){
-	if (salida == -1) {
+function recibir(salida, descargar){ // descargar = 0, no hace nada; = 1, descarga directa; = 2, coloca elementos para subir un archivo elegido
+	var er = [];
+	er = salida.split("_");
+	if ( (er[1]=='ERROR') && (er[2] == '-1') ) {
 		alert ("ERROR de ACCESO");
 	} else if ( (descargar == 1) && (salida!="reload") ){
 		//alert("OK");
@@ -80,6 +82,12 @@ function recibir(salida, descargar){
 		objeto = objeto+'<input class="busqueda" type="button" onclick=\"subir(\'tipo_select\')\" value=\"Subir y Restaurar\"></div>';
 		var entrada = document.getElementById("subir");
 		entrada.innerHTML=objeto;
+	} else if (er[1]=="SESION"){
+		if (er[2]=="FIN") {
+			window.location=ruta+"index.html";
+		} else if (er[2]=="CONTINUA") {
+			alert("Sesion sigue activa");
+		}
 	} else {
 		alert("OK");
 		window.location.reload();
@@ -164,7 +172,7 @@ function subir(tipo) {
 		var formData = new FormData();
 		var file;
 		//alert(files.length);
-		for (i =0; i< files.length; i++) {
+		for (var i =0; i< files.length; i++) {
 			file = files[i];
 			//alert(file.name);
 			//if (file.type.match('text/x-sql')) {
@@ -264,7 +272,18 @@ function modificarCaracteristicas() {
 }
 
 function reloadPage() {
-	location.reload(true);
+	var mensaje="";
+	var volvelAlPrincipio = confirm("Va a Finalizarse su Sesion: \n ¿Desea continuar?");
+	if (volvelAlPrincipio) {
+		// mantener sesion activa
+		mensaje = "accion=finSesion&estado=1";
+		comunicacion(mensaje,0);
+		window.location.reload();
+	} else {
+		// finalizar la sesion
+		mensaje = "accion=finSesion&estado=0";
+		comunicacion(mensaje,0);
+	}
 }
 
-setInterval("reloadPage()","120000");
+setInterval(reloadPage,400000);

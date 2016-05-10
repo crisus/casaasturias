@@ -1,7 +1,8 @@
-var ruta='/casaasturias/';
-
 function comprobar() {
 	var entrada = document.getElementById('nUsuario');
+	if (entrada.value.length == 5) {
+		entrada.value = entrada.value + "/";
+	}
 	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
 		entrada.style.color='green';
 		return true;
@@ -24,6 +25,7 @@ function validar() {
 }
 
 function comunicacion(mensaje) {
+	var ruta='/casaasturias/';
 	var xmlhttp;
 	var salida="";
 	if (window.XMLHttpRequest) { // code ie7+,
@@ -44,13 +46,19 @@ function comunicacion(mensaje) {
 }
 
 function recibir(salida) {
+	var ruta='/casaasturias/';
     //alert("respuesta servidor: "+salida);
-	var recibido = salida.split("_");
+	var er = salida.split("_");
 	//alert ("_"+recibido+"_");
-	if (recibido[1] == "ERROR") {
-		alert ('ERROR DE USUARIO POR\n'+recibido[2]);
-	} else {
-		//alert(recibido[0]);
-		location.href=ruta+'server.php?inicio='+recibido[1];
+	if (er[1] == "ERROR") {
+		alert ('ERROR DE USUARIO POR\n'+er[2]);
+	} if (er[1] == "OK"){
+		if (er[2]=='11') {
+			alert("COMPUTADOR ADECUADO A LA\nCONFIRMACION DE USO DE PISTAS");
+			location.reload(true);
+		} else if (er[2]=='10'){
+			//alert (ruta+'server.php?inicio='+er[3]);
+			location.href=ruta+'server.php?inicio='+er[3];
+		}
 	}
 }

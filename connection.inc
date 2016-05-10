@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 	session_start();
 	$inactivo = 120; //segundos que tardara en cerrarse la session 
 	if(isset($_SESSION['timeout']) ) {
@@ -10,6 +11,13 @@
 	}
 	function enlazarBBDD() {
 		$host="Localhost";
+=======
+	$ruta = '/casaasturias/'; 
+	date_default_timezone_set("Europe/Madrid");
+
+	function enlazarBBDD() {
+		$host="localhost";
+>>>>>>> aviso_fin_sesion
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
@@ -24,7 +32,12 @@
 	}
 
 	function copiaSeguridad($descargar) {
+<<<<<<< HEAD
 		$host="Localhost";
+=======
+		$ruta="/casaasturias/";
+		$host="localhost";
+>>>>>>> aviso_fin_sesion
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
@@ -34,7 +47,7 @@
 		system($command,$output);
 		if ($descargar==1) {
 			//$_SERVER['SERVER_NAME'].
-			echo "/casaasturias/backup/$backup_file";
+			echo $ruta."backup/$backup_file";
 		} else {		
 			echo $output;
 		}
@@ -90,15 +103,15 @@
 			if ($resultado->num_rows == 1) {
 				$resultado->data_seek(0);
 				$fila = $resultado->fetch_row();
+				if ($fila[0] == $clave) {
+					$m1 = $fila[1];
+				} else {
+					$m1 = "ERROR";
+				}
 			} else {
 				$m1 = "ERROR";
 			}
-
-			if ($fila[0] == $clave) {
-				$m1 = $fila[1];
-			} else {
-				$m1 = "ERROR";
-			}
+			
 			$resultado->close();
 			return $m1;
 		} else {
@@ -227,7 +240,7 @@
 	function setCaracteristicas ($enlace, $horaInicial, $horaFinal, $margenTiempoAntesR, $margenTiempoDespuesR, $maxDiasReservas){
 		$peticion = "UPDATE `programador`.`caracteristicas` SET `hora_apertura` = '$horaInicial', `hora_cierre` = '$horaFinal', `minutos_antes_reserva` = '$margenTiempoAntesR', `minutos_despues_reserva` = '$margenTiempoDespuesR', `dias_para_reservar` = '$maxDiasReservas' WHERE `caracteristicas`.`id` =1;";
 		$resultado = $enlace->query($peticion);
-		return "OK";
+		return "_OK_";
 	}
 	
 	function actualizar ($enlace, $deporte, $posicion, $tiempo, $minimo, $maximo) {
@@ -294,6 +307,7 @@
 		$horaActual = date("H:i");
 		$segActual = strtotime($horaActual);
 		$i=0;
+		/* buscar en cada pista, calculando el nbt correspondiente segun bloque de tiempo de la propia pista*/
 		while ($i < $pistas->num_rows) {
 			$pistas->data_seek($i);
 			$pista = $pistas->fetch_row();
@@ -301,6 +315,8 @@
 			$tiempoBloque = $pista[1];
 			$segBloque = $tiempoBloque*60;
 		
+			// Calculado el bloque actual para la pista que se va a comparar
+			//$nbtActual2 = ($segActual-$segInicial) / $segBloque;
 			$nbtActual = 1;
 			if ( ($segActual > $segInicial) && ($segActual < $segFinal) && ($hoy == $date)) {
 				$x = $segInicial;
@@ -311,23 +327,24 @@
 			} else {
 				$nbtActual = -1;
 			}
-			// Calculado el bloque actual para la pista que se va a comparar
-			//$nbtActual2 = ($segActual-$segInicial) / $segBloque;
+			
+			// reservas, a partir de la hora actual, no puede haber mas reservas, antes si puede haberlas estando sin firmar, en caso de firmadas se evalua en el siguiente bloque
 			$pista = $i+1;
 			$peticion= " SELECT * FROM `programador`.`reservas` WHERE `reservas`.`n_socio` LIKE '".$usuario."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`=$pista AND `reservas`.`nbTiempo` >= $nbtActual;";
-			/* buscar en cada pista, calculando el nbt correspondiente segun bloque de tiempo de la propia pista*/
-
+			
 			//echo $peticion;
 			$consulta = $enlace->query($peticion);
 			if ($consulta->num_rows >= 1) {
 				return true;
 			}
-			$peticion= " SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$usuario."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista AND `firmadas`.`nbTiempo` <= $nbtActual;";
+			
+			// firmadas, todo el dia no puede contenr otra pista firmada
+			$peticion= " SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$usuario."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista ;";
 			$consulta = $enlace->query($peticion);
 			if ($consulta->num_rows >= 1) {
 				return true;
 			}
-echo $i;
+			//echo $i;
 			$i++;
 		}	
 		return false;	
@@ -339,7 +356,7 @@ echo $i;
 
 		// REVISAR tablas de reservas y firmadas para que solo disponga de un uso diario
 		if ( buscarSocio($enlace, $usuario, $date, $deporte) ) {
-			return "ERROR_3";
+			return "_ERROR_3_";
 		}
 		// Si no has reservado, ni jugado, localizamos tu nombre para registrarte la reserva
 		$peticion= " SELECT * FROM `programador`.`usuario` WHERE `id_usuario` LIKE '".$usuario."';";
@@ -354,12 +371,85 @@ echo $i;
 			//echo $peticion;
 			$consulta = $enlace->query($peticion);
 			if ($consulta) {
-				return $nombre;
+				return "_OK_4_".$nombre."_";
 			} else {
-				return "ERROR_1";
+				return "_ERROR_1_";
 			}
 		} 
-		return "ERROR_2";
+		return "_ERROR_2_";
+	}
+
+	function bucarSiEstasEnOtroLugar($enlace, $date) {	
+		$hoy = date("Y-m-d");
+		//$date = $datetime->format('Y-m-d');
+		
+		$deportes = getDeportes($enlace);
+		$j=0;
+		// buscar en todos los deportes
+		while ($deportes->num_rows > $j) {
+			$deportes->data_seek($j);
+			$d = $deportes->fetch_row();
+			$deporte = $d[0];
+			
+			// necesitamos las pistas del deporte a comprobar
+			$pistas = getPistas($enlace, $deporte);
+
+			// recuperamos las caracteristicas, para el calculo de horas
+			$caracteristicas = getCaracteristicas($enlace);
+			$caracteristicas->data_seek(0);
+			$caracteristica = $caracteristicas->fetch_row();
+		
+			// se establecen los alores de la hora actual
+			$horaInicial = $caracteristica[0];
+			$horaFinal = $caracteristica[1];
+			$segInicial = strtotime($horaInicial);
+			$segFinal = strtotime($horaFinal);
+		
+			$horaActual = date("H:i");
+			$segActual = strtotime($horaActual);
+			$i=0;
+			/* buscar en cada pista, calculando el nbt correspondiente segun bloque de tiempo de la propia pista*/
+			while ($pistas->num_rows > $i) {
+				$pistas->data_seek($i);
+				$pista = $pistas->fetch_row();
+			
+				$tiempoBloque = $pista[1];
+				$segBloque = $tiempoBloque*60;
+		
+				// Calculado el bloque actual para la pista que se va a comparar
+				//$nbtActual2 = ($segActual-$segInicial) / $segBloque;
+				$nbtActual = 1;
+				if ( ($segActual > $segInicial) && ($segActual < $segFinal) && ($hoy == $date)) {
+					$x = $segInicial;
+					while ($x < $segActual) {
+						$x= $x + $segBloque;
+						$nbtActual= $nbtActual + 1;	
+					}
+					$nbtActual = $nbtActual -1;
+				} else {
+					$nbtActual = -1;
+				}
+				// firmadas, todo el dia no puede contenr otra pista firmada
+				
+				// SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '00002/00' AND `firmadas`.`fecha`='2016-03-20' AND `firmadas`.`deporte` LIKE 'padel' AND `firmadas`.`np`=3 AND `firmadas`.`nbTiempo`=7;
+				
+				$peticion= "SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista[0] AND `firmadas`.`nbTiempo`=".$nbtActual.";";
+				
+				$consulta = $enlace->query($peticion);
+				if ( $consulta->num_rows >= 1 ) {
+					return true;
+				}
+				//echo $i;
+				//$bloques = $bloques."\nd:".$deporte." p:".$pista[0]." b:".$nbtActual;
+				//$bloques = $bloques."\n\n".$peticion;
+				$i++;
+			}
+			$j++;
+		}
+		
+		//echo "_ERROR_100_".$bloques."_";
+		
+		return false;	
 	}
 
 	function firmar ($enlace, $deporte, $pista, $fecha, $nbt ) {
@@ -367,27 +457,27 @@ echo $i;
 		$date = $datetime->format('Y-m-d');
 
 		// Se comprueba que no se firme diferentes pistas a la misma hora
-		$peticion= " SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."'AND `firmadas`.`np`=$pista AND `firmadas`.`nbTiempo`='".$nbt."';";
-		$consulta = $enlace->query($peticion);
-		if ( $consulta->num_rows >= 1 ) {
-			return "ERROR_5";
+		
+		if ( bucarSiEstasEnOtroLugar($enlace, $date ) ) {
+			return "_ERROR_5_";
 		}
 		// Se obtiene el nombre del firmante
-		$peticion= " SELECT * FROM `programador`.`usuario` WHERE `id_usuario` LIKE '".$_SESSION['nUsuario']."';";
+		$peticion= "SELECT * FROM `programador`.`usuario` WHERE `id_usuario` LIKE '".$_SESSION['nUsuario']."';";
 		$consulta = $enlace->query($peticion);
 		if ($consulta->num_rows == 1) {
 			$consulta->data_seek(0);
 			$resultado = $consulta->fetch_row();
 			$nombre = $resultado[1];
 		}
-//DELETE FROM `programador`.`reservas` WHERE `reservas`.`n_socio` = \'00004/00\' AND `reservas`.`nombre` = \'isabel\' AND `reservas`.`fecha` = \'2016-01-26\' AND `reservas`.`deporte` = \'padel\' AND `reservas`.`np` = 4 AND `reservas`.`nbTiempo` = 11
+		//DELETE FROM `programador`.`reservas` WHERE `reservas`.`n_socio` = \'00004/00\' AND `reservas`.`nombre` = \'isabel\' AND `reservas`.`fecha` = \'2016-01-26\' AND `reservas`.`deporte` = \'padel\' AND `reservas`.`np` = 4 AND `reservas`.`nbTiempo` = 11
 		
 		eliminarReservaFutura($enlace, $usuario, $date, $deporte);
+		
 		// Se añade la reserva a la tabla de firmadas
 		$peticion = "INSERT INTO `programador`.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('".$_SESSION['nUsuario']."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbt."');";
 		$consulta = $enlace->query($peticion);
 		//echo $peticion;
-		return 'OK_1';
+		return '_OK_1_';
 	}
 
 	function eliminarReservaFutura($enlace, $usuario, $date, $deporte) {
