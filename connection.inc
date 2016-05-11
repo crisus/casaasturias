@@ -372,7 +372,7 @@
 
 // INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`, `archivada`, `realizada`) VALUES ('00020/00', 'ana', '2015-12-29', 'tenis', '2', 'altura red', 'El enganche se ha roto','0','0');	
 	
-		$peticion = "INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`, `archivada`, `realizada`) VALUES ('".$user."', "'.$hoy."', '".$deporte."', '".$pista."','".$asunto."','".$observacion."', '0', '0');";
+		$peticion = "INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`, `archivada`, `realizada`) VALUES ('".$user."' , '".$hoy."', '".$deporte."', '".$pista."','".$asunto."','".$observacion."', 0, 0);";
 		
 		//echo $peticion;
 		$consulta = $enlace->query($peticion);
