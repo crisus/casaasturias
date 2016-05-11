@@ -34,7 +34,6 @@
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
 		<script type="text/javascript" src="<?php echo $ruta;?>js/comprobar.js"></script>
-		<script type="text/javascript" src="<?php echo $ruta;?>js/tratarobservaciones.js"></script>
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -358,7 +357,7 @@
 
 <?php			// boton descripcion de desperfectos         ?>
 							<th>
-								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)" value="OBSERVACIONES">OBSERVACIONES	</button>
+								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)" value="OBSERVACIONES"></button>
 							</th>
 						</tr>
 <?php			//} else {
