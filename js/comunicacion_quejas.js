@@ -39,7 +39,7 @@ function comunicacion2(mensaje) {
 	xmlhttp.onreadystatechange= function() {
 		if ( (xmlhttp.readyState==4) && (xmlhttp.status==200) ) {
 			salida = xmlhttp.responseText;
-			recepcion(salida);
+			salidaServerQuejas(salida);
 			//alert(salida);
 		}
 	};
@@ -49,7 +49,7 @@ function comunicacion2(mensaje) {
 	xmlhttp.send(mensaje);
 }
 
-function recepcion(salida) {
+function salidaServerQuejas(salida) {
 	//var ruta = '/casaasturias/';
 	//var entrada = document.getElementById(id);
 	//var data=[];

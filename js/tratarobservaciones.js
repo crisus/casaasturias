@@ -5,6 +5,7 @@ function generarObservacion(entrada) {
     data = entrada.split('_');
 	window.location=ruta+'indexQuejas.php?v1='+data[2]+'&v2='+data[3];
 }
+/*
 function observacion(){
 	var mensaje="accion=observacion";
 	comunicacion2(mensaje);
@@ -54,3 +55,4 @@ function recepcion(salida) {
 		}
 	}
 }
+*/
