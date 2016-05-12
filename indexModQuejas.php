@@ -27,9 +27,9 @@
 	</head>
 	<body>
 		<header id="cabecera">
-			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png"></img>
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 			<h1>Casa De Asturias En Leon</h1>
-			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png"></img>
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 		</header>
 
 		<nav id="menu">

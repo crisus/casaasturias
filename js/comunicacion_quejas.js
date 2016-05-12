@@ -1,3 +1,21 @@
+function generarObservacion(entrada) {
+    var data =[];
+	data = entrada.split('_');
+	var id = 'observacion_'+data[4];
+	alert(id);
+    var contenedor = document.getElementById(id);
+	var contenido = '			<div class="observaciones">';
+	contenido = contenido+'			<form>';
+	contenido = contenido+'				<input type="text" id="observacion" class="queja">';
+	contenido = contenido+'				<input type="text" id="asunto" class="asunto">';
+	contenido = contenido+'				<button type="button" onclick="enviarObsevacion('+data[2]+','+data[3]+')" class="accion">ENVIAR</button>';
+	contenido = contenido+'			</form>';
+	contenido = contenido+'		</div>';
+
+	contenedor.innerHTML=contenido;
+	//window.location=ruta+"index_quejas.php?v1="+data[2]+"&v2="+data[3];
+}
+
 function enviarObservacion(deporte, pista){
 	var mensaje='accion=quejas&objeto='+deporte+'&elemento='+pista;
 

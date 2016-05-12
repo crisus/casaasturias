@@ -26,7 +26,6 @@
 	$margenTiempoAntesR = $caracteristica[2]*60;
 	$margenTiempoDespuesR = $caracteristica[3]*60;
 ?>
-
 <!DOCTYPE html>
 <html lang="ES">
 	<head>
@@ -34,6 +33,7 @@
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
 		<script type="text/javascript" src="<?php echo $ruta;?>js/comprobar.js"></script>
+		<script type="text/javascript" src="<?php echo $ruta;?>js/comunicacion_quejas.js"></script>
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -41,9 +41,9 @@
 
 	<body>
 		<header id="cabecera">
-			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png"></img>
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 			<h1>Casa De Asturias En Leon</h1>
-			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png"></img>
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 		</header>
 
 		<nav id="menu">
@@ -356,8 +356,8 @@
 
 
 <?php			// boton descripcion de desperfectos         ?>
-							<th>
-								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)" value="OBSERVACIONES"></button>
+							<th id="observacion_<?php echo $i;?>">
+								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)">OBSERVACIONES</button>
 							</th>
 						</tr>
 <?php			//} else {

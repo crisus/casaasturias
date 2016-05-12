@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="ES">
+	<head>
+		<title> SOCIEDAD REAL CASA DE ASTURIAS</title>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
+		<script type="text/javascript" src="<?php echo $ruta;?>js/comunicacion_quejas.js"></script>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<header id="cabecera">
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
+			<h1>Casa De Asturias En Leon</h1>
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
+		</header>
+
+		<nav id="menu">
+			<div class="identificacion">
+				USUARIO:
+			</div>
+			<div class="menu-zona">
+				<ul class = "lista_menu">
+					<li><a href="/casaasturias/server.php?inicio=2">Inicio</a> </li>
+					<li><a href="/casaasturias/index.html">Cambio de Usuario</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<section id="contenido">
+			<div>
+				<h2>OBSERVACIONES</h2>
+				<h2>deporte</h2>
+				<h2>pista</h2>
+			</div>
+			<div class="observaciones">
+				<form>
+					<input type="text" id="observacion" class="queja">
+					<input type="text" id="asunto" class="asunto">
+					<button type="button" onclick="enviarObsevacion('padel', 3)" class="accion">ENVIAR</button>
+				</form>
+			</div>
+		</section>
+
+
+		<footer id="pie">
+			<p>© ISW 2 | 2015-2016 | Cristian Canseco Blanco </p>
+		</footer>
+
+	</body>
+</html>

@@ -1,4 +1,5 @@
 <?php
+	//session_start();
     include_once "connection.inc";
 	//include_once "sesiones.inc";
 	$ruta = '/casaasturias/';
@@ -100,9 +101,9 @@ $cab = $cab.'	</head>';
     
 $cab = $cab.'	<body>';
 $cab = $cab.'		<header id="cabecera">';
-$cab = $cab.'			<img class="logo" src="'.$ruta.'img/casaasturiasescudo.png"></img>';
+$cab = $cab.'			<img class="logo" src="'.$ruta.'img/casaasturiasescudo.png">';
 $cab = $cab.'			<h1>Casa De Asturias En Leon</h1>';
-$cab = $cab.'			<img class="logo" src="'.$ruta.'img/casaasturiasescudo.png"></img>';
+$cab = $cab.'			<img class="logo" src="'.$ruta.'img/casaasturiasescudo.png">';
 $cab = $cab.'		</header>';
 
 $cab = $cab.'		<nav id="menu"> ';

@@ -364,23 +364,22 @@
 		return "_ERROR_2_";
 	}
 	
-	
-	setQueja($deporte, $pista, $observacion, $asunto) {
-		$exito = false; 
+
+	function setQueja($deporte, $pista, $observacion, $asunto) {
 		$hoy = date("Y-m-d");
 		$user = $_SESSION['nUsuario'];
 
 // INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`, `archivada`, `realizada`) VALUES ('00020/00', 'ana', '2015-12-29', 'tenis', '2', 'altura red', 'El enganche se ha roto','0','0');	
 	
-		$peticion = "INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`, `archivada`, `realizada`) VALUES ('".$user."' , '".$hoy."', '".$deporte."', '".$pista."','".$asunto."','".$observacion."', 0, 0);";
+		$peticion = "INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`,`archivada`, `realizada`) VALUES ('".$user."' , '".$hoy."', '".$deporte."','".$pista."','".$asunto."','".$observacion."', 0, 0);";
 		
 		//echo $peticion;
 		$consulta = $enlace->query($peticion);
 		if ($consulta) {
-			$exito = true;
+			return true;
 		}
 	
-		return $exito;
+		return false;
 	}
 	
 	
@@ -388,7 +387,7 @@
 	*	Funcion que retorna las quejas almacenadas,
 	* 	Se ha desarrollado en base a la prueba de equivalencia, de datos buscados
 	*/
-	getQuejas($realizada, $archivada, $sinVer) {
+	function getQuejas($realizada, $archivada, $sinVer) {
 		$hoy = date("Y-m-d");
 	
 		$tablaReservas = '`programador`.`observaciones`';
@@ -419,15 +418,15 @@
 	}
 	
 	function archivarQueja($id) {
-		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`=".1." WHERE `actividades`.`id` LIKE ".$id.";";
-		$enlace->query($peticion);
-		return $enlace;
+		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`=1 WHERE `actividades`.`id` LIKE '".$id."';";
+		$data = $enlace->query($peticion);
+		return $data;
 	}
 	
 	function agregarQueja($id) {
-		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`=".1." WHERE `actividades`.`id` LIKE ".$id.";";
-		$enlace->query($peticion);
-		$return $enlace;
+		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`=1 WHERE `actividades`.`id` LIKE '".$id."';";
+		$data = $enlace->query($peticion);
+		return $data;
 	}
 
 	function bucarSiEstasEnOtroLugar($enlace, $date) {	
@@ -643,5 +642,4 @@
 		
 		return $resultado;
 	}
-	
 ?>
