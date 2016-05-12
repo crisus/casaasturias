@@ -1,33 +1,38 @@
 function generarObservacion(entrada) {
     var data =[];
 	data = entrada.split('_');
-	var id = 'observacion_'+data[4];
-	alert(id);
+	var id = 'observaciones_'+data[4];
+	//alert(id);
     var contenedor = document.getElementById(id);
-	var contenido = '			<div class="observaciones">';
-	contenido = contenido+'			<form>';
-	contenido = contenido+'				<input type="text" id="observacion" class="queja">';
-	contenido = contenido+'				<input type="text" id="asunto" class="asunto">';
-	contenido = contenido+'				<button type="button" onclick="enviarObsevacion('+data[2]+','+data[3]+')" class="accion">ENVIAR</button>';
-	contenido = contenido+'			</form>';
-	contenido = contenido+'		</div>';
+	var contenido = '			';
+	contenido = contenido+'			';
+	contenido = contenido+'				<div class="queja"><textarea id="observacion_'+data[4]+'" rows="4"></textarea> </div>';
+	contenido = contenido+'				<div class="asunto"><input type="text" id="asunto_'+data[4]+'" value="Asunto"></div>';
+	contenido = contenido+'				<div class="accion-queja">';
+	contenido = contenido+'	<button type="button" onclick="enviarObservacion(\''+data[2]+'\','+data[3]+','+data[4]+')">ENVIAR</button></div>';
+	contenido = contenido+'			';
+	contenido = contenido+'		';
 
 	contenedor.innerHTML=contenido;
 	//window.location=ruta+"index_quejas.php?v1="+data[2]+"&v2="+data[3];
 }
 
-function enviarObservacion(deporte, pista){
+function enviarObservacion(deporte, pista, bloque) {
 	var mensaje='accion=quejas&objeto='+deporte+'&elemento='+pista;
 
-	var id = 'observacion';
-	var valor = document.getElementById(id);
-	mensaje = mensaje+'&observacion='+valor;
+	var id = 'observacion_'+bloque;
+	var queja = document.getElementById(id).value;
+	id = 'asunto_'+bloque;
+	var asunto = document.getElementById(id).value;
 
-	id = 'asunto';
-	valor = document.getElementById(id);
-	mensaje = mensaje+'&asunto='+valor;
-
-	comunicacion2(mensaje);
+	if ( (queja.length > 0) && (asunto.length > 0) ) {
+		mensaje = mensaje+'&observacion='+queja;
+		mensaje = mensaje+'&asunto='+asunto;
+		alert(mensaje);
+		//comunicacion2(mensaje);
+	} else {
+		alert('Campos incompletos');
+	}
 }
 
 function obtenerQuejas() {

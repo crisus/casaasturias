@@ -95,6 +95,7 @@
 							<th class="numero">N. Socio</th>
 							<th class="nombre">Nombre</th>
 							<th class="firma">Firma</th>
+							<th class="observaciones">Observaciones</th>
 						</tr>
 		<?php
 		$tiempoBloque = $actual[1];
@@ -139,10 +140,10 @@
 			$puedeConfirmar = $confirmarReserva;
 ?>
 						<tr class="entradas">
-							<th>
+							<th class="hora">
 				<?php echo date("H:i",$segInicial)." a ".date("H:i",$segInicial+$segBloque);?>
 							</th>
-							<th>
+							<th class="numero">
 <?php			if ( ($segActual+$margenTiempoAntesR  >= $segInicial) && ($incrementoFecha == 0) ){
 				$consulta = getFirmadas($enlace, $deporte,$pista,$fecha,$i );
 				$firma = 1;
@@ -243,7 +244,7 @@
 				<input class="select_tareas" type="text" disabled>
 <?php			}?>
 							</th>
-							<th>
+							<th class="nombre">
 <?php	// NOMBRES
 			if ($hayTarea) { ?>
 				<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
@@ -304,7 +305,7 @@
 <?php			} ?>
 
 							</th>
-							<th>
+							<th class="firma">
 <?php   // FIRMA
 			$libre = 1;
 			$s = 0;
@@ -356,7 +357,7 @@
 
 
 <?php			// boton descripcion de desperfectos         ?>
-							<th id="observacion_<?php echo $i;?>">
+							<th class="observaciones" id="observaciones_<?php echo $i;?>">
 								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)">OBSERVACIONES</button>
 							</th>
 						</tr>
