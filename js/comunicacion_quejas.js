@@ -29,7 +29,7 @@ function enviarObservacion(deporte, pista, bloque) {
 		mensaje = mensaje+'&observacion='+queja;
 		mensaje = mensaje+'&asunto='+asunto;
 		alert(mensaje);
-		//comunicacion2(mensaje);
+		comunicacion2(mensaje);
 	} else {
 		alert('Campos incompletos');
 	}
@@ -85,9 +85,9 @@ function salidaServerQuejas(salida) {
 
 	//alert("|"+salida+"|");
 	if (er[1] == 'OK')  {
-		if (er[2] == '1') { // firma
-			alert ("ok 1");
-		} else if (er[2] == '2') {
+		if (er[2] == '1') { // devolucion de estado del servidor, cuando se ingresa una observacion
+			alert ("Observacion guardada");
+		} else if (er[2] == '2') {  // devolucion del servidor, cuando se requieren ver las observaciones
 			mostrarQuejas(er);
 		} else {
 			window.location.reload();
@@ -97,7 +97,7 @@ function salidaServerQuejas(salida) {
 			alert('ERROR 1');
 		}
 	} else {
-		alert('Error desconocido comunicacion_quejas.js');
+		alert('Error desconocido comunicacion_quejas.js '+er[1]+er[2]);
 	}
 }
 

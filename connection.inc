@@ -365,15 +365,16 @@
 	}
 	
 
-	function setQueja($deporte, $pista, $observacion, $asunto) {
+	function setQueja($enlace, $deporte, $pista, $observacion, $asunto) {
 		$hoy = date("Y-m-d");
 		$user = $_SESSION['nUsuario'];
 
-// INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`, `archivada`, `realizada`) VALUES ('00020/00', 'ana', '2015-12-29', 'tenis', '2', 'altura red', 'El enganche se ha roto','0','0');	
+// INSERT INTO `programador`.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`, `archivada`, `realizada`) VALUES ('padel', '2', 'mal estado', 'red alta', '00001/00', '2016/03/05', '0', '0');
 	
-		$peticion = "INSERT INTO `programador`.`observaciones` (`n_socio`, `fecha`, `deporte`, `np`, `asunto`, `observacion`,`archivada`, `realizada`) VALUES ('".$user."' , '".$hoy."', '".$deporte."','".$pista."','".$asunto."','".$observacion."', 0, 0);";
+	
+		$peticion = "INSERT INTO `programador`.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`,   `archivada`, `realizada`) VALUES ('".$deporte."','".$pista."','".$asunto."','".$observacion."', '".$user."' , '".$hoy."',  '0', '0');";
 		
-		//echo $peticion;
+		//echo '_'.$peticion.'_';
 		$consulta = $enlace->query($peticion);
 		if ($consulta) {
 			return true;
@@ -382,12 +383,11 @@
 		return false;
 	}
 	
-	
 	/*
 	*	Funcion que retorna las quejas almacenadas,
 	* 	Se ha desarrollado en base a la prueba de equivalencia, de datos buscados
 	*/
-	function getQuejas($realizada, $archivada, $sinVer) {
+	function getQuejas($enlace, $realizada, $archivada, $sinVer) {
 		$hoy = date("Y-m-d");
 	
 		$tablaReservas = '`programador`.`observaciones`';
@@ -417,13 +417,13 @@
 		return $resultado;
 	}
 	
-	function archivarQueja($id) {
+	function archivarQueja($enlace, $id) {
 		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`=1 WHERE `actividades`.`id` LIKE '".$id."';";
 		$data = $enlace->query($peticion);
 		return $data;
 	}
 	
-	function agregarQueja($id) {
+	function agregarQueja($enlace, $id) {
 		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`=1 WHERE `actividades`.`id` LIKE '".$id."';";
 		$data = $enlace->query($peticion);
 		return $data;

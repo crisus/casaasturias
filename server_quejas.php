@@ -12,38 +12,40 @@
 		//echo 'CONECTADO';
 
 		$accion = $_POST['accion'];
-		if (accion=="queja") {
-			$objeto = $_POST['deporte'];
-			$elemento = $_POST['pista'];
+		if ($accion=="quejas") {
+			$deporte = $_POST['objeto'];
+			$pista = $_POST['elemento'];
 			$observacion = $_POST['observacion'];
 			$asunto = $_POST['asunto'];
+			//echo '_'.$deporte.' '.$pista.' '.$observacion.' '.$asunto.'_';
 
-			if ( setQueja($objeto, $elemento, $observacion, $asunto) ) {
-					echo "_OK_1_";
-				} else {
-					echo "_ERROR_1_";
-				}
-		} else if (accion=='verQuejas') {
+			if ( setQueja($enlace, $deporte, $pista, $observacion, $asunto) ) {
+				echo "_OK_1_";
+			} else {
+				echo "_ERROR_1_";
+			}
+
+		} else if ($accion=='verQuejas') {
 			$realizadas = $_POST['re'];
 			$archivadas = $_POST['ar'];
 			$sinLeer = $_POST['nole'];
-			$data = getQuejas($realizadas, $archivadas, $sinLeer);
+			$data = getQuejas($enlace, $realizadas, $archivadas, $sinLeer);
 			if ($data !== '') {
 				echo '_OK_2_'.$data;
 			} else {
 				echo '_ERROR_2_';
 			}
-		} else if (accion=='archivar') {
+		} else if ($accion=='archivar') {
 			$id = $_POST['objeto'];
-			$data = archivarQueja(id);
+			$data = archivarQueja($enlace, $id);
 			if ($data) {
 				echo '_OK_3_';
 			} else {
 				echo '_ERROR_4_';
 			}
-		} else if (accion=='agregar') {
+		} else if ($accion=='agregar') {
 			$id = $_POST['objeto'];
-			$data = agregarQueja(id);
+			$data = agregarQueja($enlace, $id);
 			if ($data) {
 				echo '_OK_4_';
 			} else {
