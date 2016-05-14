@@ -1,10 +1,12 @@
 <?php
-	session_start();
+
+	//session_start();
     include_once "connection.inc";
 	include_once "sesiones.inc";
+	//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 	$ruta = '/casaasturias/';
 	comprobarVidaSesion();
-
+	//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 	if ( ($_SESSION['nUsuario']) && ($_GET) ) {
 		$deporte = $_GET['v1'];
 		$pista = (int) $_GET['v2'];
@@ -25,6 +27,7 @@
 	$horaFinal = $caracteristica[1];
 	$margenTiempoAntesR = $caracteristica[2]*60;
 	$margenTiempoDespuesR = $caracteristica[3]*60;
+	//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 ?>
 <!DOCTYPE html>
 <html lang="ES">
@@ -50,6 +53,7 @@
 			<div class="identificacion">
 				USUARIO:
 <?php
+
 	if ($_SESSION['tipoUsuario'] == 1) {
 		echo 'SOCIO '.$_SESSION['nUsuario'];
 	} else if ($_SESSION['tipoUsuario'] == 2) {

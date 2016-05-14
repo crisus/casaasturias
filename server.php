@@ -1,7 +1,8 @@
 <?php
 	ini_set("session.cookie_lifetime","72000");
 	ini_set("session.gc_maxlifetime","72000");
-	session_start();
+	//session_start();
+	include_once "sesiones.inc";
 	include_once "respuestasWeb.inc";
 	include_once "connection.inc";
 	$ruta = '/casaasturias/';
@@ -38,6 +39,7 @@
 	}
 	// Se direcciona a la pagina correspondiente, segun la adjudicacion de la sesion
 	if ($_GET) {
+		//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 		if ($_GET['inicio'] == $_SESSION['indice'] ) {
 			//echo 'CONECTANDO';
 			$enlace=enlazarBBDD();
