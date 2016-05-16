@@ -47,7 +47,13 @@ function obtenerQuejas() {
 		}
 	}
 	var mensaje = 'accion=verQuejas&re='+estados[0]+'&ar='+estados[1]+'&nole='+estados[2];
-	comunicacion2(mensaje);
+	alert (mensaje);
+	if (estados[0] || estados[1] || estados[2]) {
+		comunicacion2(mensaje);
+	} else {
+		alert('CLEAR');
+		mostrarQuejas('_OK_2__');
+	}
 }
 
 function comunicacion2(mensaje) {
@@ -88,45 +94,53 @@ function salidaServerQuejas(salida) {
 		if (er[2] == '1') { // devolucion de estado del servidor, cuando se ingresa una observacion
 			alert ("Observacion guardada");
 		} else if (er[2] == '2') {  // devolucion del servidor, cuando se requieren ver las observaciones
-			mostrarQuejas(er);
+			mostrarQuejas(salida);
 		} else {
 			window.location.reload();
 		}
 	} else if (er[1] == 'ERROR') {
 		if (er[2] == '1') {
 			alert('ERROR 1');
+		} else if (er[2]=='2') {
+			alert('Error 2');
 		}
 	} else {
 		alert('Error desconocido comunicacion_quejas.js '+er[1]+er[2]);
 	}
 }
 
-function mostrarQuejas(quejas) {
+function mostrarQuejas(salida) {
+	alert(salida);
+	var posAsunto;
+	var quejas = salida.split('_');
 	var i=0;
-	var id='observacones';
+	var id='all-observaciones';
 	var contenedor = document.getElementById(id);
 	var textComponent ='';
-	for (i=2; i < quejas.length; i= i+5) {
-		textComponent = '<div class="bloque-observacion">';
-		textComponent = textComponent+'<div class="data">';
-		// identificacion queja
-		textComponent = textComponent+'<label class="1l_50" id="identificador_'+quejas[i]+'"> '+quejas[i]+'<\label>';
-		// asunto
-		textComponent = textComponent+'<label class="1l_25" id="asunto_'+quejas[i]+'"> '+quejas[i+1]+'<\label>';
-		// deporte-observacion
-		textComponent = textComponent+'<label class="1l_25" id="deporte-observacion_'+quejas[i]+'"> '+quejas[i+2]+'<\label>';
-		// pista-deporte
-		textComponent = textComponent+'<label class="1l_25" id="pista-deporte_'+quejas[i]+'"> '+quejas[i+3]+'<\label>';
-		// observacion
-		textComponent = textComponent+'<label class="1l_25" id="observacion_'+quejas[i]+'"> '+quejas[i+4]+'<\label>';
+	for (i=3; i < quejas.length-5; i= i+5) {
+		textComponent = textComponent+'<div class="bloque-observacion"><form>';
+			textComponent = textComponent+'<div class="data-bloque-observacion">';
+				// identificacion queja
+				//textComponent = textComponent+'<label class="1l_50" id="identificador_'+quejas[i]+'"> '+quejas[i]+'<\label>';
+				// asunto
+				alert(quejas[i]+' '+ quejas[i+1]+' '+ quejas[i+2]+' '+ quejas[i+3]+' '+ quejas[i+4]);
+				textComponent = textComponent+'<label class="d1l_50" id="asunto_'+quejas[i]+'"> '+quejas[i+3]+'</label>';
+				// deporte-observacion
+				textComponent = textComponent+'<label class="d1l_25" id="deporte-observacion_'+quejas[i]+'"> '+quejas[(i+1)]+'</label>';
+				// pista-deporte
+				textComponent = textComponent+'<label class="d1l_25" id="pista-deporte_'+quejas[i]+'"> '+quejas[(i+2)]+'</label>';
+				// observacion
+				textComponent = textComponent+'<textarea class="d2l_100" rows="4" id="observacion_'+quejas[i]+'"> '+quejas[(i+4)]+'</textarea>';
 
-		textComponent = textComponent+'<\div>';
-		textComponent = textComponent+'<div class="botones">';
-		// botones
-		textComponent = textComponent+'<button class="accion" type="button" value="Archivar" id="archivar_'+quejas[i]+'" onclick="archivar(this)" >';
-		textComponent = textComponent+'<button class="accion" type="button" value="Agregar\nA Tareas" id="agregar_'+quejas[i]+'" onclick="agregar(this)" >';
-		textComponent = textComponent+'<\div>';
+			textComponent = textComponent+'</div>';
+			textComponent = textComponent+'<div class="botones-observacion">';
+				// botones
+				textComponent = textComponent+'<button class="accion" type="button" id="archivar_'+quejas[i]+'" onclick="archivar(this)" >Archivar</button>';
+				textComponent = textComponent+'<button class="accion" type="button" id="agregar_'+quejas[i]+'" onclick="agregar(this)">Agregar</button>';
+			textComponent = textComponent+'</div>';
+		textComponent = textComponent+'</form></div>';
 	}
+	alert(quejas.length);
 	contenedor.innerHTML = textComponent;
 }
 

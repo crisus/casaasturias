@@ -393,27 +393,27 @@
 		$tablaReservas = '`programador`.`observaciones`';
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaReservas;
-		$consulta = $consulta." WHERE ";
-		$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
+		if ( ($sinVer=='0') || ($archivada=='0') ) {
+			$consulta = $consulta." WHERE ";
+		} else if ($realizada=='0') {
+			$consulta = $consulta." WHERE ";
+		} 
+		//$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
 		if ($sinVer == 0) {
-			$consulta = $consulta.' `archivada`=\''.$archivada.'\' AND';
-			$consulta = $consulta.' `realizada`=\''.$realizada.'\';';
+			$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
+			$consulta = $consulta.' AND `realizada`=\''.$realizada.'\'';
 		} else if ($sinVer == 1) {
 			if  ($realizada == 0){
-				$consulta = $consulta.' `realizada`=\''.$realizada.'\';';
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
 			} else if ($archivada == 0){
-				$consulta = $consulta.' `archivada`=\''.$archivada.'\';';
+				$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
 			}
 		}
+		$consulta = $consulta.';';
 		
-		//echo $consulta;
+		echo $consulta;
 		// SELECT * FROM `programador`.`observaciones`;
-		$datas = $enlace->query($consulta);
-		$resultado = '';
-		for ($i=0; $i < $datas->num_rows; $i++) {
-			$data = $datas->fetch_row();
-			$resultado = $resultado.$data[0].'_'.$data[1].'_'.$data[2].'_'.$data[3].'_'.$data[4].'_';
-		}
+		$resultado = $enlace->query($consulta);
 		return $resultado;
 	}
 	

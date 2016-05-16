@@ -528,3 +528,58 @@ select.tareas {
 	width: 20%;
 	height: 15%;
 }
+
+.selection-observaciones{
+  height: 10%;
+  margin-left: 20px;
+  width: 97%;
+}
+.gestion-observaciones{
+  width: 25%;
+  margin-left: 1em;
+  float: left;
+}
+.bloque-observacion {
+  border: 2px solid #37A;
+  margin: 1em;
+  width: 97%;
+  height: 100%;
+  float: left;
+}
+.bloque-observacion .data-bloque-observacion {
+  float: left;
+  width:75%;
+  height: 100%;
+}
+.bloque-observacion .data-bloque-observacion .d1l_50{
+  float: left;
+  width:70%;
+  height: 50%;
+  margin-left: 1em;
+  margin-top: 1ex;
+}
+.bloque-observacion .data-bloque-observacion .d1l_25{
+  float: left;
+  width:10%;
+  height: 50%;
+  margin-left: 1em;
+  margin-top: 1ex;
+}
+.bloque-observacion .data-bloque-observacion .d2l_100{
+  float: left;
+  width:98%;
+  height: 50%;
+  margin: 1em;
+}
+.bloque-observacion .botones-observacion {
+  float: left;
+  width:24%;
+  height: 100%;
+  margin-top: 1ex;
+}
+.bloque-observacion .botones-observacion button{
+  width:97%;
+  height:8ex;
+  float:left;
+  margin: 0 0.5em 0.1em 1em;
+}

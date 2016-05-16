@@ -5,9 +5,7 @@
 	$ruta = '/casaasturias/';
 	comprobarVidaSesion();
 
-	if ( ($_SESSION['nUsuario']) && ($_GET) ) {
-		$deporte = $_GET['v1'];
-		$pista = (int) $_GET['v2'];
+	if ( $_SESSION['nUsuario'] ) {
 		$enlace = enlazarBBDD();
 	} else {
 		header("Location: ".$ruta."index.html");
@@ -55,24 +53,35 @@
 			<div>
 				<h2>RESOLVER OBSERVACIONES</h2>
 				<form>
-					<input type="checkbox" class="verQuejas" value="REALIZADAS" onclick="obtenerQuejas()">
-					<input type="checkbox" class="verQuejas" value="ARCHIVADAS" onclick="obtenerQuejas()">
-					<input type="checkbox" class="verQuejas" value="SIN LEER" checked onclick="obtenerQuejas()">
+					<div class="gestion-observaciones">VER REALIZADAS<input type="checkbox" class="verQuejas" onclick="obtenerQuejas()"></div>
+					<div class="gestion-observaciones">VER ARCHIVADAS<input type="checkbox" class="verQuejas" onclick="obtenerQuejas()"></div>
+					<div class="gestion-observaciones">VER NO LEIDAS<input type="checkbox" class="verQuejas" checked onclick="obtenerQuejas()"></div>
 				</form>
 			</div>
-			<div id="observaciones" class="observaciones">
+			<div id="all-observaciones" class="all-observaciones">
+<?php
+				$datas = getQuejas($enlace, 0, 0, 1);
+				for ($i=0; $i < $datas->num_rows; $i++) {
+					$quejas = $datas->fetch_row();
+					// [id, deporte, pista, asunto, observacion, n_socio fecha, archivada, realidad]
+?>
 				<div class="bloque-observacion">
-					<div class="data">
-						<label class="1l_50" id="asunto" class="asunto"></label>
-						<label class="1l_25" id="deporte-oservacion"></label>
-						<label class="1l_25" id="pista-deporte"></label>
-						<label class="2l_100" id="observacion" class="queja"></label>
+					<form>
+					<div class="data-bloque-observacion">
+						<label class="d1l_50" id="asunto_<?php echo $quejas[0];?>">Asunto: <?php echo $quejas[3];?> </label>
+						<label class="d1l_25" id="deporte-observacion_<?php echo $quejas[0];?>">Deporte: <?php echo $quejas[1];?> </label>
+						<label class="d1l_25" id="pista-deporte_<?php echo $quejas[0];?>">Pista: <?php echo $quejas[2];?> </label>
+						<textarea class="d2l_100" id="observacion_<?php echo $quejas[0];?>" rows="4"><?php echo $quejas[4];?> </textarea>
 					</div>
-					<div class="botones">
-						<button class="accion" type="button" value="Archivar" onclick="" ></button>
-						<button class="accion" type="button" value="Agregar \nA Tareas" onclick="" ></button>
+					<div class="botones-observacion">
+						<button class="accion" type="button" id="archivar_<?php echo $quejas[0];?>" onclick="archivar(this)" >Archivar</button>
+						<button class="accion" type="button" id="agregar_<?php echo $quejas[0];?>" onclick="agregar(this)" >Agregar</button>
 					</div>
+					</form>
 				</div>
+<?php
+				}
+?>
 			</div>
 		</section>
 

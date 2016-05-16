@@ -79,6 +79,17 @@ $responseCont = $responseCont.'						</div>
 						</div>	
 					</div>
 					</a>';
+			$responseCont = $responseCont.'
+					<a href="'.$ruta.'indexModQuejas.php">
+					<div class="apartados" id="quejas">
+						<div class="iconA">
+							<img src="'.$ruta.'img/modificacion.png" alt="engranjes">
+						</div>
+						<div class="descrip-apartado">
+							<h3>GESTION DE<br/> OBSERVACIONES</h3>
+						</div>	
+					</div>
+					</a>';
 		}
 		$aux = cabD();		
 		$responseCont = $responseCont.$aux; 		

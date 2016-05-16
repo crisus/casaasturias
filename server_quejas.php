@@ -29,9 +29,14 @@
 			$realizadas = $_POST['re'];
 			$archivadas = $_POST['ar'];
 			$sinLeer = $_POST['nole'];
-			$data = getQuejas($enlace, $realizadas, $archivadas, $sinLeer);
-			if ($data !== '') {
-				echo '_OK_2_'.$data;
+			$datas = getQuejas($enlace, $realizadas, $archivadas, $sinLeer);
+			$resultado = '';
+			for ($i=0; $i < $datas->num_rows; $i++) {
+				$data = $datas->fetch_row();
+				$resultado = $resultado.$data[0].'_'.$data[1].'_'.$data[2].'_'.$data[3].'_'.$data[4].'_';
+			}
+			if ($datas) {
+				echo '_OK_2_'.$resultado.'_';
 			} else {
 				echo '_ERROR_2_';
 			}
