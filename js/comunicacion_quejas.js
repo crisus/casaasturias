@@ -95,6 +95,12 @@ function salidaServerQuejas(salida) {
 			alert ("Observacion guardada");
 		} else if (er[2] == '2') {  // devolucion del servidor, cuando se requieren ver las observaciones
 			mostrarQuejas(salida);
+		} else if (er[2] == '3') {
+			alert ("Observacion archivada");
+			obtenerQuejas();
+		} else if (er[2] == '4') {
+			alert ("Observacion preparada para realizar");
+			obtenerQuejas();
 		} else {
 			window.location.reload();
 		}
@@ -105,53 +111,69 @@ function salidaServerQuejas(salida) {
 			alert('Error 2');
 		}
 	} else {
-		alert('Error desconocido comunicacion_quejas.js '+er[1]+er[2]);
+		alert('Error desconocido comunicacion_quejas.js '+salida);
 	}
 }
 
 function mostrarQuejas(salida) {
-	alert(salida);
+	//alert(salida);
 	var posAsunto;
 	var quejas = salida.split('_');
 	var i=0;
 	var id='all-observaciones';
 	var contenedor = document.getElementById(id);
 	var textComponent ='';
-	for (i=3; i < quejas.length-5; i= i+5) {
+	for (i=3; i < quejas.length-7; i= i+7) {
 		textComponent = textComponent+'<div class="bloque-observacion"><form>';
 			textComponent = textComponent+'<div class="data-bloque-observacion">';
+
+				if ( (quejas[i+5]=='0') && (quejas[i+6]=='0') ) {
+					textComponent = textComponent+'<label class="d1l_25" id="estado_'+quejas[0]+'">SIN LEER</label>';
+				} else if ( (quejas[i+5]=='1') && (quejas[i+6] == '0') ) {
+					textComponent = textComponent+'<label class="d1l_25" id="estado_'+quejas[0]+'">ARCHIVADO</label>';
+				} else if ( (quejas[i+5]=='0') && (quejas[i+6] == '1') ) {
+					textComponent = textComponent+'<label class="d1l_25" id="estado_'+quejas[0]+'">REALIZADA</label>';
+				} else if ( (quejas[i+5]=='1') && (quejas[i+6] == '1') ) {
+					textComponent = textComponent+'<label class="d1l_25" id="estado_'+quejas[0]+'">ARCHIVADA Y REALIZADA</label>';
+				}
 				// identificacion queja
-				//textComponent = textComponent+'<label class="1l_50" id="identificador_'+quejas[i]+'"> '+quejas[i]+'<\label>';
-				// asunto
-				alert(quejas[i]+' '+ quejas[i+1]+' '+ quejas[i+2]+' '+ quejas[i+3]+' '+ quejas[i+4]);
-				textComponent = textComponent+'<label class="d1l_50" id="asunto_'+quejas[i]+'"> '+quejas[i+3]+'</label>';
+				//textComponent = textComponent+'<label class="d1l_50" id="identificador_'+quejas[i]+'"> '+quejas[i]+'<\label>';
+
+				//alert(quejas[i]+' '+ quejas[i+1]+' '+ quejas[i+2]+' '+ quejas[i+3]+' '+ quejas[i+4]);
+
 				// deporte-observacion
-				textComponent = textComponent+'<label class="d1l_25" id="deporte-observacion_'+quejas[i]+'"> '+quejas[(i+1)]+'</label>';
+				textComponent = textComponent+'<label class="d1l_25" id="deporte-observacion_'+quejas[i]+'"> '+quejas[(i+1)].toUpperCase()+'</label>';
 				// pista-deporte
-				textComponent = textComponent+'<label class="d1l_25" id="pista-deporte_'+quejas[i]+'"> '+quejas[(i+2)]+'</label>';
+				textComponent = textComponent+'<label class="d1l_25" id="pista-deporte_'+quejas[i]+'">Pista:  '+quejas[(i+2)]+'</label>';
+				// asunto
+				textComponent = textComponent+'<label class="d1l_50" id="asunto_'+quejas[i]+'"> '+quejas[i+3]+'</label>';
 				// observacion
 				textComponent = textComponent+'<textarea class="d2l_100" rows="4" id="observacion_'+quejas[i]+'"> '+quejas[(i+4)]+'</textarea>';
 
 			textComponent = textComponent+'</div>';
 			textComponent = textComponent+'<div class="botones-observacion">';
 				// botones
-				textComponent = textComponent+'<button class="accion" type="button" id="archivar_'+quejas[i]+'" onclick="archivar(this)" >Archivar</button>';
-				textComponent = textComponent+'<button class="accion" type="button" id="agregar_'+quejas[i]+'" onclick="agregar(this)">Agregar</button>';
+				textComponent = textComponent+'<button class="accion" type="button" id="archivar_'+quejas[i]+'" onclick="archivar(this.id)" >Archivar</button>';
+				textComponent = textComponent+'<button class="accion" type="button" id="agregar_'+quejas[i]+'" onclick="agregar(this.id)">Agregar</button>';
 			textComponent = textComponent+'</div>';
 		textComponent = textComponent+'</form></div>';
 	}
-	alert(quejas.length);
+	//alert(quejas.length);
 	contenedor.innerHTML = textComponent;
 }
 
 function archivar(id) {
+	//alert('archivar'+id);
 	var data = id.split('_');
 	var mensaje = 'accion=archivar&objeto='+data[1];
+	//alert('archivar'+data[1]);
 	comunicacion2(mensaje);
 }
 
 function agregar(id) {
+	//alert('agregar');
 	var data = id.split('_');
 	var mensaje = 'accion=agregar&objeto='+data[1];
+	//alert('agregar'+data[1]);
 	comunicacion2(mensaje);
 }

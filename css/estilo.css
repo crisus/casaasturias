@@ -562,6 +562,7 @@ select.tareas {
   float: left;
   width:10%;
   height: 50%;
+  margin-right: 3em;
   margin-left: 1em;
   margin-top: 1ex;
 }

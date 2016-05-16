@@ -393,9 +393,9 @@
 		$tablaReservas = '`programador`.`observaciones`';
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaReservas;
-		if ( ($sinVer=='0') || ($archivada=='0') ) {
+		if ($sinVer==0) {
 			$consulta = $consulta." WHERE ";
-		} else if ($realizada=='0') {
+		} else if ( ( ($realizada!=0) || ($archivada!=0) ) && ($realizada != $archivada) ){
 			$consulta = $consulta." WHERE ";
 		} 
 		//$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
@@ -403,10 +403,12 @@
 			$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
 			$consulta = $consulta.' AND `realizada`=\''.$realizada.'\'';
 		} else if ($sinVer == 1) {
-			if  ($realizada == 0){
+			if  ($realizada == 1){
+				if ($archivada == 0){
+					$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
+				}
+			} else if ($archivada == 1){
 				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
-			} else if ($archivada == 0){
-				$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
 			}
 		}
 		$consulta = $consulta.';';
@@ -418,14 +420,18 @@
 	}
 	
 	function archivarQueja($enlace, $id) {
-		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`=1 WHERE `actividades`.`id` LIKE '".$id."';";
+		// UPDATE `programador`.`observaciones` SET `archivada`='1' WHERE `id`='1';
+
+		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`='1' WHERE `observaciones`.`id`='".$id."';";
 		$data = $enlace->query($peticion);
+		echo $peticion;
 		return $data;
 	}
 	
 	function agregarQueja($enlace, $id) {
-		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`=1 WHERE `actividades`.`id` LIKE '".$id."';";
+		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`='1' WHERE `observaciones`.`id` LIKE '".$id."';";
 		$data = $enlace->query($peticion);
+		echo $peticion;
 		return $data;
 	}
 
