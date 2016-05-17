@@ -176,4 +176,12 @@ function agregar(id) {
 	var mensaje = 'accion=agregar&objeto='+data[1];
 	//alert('agregar'+data[1]);
 	comunicacion2(mensaje);
+
+	//alert("asunto_"+data[1]);
+	//alert("deporte-observacion_"+data[1]);
+	//alert("pista-deporte_"+data[1]);
+	var asunto = document.getElementById("asunto_"+data[1]);
+	var deporte = document.getElementById("deporte-observacion_"+data[1]);
+	var pista = document.getElementById("pista-deporte_"+data[1]);
+	nuevaTareaQueja(asunto.innerText , deporte.innerText , pista.innerText );
 }

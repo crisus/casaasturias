@@ -106,6 +106,13 @@ function nuevaTarea() {
 	enviar(mensaje,0);
 }
 
+function nuevaTareaQueja(asunto, deporte, pista){
+	var entrada = prompt('Nombra la Tarea','Para '+deporte+' en pista '+pista+' realizar '+asunto);
+	var mensaje = "accion=anadir&objeto=tarea&elemento="+entrada;
+	//alert('Para '+deporte+' en pista '+pista+' realizar '+asunto);
+	enviar(mensaje,0);
+}
+
 function eliminarTarea (){
 	//alert('eliminar Tarea');
 	var entrada = document.getElementById("tareas");

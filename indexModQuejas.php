@@ -19,6 +19,7 @@
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
 		<script type="text/javascript" src="<?php echo $ruta;?>js/comunicacion_quejas.js"></script>
+		<script type="text/javascript" src="<?php echo $ruta;?>js/modificar.js"></script>
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
 		<![endif]-->
