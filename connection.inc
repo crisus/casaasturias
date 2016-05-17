@@ -400,15 +400,24 @@
 		} 
 		//$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
 		if ($sinVer == 0) {
-			$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
-			$consulta = $consulta.' AND `realizada`=\''.$realizada.'\'';
+			if ($archivada ==1) {
+				$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
+				if ($realizada ==1) {
+					$consulta = $consulta.' OR ';
+				}
+			}
+			if ($realizada ==1) {
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
+			}
 		} else if ($sinVer == 1) {
 			if  ($realizada == 1){
 				if ($archivada == 0){
 					$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
+					$consulta = $consulta.' OR (`archivada`=\'1\' AND `realizada`=\'1\')';
 				}
-			} else if ($archivada == 1){
+			} else if ($archivada == 1){  // realizada =0
 				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
+				$consulta = $consulta.' OR (`archivada`=\'1\' AND `realizada`=\'1\')';
 			}
 		}
 		$consulta = $consulta.';';
