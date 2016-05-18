@@ -1,46 +1,32 @@
 <?php
-<<<<<<< HEAD
-	session_start();
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
-       			session_destroy();
-       			header("Location: index.html"); 
-		}
-	}
-	function enlazarBBDD() {
-		$host="Localhost";
-=======
 	$ruta = '/casaasturias/'; 
 	date_default_timezone_set("Europe/Madrid");
 
 	function enlazarBBDD() {
 		$host="localhost";
->>>>>>> aviso_fin_sesion
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
-		$enlace = mysqli_connect($host,$user,$passBBDD,$nombreBBDD);
-/*		if (!$enlace) {
+        $port="3306";
+        $socket="MySQL57";
+		$enlace = new MySQLi($host,$user,$passBBDD,$nombreBBDD,$port);
+		if (!$enlace) {
 			echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-    			echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
-    			echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
+    			echo "errno de depuración: ".mysqli_connect_errno().PHP_EOL;
+    			echo "error de depuración: ".mysqli_connect_error().PHP_EOL;
 			exit;
 		}
-*/		return $enlace;
+		return $enlace;
 	}
 
 	function copiaSeguridad($descargar) {
-<<<<<<< HEAD
-		$host="Localhost";
-=======
 		$ruta="/casaasturias/";
 		$host="localhost";
->>>>>>> aviso_fin_sesion
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
+        $port="3306";
+        $socket="MySQL57";
 
 		$backup_file = $nombreBBDD.date("Y-m-d-H-i-s").".sql";
 		$command = "mysqldump --opt -h $host  $nombreBBDD -u $user -p$passBBDD --default-character-set=utf8 -r \"./backup/$backup_file\"";
@@ -54,7 +40,7 @@
 	}
 
 	function restaurarCopia($n_file, $tipo) {
-		$host="Localhost";
+		$host="localhost";
 		$user="root";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";

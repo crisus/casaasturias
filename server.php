@@ -1,4 +1,6 @@
 <?php
+	ini_set("session.cookie_lifetime","72000");
+	ini_set("session.gc_maxlifetime","72000");
 	//session_start();
 	include_once "sesiones.inc";
 	include_once "respuestasWeb.inc";
@@ -9,7 +11,7 @@
 		$numeroUsuario = $_POST['nUsuario'];
 		$clave = $_POST['pass'];
 		//echo 'CONECTANDO';
-		$enlace = enlazarBBDD();	
+        $enlace = enlazarBBDD();
 		//echo 'CONECTADO';
 		$mensaje = comprobarUsuario($enlace, $numeroUsuario, $clave);
 		if ( ($mensaje != "ERROR") && ($mensaje != "SIN BBDD") && ($mensaje != '3') ){
@@ -40,9 +42,9 @@
 		//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 		if ($_GET['inicio'] == $_SESSION['indice'] ) {
 			//echo 'CONECTANDO';
-			$enlace = enlazarBBDD();	
-			//echo 'CONECTADO';		
-			$response = montar($enlace);
+			$enlace=enlazarBBDD();
+			//echo 'CONECTADO';
+			$response=montar($enlace);
 			echo $response;
 			mysqli_close($enlace);
 		} else {
