@@ -295,9 +295,9 @@
 				$consulta_actividades = getActividades($enlace); ?>
 				<select class="tareas"
 <?php 				if ( ((($i-1)*$segBloque)+$principio <= $segActual) && ($incrementoFecha==0) ) { ?>
-					disabled>
+						disabled>
 <?php 				} else { ?>
-					>
+						>
 <?php				}
 				for ($k=0; $k < $consulta_actividades->num_rows; $k++) {
 					$consulta_actividades->data_seek($k);
@@ -306,6 +306,7 @@
 
 <?php				}?>
 				</select>
+				<button onclick="mostrarDialogo()"><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal" width="15" height="15"></button>
 <?php			} ?>
 
 							</th>
