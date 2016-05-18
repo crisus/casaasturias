@@ -395,7 +395,7 @@
 		$consulta = $consulta.$tablaReservas;
 		if ($sinVer==0) {
 			$consulta = $consulta." WHERE ";
-		} else if ( ( ($realizada!=0) || ($archivada!=0) ) && ($realizada != $archivada) ){
+		} else if ( ( ( ($realizada!=0) || ($archivada!=0) ) && ($realizada != $archivada) ) || ( ($realizada == 0) && ($archivada==0) ) ){
 			$consulta = $consulta." WHERE ";
 		} 
 		//$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
@@ -414,10 +414,13 @@
 				if ($archivada == 0){
 					$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
 					$consulta = $consulta.' OR (`archivada`=\'1\' AND `realizada`=\'1\')';
-				}
+				} // else --> ver todas (archivada=1 realizada=1)
 			} else if ($archivada == 1){  // realizada =0
 				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
 				$consulta = $consulta.' OR (`archivada`=\'1\' AND `realizada`=\'1\')';
+			} else {  // realizada =0 archivada =0
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
+				$consulta = $consulta.' AND `archivada`=\''.$archivada.'\'';
 			}
 		}
 		$consulta = $consulta.';';

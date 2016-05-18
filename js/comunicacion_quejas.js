@@ -99,7 +99,7 @@ function salidaServerQuejas(salida) {
 			alert ("Observacion archivada");
 			obtenerQuejas();
 		} else if (er[2] == '4') {
-			alert ("Observacion preparada para realizar");
+			//alert ("Observacion preparada para realizar");
 			obtenerQuejas();
 		} else {
 			window.location.reload();
