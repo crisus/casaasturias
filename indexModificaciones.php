@@ -1,21 +1,9 @@
 <?php 
-	session_start();
-<<<<<<< HEAD
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
-       			session_destroy();
-       			header("Location: casaasturias/index.html"); 
-		}
-	}
-	include_once "connection.inc";
-=======
+	//session_start();
     include_once "connection.inc";
 	include_once "sesiones.inc";
 	$ruta = '/casaasturias/';
 	comprobarVidaSesion();
->>>>>>> aviso_fin_sesion
 ?>
 
 <!DOCTYPE html>

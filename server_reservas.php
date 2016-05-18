@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	//session_start();
 	include_once "connection.inc";
 	include_once "sesiones.inc";
 	$ruta = '/casaasturias/';
@@ -66,6 +66,10 @@
 				echo "_SESION_FIN_";
 				eliminarSesion();
 			}
+		} else if ( ($accion == 'QUEJA') || ($accion == 'queja') ){
+			$deporte = $_POST['deporte'];
+			$pista = $_POST['pista'];
+			header("Location: ".$ruta."index_quejas.php?v1=$deporte&v2=$pista");
 		}
 		mysqli_close($enlace);
 	}

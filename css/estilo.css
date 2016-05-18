@@ -207,7 +207,7 @@ ul.lista_menu li:hover, ul.lista_menu a:hover {
   text-align: center;
 }
 #contenido .reservas .tablaReservas{
-  width:80%;
+  width:97%;
   margin-left: 1em;
   margin-bottom: 1em;
 }
@@ -216,16 +216,53 @@ ul.lista_menu li:hover, ul.lista_menu a:hover {
   border-style:none; 
 }
 #contenido .tablaReservas th.firma{
-  width:5%;
+  width:7%;
 }
 #contenido .tablaReservas th.hora{
-  width:4%;
+  width:7%;
 }
 #contenido .tablaReservas th.numero{
-  width:5%;
+  width:7%;
 }
 #contenido .tablaReservas th.nombre{
-  width:40%;
+  width:35%;
+}
+#contenido .tablaReservas th.observaciones{
+	width: 40%;
+}
+/*#contenido .tablaReservas .observaciones_div{
+	height: 100%;
+	width: 100%;
+}*/
+
+
+#contenido .tablaReservas th.observaciones .queja{
+	width: 98%;
+	height: 78%;
+	float: left;
+}
+#contenido .tablaReservas th.observaciones .queja textarea{
+	width: 98%;
+	min-height: 100%;
+	margin: 0.2em;
+}
+#contenido .tablaReservas th.observaciones .asunto{
+	width: 68%;
+	height: 18%;
+	margin-left: 0.2em;
+	float: left;
+	border: 1px solid #84F;
+}
+#contenido .tablaReservas th.observaciones .accion-queja button{
+	width: 100%;
+	height: 100%;
+}
+#contenido .tablaReservas th.observaciones .accion-queja{
+	width: 27%;
+	height: 20%;
+	margin-left: 0.2em;
+	margin-right: .5em;
+	float: left;
 }
 
 /* parte lateral izq*/
@@ -394,6 +431,9 @@ ul.deportes li:hover, ul.deportes a:hover {
 .pistas_deporte .th * {
   text-align: center;
 }
+.button-observaciones{
+
+}
 
 th.eliminar, th.anadir, th.actualizar {
   border:none;
@@ -460,4 +500,84 @@ select.tareas {
 }
 #pie a {
   color: #FA7;
+}
+
+.observaciones {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.observaciones .queja {
+	float: left;
+	width: 100%;
+	height: 80%;
+}
+
+.observaciones .asunto {
+	float: left;
+	width: 75%;
+	height: 15%;
+}
+
+.observaciones .accion {
+	float: left;
+	width: 20%;
+	height: 15%;
+}
+
+.selection-observaciones{
+  height: 10%;
+  margin-left: 20px;
+  width: 97%;
+}
+.gestion-observaciones{
+  width: 25%;
+  margin-left: 1em;
+  float: left;
+}
+.bloque-observacion {
+  border: 2px solid #37A;
+  margin: 1em;
+  width: 97%;
+  height: 100%;
+  float: left;
+}
+.bloque-observacion .data-bloque-observacion {
+  float: left;
+  width:75%;
+  height: 100%;
+}
+.bloque-observacion .data-bloque-observacion .d1l_50{
+  float: left;
+  width:70%;
+  height: 50%;
+  margin-left: 1em;
+  margin-top: 1ex;
+}
+.bloque-observacion .data-bloque-observacion .d1l_25{
+  float: left;
+  width:10%;
+  height: 50%;
+  margin-right: 3em;
+  margin-left: 1em;
+  margin-top: 1ex;
+}
+.bloque-observacion .data-bloque-observacion .d2l_100{
+  float: left;
+  width:98%;
+  height: 50%;
+  margin: 1em;
+}
+.bloque-observacion .botones-observacion {
+  float: left;
+  width:24%;
+  height: 100%;
+  margin-top: 1ex;
+}
+.bloque-observacion .botones-observacion button{
+  width:97%;
+  height:8ex;
+  float:left;
+  margin: 0 0.5em 0.1em 1em;
 }

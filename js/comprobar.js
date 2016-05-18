@@ -2,9 +2,7 @@ function reservarPista(entrada) {
 	var ruta = '/casaasturias/';
 	var data=[];
 	data = entrada.split("_");
-<<<<<<< HEAD
-	window.location="/casaasturias/indexReservas.php?v1="+data[0]+"&v2="+data[1]+"&ifecha=0";
-=======
+
 	window.location=ruta+"indexReservas.php?v1="+data[0]+"&v2="+data[1]+"&ifecha=0";
 }
 
@@ -15,7 +13,9 @@ function reservarPista2(entrada) {
     data = entrada.split("_");
     //alert(ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0");
 	window.location=ruta+"indexReservas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0";
->>>>>>> aviso_fin_sesion
+
+	//window.location=ruta+"index_quejas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0";
+
 }
 
 function undiamenos (deporte, pista, decremento) {
@@ -129,26 +129,6 @@ function recibir(id,salida) {
 			entrada.disabled = true;
 		}
 		window.location.reload();
-<<<<<<< HEAD
-	} else if (salida == 'ERROR_1') {
-		alert('NUMERO DE USUARIO ERRONEO');
-		entrada.style.color='red';
-	} else if (salida == 'ERROR_2') {
-		alert('NO PUEDES CONFIRMAR TU RESERVA');
-		entrada.style.color='red';
-	} else if (salida == 'ERROR_3') { 
-		alert('YA TIENES UNA RESERVA\nPARA ESTE DEPORTE');
-		entrada.value = 'xxxxx/xx';
-	} else if (salida == 'ERROR_4') { 
-		alert('LA RESERVA\nCONTINUA ACTIVA');
-		entrada.value = 'xxxxx/xx';
-	} else if (salida == 'ERROR_5') {
-		alert('YA HAS FIRMADO UNA RESERVA\n A ESTA HORA');
-		window.location.reload();
-	}else {
-		alert(salida);
-		window.location.reload();
-=======
 	} else if (er[1] == 'ERROR') {
 		if (er[2] == '1') {
 			alert('NUMERO DE USUARIO ERRONEO');
@@ -168,7 +148,7 @@ function recibir(id,salida) {
 		} else if (er[2] == '100') { // errores lanzados para pruebas
 			confirm(salida);
 		}
-	} else if (er[1]=="SESION"){
+	} else if (er[1]=="SESION") {
 		if (er[2]=="FIN") {
 			window.location=ruta+"index.html";
 		} else if (er[2]=="CONTINUA") {
@@ -177,9 +157,8 @@ function recibir(id,salida) {
 	} else {
 		//alert("DESCONOCIDO _"+salida+"_");
 		//window.location.reload();
-		window.location=ruta+"index.html";
 		alert("LA SESION DEL SERVIDOR\n HABIA FINALIZADO");
->>>>>>> aviso_fin_sesion
+		window.location=ruta+"index.html";
 	}
 }
 

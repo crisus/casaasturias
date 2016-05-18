@@ -68,6 +68,32 @@ INSERT INTO `programador`.`caracteristicas` VALUES ('9:00','23:30',5,10,1,4);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `observaciones`
+--
+
+DROP TABLE IF EXISTS `programador`.`observaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `programador`.`observaciones` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `n_socio` VARCHAR(10) NOT NULL,
+  `fecha` DATE NOT NULL,
+  `deporte` VARCHAR(45) NOT NULL,
+  `pista` INT NOT NULL,
+  `asunto` TEXT(150) NOT NULL,
+  `observacion` LONGTEXT NOT NULL,
+  `archivada` INT(1) NOT NULL,
+  `realizada` INT(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `observaciones`
+--
+
+--
 -- Table structure for table `deportes`
 --
 

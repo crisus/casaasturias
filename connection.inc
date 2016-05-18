@@ -117,9 +117,8 @@
 		} else {
 			return "SIN BBDD";
 		}
-		
 	}
-
+	
 	function getCaracteristicas($enlace) {
 		$tabla = '`caracteristicas`';
 		$nombreBBDD="programador";
@@ -377,6 +376,89 @@
 			}
 		} 
 		return "_ERROR_2_";
+	}
+	
+
+	function setQueja($enlace, $deporte, $pista, $observacion, $asunto) {
+		$hoy = date("Y-m-d");
+		$user = $_SESSION['nUsuario'];
+
+// INSERT INTO `programador`.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`, `archivada`, `realizada`) VALUES ('padel', '2', 'mal estado', 'red alta', '00001/00', '2016/03/05', '0', '0');
+	
+	
+		$peticion = "INSERT INTO `programador`.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`,   `archivada`, `realizada`) VALUES ('".$deporte."','".$pista."','".$asunto."','".$observacion."', '".$user."' , '".$hoy."',  '0', '0');";
+		
+		//echo '_'.$peticion.'_';
+		$consulta = $enlace->query($peticion);
+		if ($consulta) {
+			return true;
+		}
+	
+		return false;
+	}
+	
+	/*
+	*	Funcion que retorna las quejas almacenadas,
+	* 	Se ha desarrollado en base a la prueba de equivalencia, de datos buscados
+	*/
+	function getQuejas($enlace, $realizada, $archivada, $sinVer) {
+		$hoy = date("Y-m-d");
+	
+		$tablaReservas = '`programador`.`observaciones`';
+		$consulta = 'SELECT * FROM ';
+		$consulta = $consulta.$tablaReservas;
+		if ($sinVer==0) {
+			$consulta = $consulta." WHERE ";
+		} else if ( ( ( ($realizada!=0) || ($archivada!=0) ) && ($realizada != $archivada) ) || ( ($realizada == 0) && ($archivada==0) ) ){
+			$consulta = $consulta." WHERE ";
+		} 
+		//$consulta = $consulta.' `fecha`=\''.$hoy.'\' AND';
+		if ($sinVer == 0) {
+			if ($archivada ==1) {
+				$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
+				if ($realizada ==1) {
+					$consulta = $consulta.' OR ';
+				}
+			}
+			if ($realizada ==1) {
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
+			}
+		} else if ($sinVer == 1) {
+			if  ($realizada == 1){
+				if ($archivada == 0){
+					$consulta = $consulta.' `archivada`=\''.$archivada.'\'';
+					$consulta = $consulta.' OR (`archivada`=\'1\' AND `realizada`=\'1\')';
+				} // else --> ver todas (archivada=1 realizada=1)
+			} else if ($archivada == 1){  // realizada =0
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
+				$consulta = $consulta.' OR (`archivada`=\'1\' AND `realizada`=\'1\')';
+			} else {  // realizada =0 archivada =0
+				$consulta = $consulta.' `realizada`=\''.$realizada.'\'';
+				$consulta = $consulta.' AND `archivada`=\''.$archivada.'\'';
+			}
+		}
+		$consulta = $consulta.';';
+		
+		echo $consulta;
+		// SELECT * FROM `programador`.`observaciones`;
+		$resultado = $enlace->query($consulta);
+		return $resultado;
+	}
+	
+	function archivarQueja($enlace, $id) {
+		// UPDATE `programador`.`observaciones` SET `archivada`='1' WHERE `id`='1';
+
+		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`='1' WHERE `observaciones`.`id`='".$id."';";
+		$data = $enlace->query($peticion);
+		echo $peticion;
+		return $data;
+	}
+	
+	function agregarQueja($enlace, $id) {
+		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`='1' WHERE `observaciones`.`id` LIKE '".$id."';";
+		$data = $enlace->query($peticion);
+		echo $peticion;
+		return $data;
 	}
 
 	function bucarSiEstasEnOtroLugar($enlace, $date) {	

@@ -1,21 +1,10 @@
 <?php
-<<<<<<< HEAD
-	include_once "connection.inc";
-	session_start();
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
-       			session_destroy();
-       			header("Location: /casaasturias/index.html"); 
-		}
-	}
-=======
+	//session_start();
     include_once "connection.inc";
 	//include_once "sesiones.inc";
 	$ruta = '/casaasturias/';
 	//comprobarVidaSesion();	
->>>>>>> aviso_fin_sesion
+
 		
 	function montar ($enlace) {
 		if(!isset($_SESSION['tipoUsuario']) ) {
@@ -88,6 +77,17 @@ $responseCont = $responseCont.'						</div>
 						</div>	
 					</div>
 					</a>';
+			$responseCont = $responseCont.'
+					<a href="'.$ruta.'indexModQuejas.php">
+					<div class="apartados" id="quejas">
+						<div class="iconA">
+							<img src="'.$ruta.'img/modificacion.png" alt="engranjes">
+						</div>
+						<div class="descrip-apartado">
+							<h3>GESTION DE<br/> OBSERVACIONES</h3>
+						</div>	
+					</div>
+					</a>';
 		}
 		$aux = cabD();		
 		$responseCont = $responseCont.$aux; 		
@@ -109,9 +109,9 @@ $cab = $cab.'	</head>';
     
 $cab = $cab.'	<body>';
 $cab = $cab.'		<header id="cabecera">';
-$cab = $cab.'			<img class="logo" src="/casaasturias/img/casaasturiasescudo.png"></img>';
+$cab = $cab.'			<img class="logo" src="'.$ruta.'img/casaasturiasescudo.png">';
 $cab = $cab.'			<h1>Casa De Asturias En Leon</h1>';
-$cab = $cab.'			<img class="logo" src="/casaasturias/img/casaasturiasescudo.png"></img>';
+$cab = $cab.'			<img class="logo" src="'.$ruta.'img/casaasturiasescudo.png">';
 $cab = $cab.'		</header>';
 
 $cab = $cab.'		<nav id="menu"> ';

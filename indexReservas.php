@@ -1,20 +1,18 @@
 <?php
-	session_start();
-<<<<<<< HEAD
-	$inactivo = 120; //segundos que tardara en cerrarse la session 
-	if(isset($_SESSION['timeout']) ) {
-		$vida_session = time() - $_SESSION['timeout'];
-		if($vida_session > $inactivo) { 
-       			session_destroy();
-       			header("Location: /casaasturias/index.html"); 
-		}
-	}
-=======
+
+
+	//session_start();
+
     include_once "connection.inc";
 	include_once "sesiones.inc";
+	//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 	$ruta = '/casaasturias/';
 	comprobarVidaSesion();
->>>>>>> aviso_fin_sesion
+
+
+
+
+	//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 
 	if ( ($_SESSION['nUsuario']) && ($_GET) ) {
 		$deporte = $_GET['v1'];
@@ -36,15 +34,18 @@
 	$horaFinal = $caracteristica[1];
 	$margenTiempoAntesR = $caracteristica[2]*60;
 	$margenTiempoDespuesR = $caracteristica[3]*60;
+	//echo 'tipo sesion: '.$_SESSION['tipoUsuario'];
 ?>
-
 <!DOCTYPE html>
 <html lang="ES">
 	<head>
 		<title> SOCIEDAD REAL CASA DE ASTURIAS</title>
 		<meta charset="utf-8"/>
-		<link rel="stylesheet" type="text/css" href="/casaasturias/css/estilo.css">
-		<script type="text/javascript" src="/casaasturias/js/comprobar.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="<?php echo $ruta;?>css/estilo.css">
+		<script type="text/javascript" src="<?php echo $ruta;?>js/comprobar.js"></script>
+		<script type="text/javascript" src="<?php echo $ruta;?>js/comunicacion_quejas.js"></script>
+
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.google.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -52,15 +53,18 @@
     
 	<body>
 		<header id="cabecera">
-			<img class="logo" src="/casaasturias/img/casaasturiasescudo.png"></img>
+
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
 			<h1>Casa De Asturias En Leon</h1>
-			<img class="logo" src="/casaasturias/img/casaasturiasescudo.png"></img>
+			<img class="logo" src="<?php echo $ruta;?>img/casaasturiasescudo.png">
+
 		</header>
 
 		<nav id="menu"> 
 			<div class="identificacion">
 				USUARIO: 
 <?php
+
 	if ($_SESSION['tipoUsuario'] == 1) {
 		echo 'SOCIO '.$_SESSION['nUsuario'];
 	} else if ($_SESSION['tipoUsuario'] == 2) {
@@ -106,6 +110,7 @@
 							<th class="numero">N. Socio</th>
 							<th class="nombre">Nombre</th>
 							<th class="firma">Firma</th>
+							<th class="observaciones">Observaciones</th>
 						</tr>
 		<?php 
 		$tiempoBloque = $actual[1];
@@ -150,10 +155,10 @@
 			$puedeConfirmar = $confirmarReserva;
 ?>
 						<tr class="entradas">
-							<th>
+							<th class="hora">
 				<?php echo date("H:i",$segInicial)." a ".date("H:i",$segInicial+$segBloque);?>
 							</th>
-							<th>
+							<th class="numero">
 <?php			if ( ($segActual+$margenTiempoAntesR  >= $segInicial) && ($incrementoFecha == 0) ){
 				$consulta = getFirmadas($enlace, $deporte,$pista,$fecha,$i );
 				$firma = 1;
@@ -254,7 +259,7 @@
 				<input class="select_tareas" type="text" disabled>
 <?php			}?>
 							</th>
-							<th>
+							<th class="nombre">
 <?php	// NOMBRES
 			if ($hayTarea) { ?>
 				<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
@@ -315,7 +320,7 @@
 <?php			} ?>
 								
 							</th>
-							<th>
+							<th class="firma">
 <?php   // FIRMA
 			$libre = 1;
 			$s = 0;
@@ -363,7 +368,13 @@
 			if ($_SESSION['tipoUsuario'] == 2) {?>
 				<input class="select_tareas" type="text" disabled>
 <?php			}?>
-							</th> 
+							</th>
+
+
+<?php			// boton descripcion de desperfectos         ?>
+							<th class="observaciones" id="observaciones_<?php echo $i;?>">
+								<button class="button-observaciones" id="boton_quejas_<?php echo $deporte.'_'.$pista.'_'.$i; ?>" onclick="generarObservacion(this.id)">OBSERVACIONES</button>
+							</th>
 						</tr>
 <?php			//} else {
 				//$consulta = getFirmadas($enlace, $deporte,$pista,$fecha,$i );
