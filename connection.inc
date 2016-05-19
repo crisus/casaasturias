@@ -425,7 +425,7 @@
 		}
 		$consulta = $consulta.';';
 		
-		echo $consulta;
+		//echo $consulta;
 		// SELECT * FROM `programador`.`observaciones`;
 		$resultado = $enlace->query($consulta);
 		return $resultado;
