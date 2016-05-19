@@ -499,7 +499,11 @@ select.tareas {
   border: 0;
   width: 100%;
   background: #FFF;
-  text-align: center;
+  text-align: left;
+}
+tareas_ico {
+	width:100%;
+	height: 100%;
 }
 #pie a {
   color: #FA7;
@@ -583,4 +587,28 @@ select.tareas {
   height:8ex;
   float:left;
   margin: 0 0.5em 0.1em 1em;
+}
+
+/* control ventana modal */
+.modal-contenido{
+  background-color:aqua;
+  width:300px;
+  padding: 10px 20px;
+  margin: 20% auto;
+  position: relative;
+}
+.modal{
+  background-color: rgba(30,30,200,0.3);
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+	opacity:0;
+  pointer-events:none;
+	transition: all 1s;
+}
+#miModal_1:target{
+  opacity:1;
+  pointer-events:auto;
 }

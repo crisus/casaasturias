@@ -15,6 +15,22 @@ function reservarPista2(entrada) {
 	//window.location=ruta+"index_quejas.php?v1="+data[1]+"&v2="+pistaSeleccionada.selectedIndex+"&ifecha=0";
 }
 
+function reservar(id, deporte, pista, nbTiempo, nbtActual) {
+	var fecha = document.getElementById("fecha");
+	var entrada = document.getElementById(id);
+	var data = id.split('_');
+	var mensaje ="";
+	//alert ("hola"+data[0]);
+	if (data[0] != 'tareas') {
+		mensaje="accion=reservar&nUsuario="+entrada.value+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML+"&nbtActual="+nbtActual;
+	} else {
+		// tarea_1_5_2
+		mensaje="accion=tarea&tarea="+entrada.selectedIndex+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
+	}
+	//alert(mensaje);
+	comunicacion(id,mensaje);
+}
+
 function undiamenos (deporte, pista, decremento) {
 	var ruta = '/casaasturias/';
 	decremento--;
@@ -47,22 +63,6 @@ function eliminarReserva(id, deporte, pista, nbTiempo) {
 	var fecha = document.getElementById("fecha");
 	//var entrada = document.getElementById(id);
 	var mensaje = "accion=eliminarReserva&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
-	//alert(mensaje);
-	comunicacion(id,mensaje);
-}
-
-function reservar(id, deporte, pista, nbTiempo, nbtActual) {
-	var fecha = document.getElementById("fecha");
-	var entrada = document.getElementById(id);
-	var data = id.split('_');
-	var mensaje ="";
-	//alert ("hola"+data[0]);
-	if (data[0] != 'tarea') {
-		mensaje="accion=reservar&nUsuario="+entrada.value+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML+"&nbtActual="+nbtActual;
-	} else {
-		// tarea_1_5_2
-		mensaje="accion=tarea&tarea="+data[3]+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
-	}
 	//alert(mensaje);
 	comunicacion(id,mensaje);
 }

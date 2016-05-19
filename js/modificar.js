@@ -101,6 +101,7 @@ function enviar(mensaje, descargar) {
 
 function nuevaTarea() {
 	//alert('nueva Tarea');
+	// value lleva el valor del option del select seleccionado
 	var entrada = document.getElementById("tarea").value;
 	var mensaje = "accion=anadir&objeto=tarea&elemento="+entrada;
 	enviar(mensaje,0);

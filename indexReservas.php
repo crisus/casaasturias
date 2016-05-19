@@ -169,8 +169,9 @@
 			if ($consulta->num_rows > 0) {
 				$consulta->data_seek(0);
 				$reserva = $consulta->fetch_row();
-				if ($reserva[0] == 'PERSONAL') {
+				if ($reserva[6] > 0) {
 					$hayTarea = true;
+					$tareaSeleccionada = $reserva[6];
 				}
 			}
 			$s =0;
@@ -252,112 +253,121 @@
 <?php	// NOMBRES
 			if ($hayTarea) { ?>
 				<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
-<?php			}
-			$s=0;
-			$hayFirmada = false;
-			for ($j=1; ($j <= $actual[3]) && (!$hayTarea); $j++) {
-				if ( $j-1 < $consulta->num_rows)
-				{
-					$hayFirmada = true; // solo es utilizado en caso de existir consulta2
-					$consulta->data_seek($j-1);
-					$reserva = $consulta->fetch_row();
-			?>
-					<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
-<?php 				} else if ( ($consulta2 != null) && ($consulta2->num_rows > $s) )
-				{
-					$consulta2->data_seek($s);
-					$s+=1;
-					$reserva = $consulta2->fetch_row();
-					if ($hayFirmada) {
-						$puedeConfirmar = $cogerPista;
-					}else {
-						$puedeConfirmar = $confirmarReserva;
-					}
-					$yaFirmado=false;
-					for ($c = 0; $consulta->num_rows > $c; $c++) {
-						$buscando->data_seek($c);
-						$buscado = $buscando->fetch_row();
-						if ($buscado[0] == $reserva[0]) { $yaFirmado= true; }
-					}
-					if (!$yaFirmado) {
-						if ($puedeConfirmar == 1) {?>
-							<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
+<?php		} else {
+				$s=0;
+				$hayFirmada = false;
+				for ($j=1; $j <= $actual[3]; $j++) {
+					if ( $j-1 < $consulta->num_rows)
+					{
+						$hayFirmada = true; // solo es utilizado en caso de existir consulta2
+						$consulta->data_seek($j-1);
+						$reserva = $consulta->fetch_row();
+?>
+						<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
+<?php 				} else if ( ($consulta2 != null) && ($consulta2->num_rows > $s) ) {
+						$consulta2->data_seek($s);
+						$s+=1;
+						$reserva = $consulta2->fetch_row();
+						if ($hayFirmada) {
+							$puedeConfirmar = $cogerPista;
+						}else {
+							$puedeConfirmar = $confirmarReserva;
+						}
+						$yaFirmado=false;
+						for ($c = 0; $consulta->num_rows > $c; $c++) {
+							$buscando->data_seek($c);
+							$buscado = $buscando->fetch_row();
+							if ($buscado[0] == $reserva[0]) { $yaFirmado= true; }
+						}
+						if (!$yaFirmado) {
+							if ($puedeConfirmar == 1) {?>
+								<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
 <?php						} else { ?>
-							<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
+								<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
 <?php						}
-					} else { $j--; }
-				} else
-				{ ?>
-					<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
+						} else { $j--; }
+					} else	{ ?>
+						<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
 <?php				}
-			} // fin for
+				} // fin for
+			}
 			if ($_SESSION['tipoUsuario'] == 2) {
 				$consulta_actividades = getActividades($enlace); ?>
-				<select class="tareas"
-<?php 				if ( ((($i-1)*$segBloque)+$principio <= $segActual) && ($incrementoFecha==0) ) { ?>
-						disabled>
-<?php 				} else { ?>
-						>
-<?php				}
+				<select class="tareas" id="tareas_<?php echo $i; ?>"  onchange="reservar(this.id,'<?php echo $deporte; ?>',<?php echo $pista.','.$i; ?>)"
+<?php 			if ( ((($i-1)*$segBloque)+$principio <= $segActual) && ($incrementoFecha==0) ) { ?>
+					disabled>
+<?php 			} else { ?>
+					>
+<?php			}
 				for ($k=0; $k < $consulta_actividades->num_rows; $k++) {
 					$consulta_actividades->data_seek($k);
-					$actividad = $consulta_actividades->fetch_row(); ?>
-					<option id="tarea_<?php echo $i.'_'.$j.'_'.$actividad[0]; ?>" onclick="reservar(this.id,'<?php echo $deporte; ?>',<?php echo $pista.','.$i; ?>)"> <?php echo $actividad[1]; ?></option>
-
-<?php				}?>
+					$actividad = $consulta_actividades->fetch_row();
+					if ($k != $tareaSeleccionada) {?>
+						<option> <?php echo $actividad[1]; ?></option>
+<?php				} else {?>
+						<option selected="selected"> <?php echo $actividad[1]; ?></option>
+<?php				}
+			}
+			?>
 				</select>
-				<button onclick="mostrarDialogo()"><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal" width="15" height="15"></button>
-<?php			} ?>
+<?php		}	?>
 
 							</th>
 							<th class="firma">
 <?php   // FIRMA
-			$libre = 1;
-			$s = 0;
-			if ($_SESSION['puede_firmar'] == 0) {
-				$puedeConfirmar = 0;
-			} else if ($_SESSION['puede_firmar'] == 1) {
-				$puedeConfirmar = $cogerPista;
-			}
+			if ($hayTarea) {
+				$libre = 1;
+				$s = 0;
+				if ($_SESSION['puede_firmar'] == 0) {
+					$puedeConfirmar = 0;
+				} else if ($_SESSION['puede_firmar'] == 1) {
+					$puedeConfirmar = $cogerPista;
+				}
 
-			$hayFirmada = false;
-			for ($j=1;($j <= $actual[3]) && (!$hayTarea); $j++) {
-				if ( $j-1 < $consulta->num_rows)  // firmadas o reservadas
-				{
-					$hayFirmada = true;
-					$libre=0;
-					$consulta->data_seek($j-1);
-					$reserva = $consulta->fetch_row(); ?>
-					<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" value="" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" <?php if ($firma==1) {echo 'disabled checked'; }?> >
-<?php				} else if ( ($consulta2 != null) && ($consulta2->num_rows > $s) ) // reservadas cuando hay firmadas
-				{
-					$libre = 0;
-					$s = $s+1;
-					if ($hayFirmada) {
-						$puedeConfirmar = $cogerPista;
-					}else {
-						$puedeConfirmar = $confirmarReserva;
-					}
-					$yaFirmado=false;
-					for ($c = 0; $consulta->num_rows > $c; $c++) {
-						$buscando->data_seek($c);
-						$buscado = $buscando->fetch_row();
-						if ($buscado[0] == $reserva[0]) { $yaFirmado= true; }
-					}
-					if (!$yaFirmado) {
+				$hayFirmada = false;
+				for ($j=1;($j <= $actual[3]) && (!$hayTarea); $j++) {
+					if ( $j-1 < $consulta->num_rows)  // firmadas o reservadas
+					{
+						$hayFirmada = true;
+						$libre=0;
+						$consulta->data_seek($j-1);
+						$reserva = $consulta->fetch_row(); ?>
+						<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" value="" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" <?php if ($firma==1) {echo 'disabled checked'; }?> >
+<?php				} else if ( ($consulta2 != null) && ($consulta2->num_rows > $s) ){ // reservadas cuando hay firmadas
+						$libre = 0;
+						$s = $s+1;
+						if ($hayFirmada) {
+							$puedeConfirmar = $cogerPista;
+						}else {
+							$puedeConfirmar = $confirmarReserva;
+						}
+							$yaFirmado=false;
+						for ($c = 0; $consulta->num_rows > $c; $c++) {
+							$buscando->data_seek($c);
+							$buscado = $buscando->fetch_row();
+							if ($buscado[0] == $reserva[0]) { $yaFirmado= true; }
+						}
+						if (!$yaFirmado) {
 ?>
-						<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" >
+							<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" >
 <?php					} else { $j--;}
-				} else // resto
-				{
-					if ( ($consulta2!=null)&&($consulta2->num_rows==0) ) { $libre=1;}
+					} else { // resto
+						if ( ($consulta2!=null)&&($consulta2->num_rows==0) ) { $libre=1;}
 ?>
-					<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>"  <?php if ( ( ($libre==0) || ($puedeConfirmar==0) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo "disabled"; }?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)">
+						<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>"  <?php if ( ( ($libre==0) || ($puedeConfirmar==0) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo "disabled"; }?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)">
 <?php			 	}
-			}
-			if ($_SESSION['tipoUsuario'] == 2) {?>
-				<input class="select_tareas" type="text" disabled>
-<?php			}?>
+				}
+				if ($_SESSION['tipoUsuario'] == 2) {?>
+					<a class="tareas_ico" href="#miModal_<?php echo $i;?>"><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal"></a>
+					<div id="miModal_<?php echo $i;?>" class="modal">
+						<div class="modal-contenido">
+							<a href="#">X</a>
+    						<h2>Mi primer Modal</h2>
+							<p>Este es mi primera ventana modal sin utilizar JavaScript.</p>
+						</div>
+					</div>
+<?php			}
+			}?>
 							</th>
 
 

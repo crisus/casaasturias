@@ -611,10 +611,10 @@
 		$consulta = $enlace->query($peticion);
 
 		if ($tarea > 0) {
-			$peticion = "INSERT INTO `programador`.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('PERSONAL','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."');";
+			$peticion = "INSERT INTO `programador`.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$_SESSION['nUsuario']."','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."','".$tarea."');";
 			$consulta = $enlace->query($peticion);
 
-			$peticion = "INSERT INTO `programador`.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('PERSONAL','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."');";
+			$peticion = "INSERT INTO `programador`.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$_SESSION['nUsuario']."','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."','".$tarea."');";
 			$consulta = $enlace->query($peticion);
 		}
 		return $consulta;
