@@ -359,9 +359,33 @@
 					<a class="tareas_ico" href="#miModal_<?php echo $i;?>"><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal"></a>
 					<div id="miModal_<?php echo $i;?>" class="modal">
 						<div class="modal-contenido">
-							<a href="#">X</a>
-    						<h2>Mi primer Modal</h2>
-							<p>Este es mi primera ventana modal sin utilizar JavaScript.</p>
+							<div class="title">
+								<h4>Nombre Tarea</h4>
+								<a href="#">X</a>
+							</div>
+							<div class="dias-semana">
+								<label>L<input class="L" type="checkbox"></label>
+								<label>M<input class="M" type="checkbox"></label>
+								<label>X<input class="X" type="checkbox"></label>
+								<label>J<input class="J" type="checkbox"></label>
+								<label>V<input class="V" type="checkbox"></label>
+								<label>S<input class="S" type="checkbox"></label>
+								<label>D<input class="D" type="checkbox"></label>
+							</div>
+							<div class="fechas">
+								<div class="fechas-izq">
+									<label>Fecha Inicial</label>
+									<input type="text" value="dd-mm-aaaa">
+								</div>
+								<div class="fechas-der">
+									<label>Fecha Final</label>
+									<input type="text" value="dd-mm-aaaa">
+								</div>
+							</div>
+							<div class="botones-repeticiones">
+								<button>REPETIR</button>
+								<button>UNICO</button>
+							</div>
 						</div>
 					</div>
 <?php			}

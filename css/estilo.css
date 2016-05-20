@@ -591,14 +591,14 @@ tareas_ico {
 
 /* control ventana modal */
 .modal-contenido{
-  background-color:aqua;
   width:300px;
   padding: 10px 20px;
-  margin: 20% auto;
-  position: relative;
+  margin-top: 20%;
+	margin-left: 35%;
+  float: left;
+	background-color: rgba(120,120,250,0.6);
 }
 .modal{
-  background-color: rgba(30,30,200,0.3);
   position:fixed;
   top:0;
   right:0;
@@ -607,8 +607,76 @@ tareas_ico {
 	opacity:0;
   pointer-events:none;
 	transition: all 1s;
+	height:100%;
 }
+.modal .title{
+	background-color: rgba(70,70,150,0.5);
+	float: left;
+	height: 10%;
+	width: 100%;
+}
+.modal .title h4{
+	float: left;
+	width: 85%;
+	height: 100%;
+	display: block;
+}
+.modal .title a{
+	float: right;
+	width: 10%;
+	height: 100%;
+}
+.modal .dias-semana{
+	width: 100%;
+	height: 20%;
+	float: left;
+}
+.modal .dias-semana *{
+	width: 14%;
+	float: left;
+	height: 100%;
+	display: block;
+}
+.modal .fechas {
+	width: 100%;
+	height: 20%;
+	float: left;
+}
+.modal .fechas div{
+	width: 40%;
+	float: left;
+	margin: 2ex;
+	text-align: center;
+}
+.modal .botones-repeticiones {
+	width: 100%;
+	height: 20%;
+	float: left;
+}
+.modal .botones-repeticiones *{
+	width: 45%;
+	float: left;
+	margin: 1ex;
+}
+
+
 #miModal_1:target{
+  opacity:1;
+  pointer-events:auto;
+}
+#miModal_2:target{
+  opacity:1;
+  pointer-events:auto;
+}
+#miModal_3:target{
+  opacity:1;
+  pointer-events:auto;
+}
+#miModal_4:target{
+  opacity:1;
+  pointer-events:auto;
+}
+#miModal_5:target{
   opacity:1;
   pointer-events:auto;
 }
