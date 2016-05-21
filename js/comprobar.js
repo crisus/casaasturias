@@ -26,9 +26,86 @@ function reservar(id, deporte, pista, nbTiempo, nbtActual) {
 	} else {
 		// tarea_1_5_2
 		mensaje="accion=tarea&tarea="+entrada.selectedIndex+"&deporte="+deporte+"&pista="+pista+"&nbTiempo="+nbTiempo+"&fecha="+fecha.innerHTML;
+		//generarDialogoContinuidad(nbTiempo);
 	}
 	//alert(mensaje);
 	comunicacion(id,mensaje);
+}
+
+function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
+	var data = id.split('_');
+	var mensaje = 'deporte='+deporte+'&pista='+pista+'&tarea='+id_tarea;
+	var semana = ['L','M','X','J','V','S','D'];
+	var cheks =[];
+	var fets =[];
+	//alert('funcion repetir '+data[0]+' - '+data[1]);
+	if (realizarRepeticion) {
+		if (data[0] == 'repetir') {
+			cheks = document.getElementsByClassName('checkbox_'+data[1]);
+			fets = document.getElementsByClassName('fechasIF_'+data[1]);
+			for (var i=0; i<cheks.length; i++) {
+				if (cheks[i].checked) {
+					mensaje = mensaje +'&'+semana[i]+'=1';
+				} else {
+					mensaje = mensaje +'&'+semana[i]+'=0';
+				}
+			}
+			mensaje = mensaje + '&fechaI='+fets[0].value+'&fechaF='+fets[1].value;
+			//alert(mensaje);
+		} else if (data[0] == 'unico') {
+			// para mejora de borrado de la continuidad
+		} else {
+			//alert('puff');
+		}
+	} else {
+		//alert('unico');
+	}
+	window.location.reload();
+}
+
+function generarDialogoContinuidad(bloque){
+	var lugar = document.getElementById('dialogo_'+bloque);
+	var ruta = '/casaasturias/'
+	var dialogo = '';
+
+	dialogo = dialogo + '<a class="tareas_ico" href="#miModal_'+bloque+'"><img src="'+ruta+'img/icon-cal.png" alt="Cal"></a>';
+	dialogo = dialogo + '				<div id="miModal_'+bloque+'" class="modal"';
+	dialogo = dialogo +	'					<style> #miModal_'+bloque+':target { opacity:1; pointer-events:auto;}</style>';
+	dialogo = dialogo + '					<div class="modal-contenido">';
+	dialogo = dialogo + '						<div class="title">';
+	dialogo = dialogo + '							<h4>Nombre Tarea</h4>';
+	dialogo = dialogo + '							<a href="#">X</a>';
+	dialogo = dialogo + '						</div>';
+	dialogo = dialogo + '						<div class="dias-semana">';
+	dialogo = dialogo + '							<label>L<input class="L" type="checkbox"></label>';
+	dialogo = dialogo + '							<label>M<input class="M" type="checkbox"></label>';
+	dialogo = dialogo + '							<label>X<input class="X" type="checkbox"></label>';
+	dialogo = dialogo + '							<label>J<input class="J" type="checkbox"></label>';
+	dialogo = dialogo + '							<label>V<input class="V" type="checkbox"></label>';
+	dialogo = dialogo + '							<label>S<input class="S" type="checkbox"></label>';
+	dialogo = dialogo + '							<label>D<input class="D" type="checkbox"></label>';
+	dialogo = dialogo + '						</div>';
+	dialogo = dialogo + '						<div class="fechas">';
+	dialogo = dialogo + '							<div class="fechas-izq">';
+	dialogo = dialogo + '								<label>Fecha Inicial</label>';
+	dialogo = dialogo + '								<input type="text" value="dd-mm-aaaa">';
+	dialogo = dialogo + '							</div>';
+	dialogo = dialogo + '							<div class="fechas-der">';
+	dialogo = dialogo + '								<label>Fecha Final</label>';
+	dialogo = dialogo + '								<input type="text" value="dd-mm-aaaa">';
+	dialogo = dialogo + '							</div>';
+	dialogo = dialogo + '						</div>';
+	dialogo = dialogo + '						<div class="botones-repeticiones">';
+	dialogo = dialogo + '							<button>REPETIR</button>';
+	dialogo = dialogo + '							<button>UNICO</button>';
+	dialogo = dialogo + '						</div>';
+	dialogo = dialogo + '					</div>';
+	dialogo = dialogo + '				</div>';
+
+	lugar.innerHTML=dialogo;
+	/*
+
+				*/
 }
 
 function undiamenos (deporte, pista, decremento) {

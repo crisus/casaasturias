@@ -591,14 +591,17 @@ tareas_ico {
 
 /* control ventana modal */
 .modal-contenido{
-  width:300px;
+  width:400px;
   padding: 10px 20px;
   margin-top: 20%;
 	margin-left: 35%;
   float: left;
-	background-color: rgba(120,120,250,0.6);
+	background-color: rgba(120,120,250,0.9);
+	border-radius: 10em;
+	z-index: 50;
 }
 .modal{
+	border: 1px solid #33F;
   position:fixed;
   top:0;
   right:0;
@@ -608,9 +611,10 @@ tareas_ico {
   pointer-events:none;
 	transition: all 1s;
 	height:100%;
+	z-index: 40;
 }
 .modal .title{
-	background-color: rgba(70,70,150,0.5);
+	background-color: rgba(70,70,70,0);
 	float: left;
 	height: 10%;
 	width: 100%;
@@ -626,57 +630,52 @@ tareas_ico {
 	width: 10%;
 	height: 100%;
 }
-.modal .dias-semana{
+.modal .fechas-tit {
 	width: 100%;
 	height: 20%;
 	float: left;
 }
-.modal .dias-semana *{
-	width: 14%;
+.modal .fechas-tit *{
+	width: 35%;
 	float: left;
-	height: 100%;
+	margin-left: 10%;
+}
+.modal .fechas-fet{
+	width: 100%;
+	height: 20%;
+	float: left;
+}
+.modal .fechas-fet *{
+	max-width: 35%;
+	float: left;
+	margin-left: 10%;
 	display: block;
-}
-.modal .fechas {
-	width: 100%;
-	height: 20%;
-	float: left;
-}
-.modal .fechas div{
-	width: 40%;
-	float: left;
-	margin: 2ex;
 	text-align: center;
 }
 .modal .botones-repeticiones {
 	width: 100%;
 	height: 20%;
 	float: left;
+	margin-bottom: 1em;
 }
 .modal .botones-repeticiones *{
-	width: 45%;
-	float: left;
+	width: 35%;
+	float: center;
 	margin: 1ex;
 }
-
-
-#miModal_1:target{
-  opacity:1;
-  pointer-events:auto;
+.modal .dias-semana table{
+	width:100%;
+	height: 100%;
+	border-style: none;
+	font-size: 12pt;
+    float: left;
 }
-#miModal_2:target{
-  opacity:1;
-  pointer-events:auto;
+.modal .dias-semana table th{
+  width:7%;
+  text-align: center;
 }
-#miModal_3:target{
-  opacity:1;
-  pointer-events:auto;
-}
-#miModal_4:target{
-  opacity:1;
-  pointer-events:auto;
-}
-#miModal_5:target{
-  opacity:1;
-  pointer-events:auto;
+.modal .dias-semana{
+	width: 100%;
+	height: 20%;
+	float: left;
 }

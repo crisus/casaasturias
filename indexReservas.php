@@ -165,6 +165,7 @@
 				//echo "reservas";
 			}
 	// NUMERO DE IDENTIFICACION USUARIOS
+			$tareaSeleccionada=0;
 			$hayTarea= false;
 			if ($consulta->num_rows > 0) {
 				$consulta->data_seek(0);
@@ -313,7 +314,7 @@
 							</th>
 							<th class="firma">
 <?php   // FIRMA
-			if ($hayTarea) {
+			if (!$hayTarea) {
 				$libre = 1;
 				$s = 0;
 				if ($_SESSION['puede_firmar'] == 0) {
@@ -354,43 +355,69 @@
 ?>
 						<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>"  <?php if ( ( ($libre==0) || ($puedeConfirmar==0) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo "disabled"; }?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)">
 <?php			 	}
-				}
-				if ($_SESSION['tipoUsuario'] == 2) {?>
+				} // fin for
+				if ($_SESSION['tipoUsuario'] == 2) { ?>
+					<input type="text" disabled>
+<?php			}
+			// cuando hay tarea
+			} else { ?>
+				<div id="dialogo_<?php echo $i;?>"><!-- echo $i.'__'.$_SESSION['tipoUsuario'];?>  -->
+<?php			if ($_SESSION['tipoUsuario'] == 2) {?>
 					<a class="tareas_ico" href="#miModal_<?php echo $i;?>"><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal"></a>
 					<div id="miModal_<?php echo $i;?>" class="modal">
+						<style>
+							#miModal_<?php echo $i;?>:target {
+								opacity:1;
+								pointer-events:auto;
+							}
+						</style>
 						<div class="modal-contenido">
 							<div class="title">
-								<h4>Nombre Tarea</h4>
+								<h4><?php echo $reserva[1]; ?></h4>
 								<a href="#">X</a>
 							</div>
 							<div class="dias-semana">
-								<label>L<input class="L" type="checkbox"></label>
-								<label>M<input class="M" type="checkbox"></label>
-								<label>X<input class="X" type="checkbox"></label>
-								<label>J<input class="J" type="checkbox"></label>
-								<label>V<input class="V" type="checkbox"></label>
-								<label>S<input class="S" type="checkbox"></label>
-								<label>D<input class="D" type="checkbox"></label>
+								<table>
+									<tr class="nombres-campos">
+										<th class="dias L">L</th>
+										<th class="dias M">M</th>
+										<th class="dias X">X</th>
+										<th class="dias J">J</th>
+										<th class="dias V">V</th>
+										<th class="dias S">S</th>
+										<th class="dias D">D</th>
+									</tr>
+									<tr>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> L" ></th>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> M" ></th>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> X" ></th>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> J" ></th>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> V" ></th>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> S" ></th>
+										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> D" ></th>
+									</tr>
+								</table>
 							</div>
-							<div class="fechas">
-								<div class="fechas-izq">
+							<div class="fechas-tit">
 									<label>Fecha Inicial</label>
-									<input type="text" value="dd-mm-aaaa">
-								</div>
-								<div class="fechas-der">
 									<label>Fecha Final</label>
-									<input type="text" value="dd-mm-aaaa">
-								</div>
+							</div>
+							<div class="fechas-fet">
+									<input class="fechasIF_<?php echo $i;?> I" type="text" value="<?php echo date("d-m-Y");?>">
+									<input class="fechasIF_<?php echo $i;?> F" type="text" value="<?php echo date("d-m-Y");?>">
 							</div>
 							<div class="botones-repeticiones">
-								<button>REPETIR</button>
-								<button>UNICO</button>
+								<button id="repetir_<?php echo $i;?>" onclick="repetir(this.id, <?php echo '\''.$deporte.'\'';?>, <?php echo $pista;?>, <?php echo $reserva[6]; ?>, true)">REPETIR</button>
+								<button   id="unico_<?php echo $i;?>" onclick="repetir(this.id, <?php echo '\''.$deporte.'\'';?>, <?php echo $pista;?>, <?php echo $reserva[6]; ?>, false)">UNICO</button>
 							</div>
 						</div>
+
 					</div>
-<?php			}
-			}?>
-							</th>
+<?php			}?>
+				</div>
+<?php		}?>
+
+						</th>
 
 
 <?php			// boton descripcion de desperfectos         ?>
