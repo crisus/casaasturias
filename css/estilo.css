@@ -212,7 +212,7 @@ ul.lista_menu li:hover, ul.lista_menu a:hover {
   margin-left: 1em;
   margin-bottom: 1em;
 }
-#contenido .tablaReservas input{
+#contenido .tablaReservas .a{
   width:100%;
   border-style:none;
     font-size:12pt;
@@ -590,47 +590,53 @@ tareas_ico {
 }
 
 /* control ventana modal */
-.modal-contenido{
-  width:400px;
-  padding: 10px 20px;
-  margin-top: 20%;
-	margin-left: 35%;
-  float: left;
-	background-color: rgba(120,120,250,0.9);
-	border-radius: 10em;
-	z-index: 50;
-}
 .modal{
-	border: 1px solid #33F;
-  position:fixed;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-	opacity:0;
-  pointer-events:none;
-	transition: all 1s;
+	width:100%;
 	height:100%;
-	z-index: 40;
+	position:fixed;
+	background-color: rgba(40,40,250,0.2);
+	top:0;
+	left:0;
+	transition: all 1s;
+	z-index: 5000;
 }
-.modal .title{
-	background-color: rgba(70,70,70,0);
+.modal-contenido{
+	display: inherit;
+	margin: 17em;
+	font-size: 12px;
+  	width:500px;
+	text-align: center;
 	float: left;
+  	border: 1px solid #33F;
+	background-color: rgba(120,120,250,1);
+	border-radius: 10em;
+	z-index: 9000;
+}
+.modal-contenido .title{
+	background-color: rgba(70,70,70,0.3);
+	border-radius: 5em;
 	height: 10%;
-	width: 100%;
+	width: 80%;
+	margin-left:10%;
 }
-.modal .title h4{
+.modal-contenido .title h4{
 	float: left;
-	width: 85%;
-	height: 100%;
-	display: block;
+	width: 70%;
+	margin-left: 10%;
+	height: 80%;
+	color: azure;
 }
-.modal .title a{
+.modal-contenido .title p{
 	float: right;
+	margin-right: 10%;
 	width: 10%;
-	height: 100%;
+	height: 80%;
+	color: darkred;
 }
-.modal .fechas-tit {
+.modal-contenido .title p:hover{
+	cursor: pointer;
+}
+.modal-contenido .fechas-tit {
 	width: 100%;
 	height: 20%;
 	float: left;
@@ -640,41 +646,43 @@ tareas_ico {
 	float: left;
 	margin-left: 10%;
 }
-.modal .fechas-fet{
+.modal-contenido .fechas-fet{
 	width: 100%;
 	height: 20%;
 	float: left;
 }
-.modal .fechas-fet *{
+.modal-contenido .fechas-fet *{
 	max-width: 35%;
 	float: left;
 	margin-left: 10%;
 	display: block;
 	text-align: center;
 }
-.modal .botones-repeticiones {
+.modal-contenido .botones-repeticiones {
 	width: 100%;
 	height: 20%;
-	float: left;
+	float:left;
 	margin-bottom: 1em;
+	margin-top: 1em;
 }
-.modal .botones-repeticiones *{
-	width: 35%;
-	float: center;
-	margin: 1ex;
+.modal-contenido .botones-repeticiones .b{
+	margin-left: 13%;
+	min-width: 30%;
+	float: left;
 }
-.modal .dias-semana table{
-	width:100%;
+.modal-contenido .dias-semana table{
+	width:80%;
+	margin-left: 10%;
 	height: 100%;
 	border-style: none;
 	font-size: 12pt;
     float: left;
 }
-.modal .dias-semana table th{
+.modal-contenido .dias-semana table th{
   width:7%;
   text-align: center;
 }
-.modal .dias-semana{
+.modal-contenido .dias-semana{
 	width: 100%;
 	height: 20%;
 	float: left;

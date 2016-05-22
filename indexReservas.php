@@ -186,7 +186,7 @@
 						$hayFirmada = true; // solo es utilizado en caso de existir consulta2
 						$consulta->data_seek($t);
 						$reserva = $consulta->fetch_row(); ?>
-						<input type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
+						<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
 <?php						if ($reserva[0] == $_SESSION['nUsuario'])
 						{
 							$posicionFirma = $j;
@@ -216,9 +216,9 @@
 						}
 						if (!$yaFirmado) {
 							if ($puedeConfirmar == 1) {?>
-								<input type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
+								<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
 <?php						} else { ?>
-								<input type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx"
+								<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx"
 <?php						}
 							if ($reserva[0] == $_SESSION['nUsuario']) {
 								$posicionFirma = $j;
@@ -232,7 +232,7 @@
 <?php						}?>
 <?php					} else { $j--;}
 					} else { ?>
-						<input type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)"
+						<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)"
 <?php 					if ( ((($i-1)*$segBloque)+$principio <= $segActual) && ($incrementoFecha ==0) )
 						{ ?>
 							disabled>
@@ -242,16 +242,16 @@
 					}
 				} // fin for
 			} else {?>
-				<input type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>" disabled>
+				<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>" disabled>
 <?php		}
 			if ($_SESSION['tipoUsuario'] == 2) {?>
-				<input class="select_tareas" type="text" disabled>
+				<input class="a" class="select_tareas" type="text" disabled>
 <?php		}?>
 							</th>
 							<th class="nombre">
 <?php	// NOMBRES
 			if ($hayTarea) { ?>
-				<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
+				<input class="a"  type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
 <?php		} else {
 				$s=0;
 				$hayFirmada = false;
@@ -262,7 +262,7 @@
 						$consulta->data_seek($j-1);
 						$reserva = $consulta->fetch_row();
 ?>
-						<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
+						<input class="a" type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
 <?php 				} else if ( ($consulta2 != null) && ($consulta2->num_rows > $s) ) {
 						$consulta2->data_seek($s);
 						$s+=1;
@@ -280,13 +280,13 @@
 						}
 						if (!$yaFirmado) {
 							if ($puedeConfirmar == 1) {?>
-								<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
+								<input class="a" type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[1]; ?>" disabled>
 <?php						} else { ?>
-								<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
+								<input class="a" type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
 <?php						}
 						} else { $j--; }
 					} else	{ ?>
-						<input type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
+						<input class="a"  type="text" id="nombre_<?php echo $i.'_'.$j; ?>" value="" disabled>
 <?php				}
 				} // fin for
 			}
@@ -331,7 +331,7 @@
 						$libre=0;
 						$consulta->data_seek($j-1);
 						$reserva = $consulta->fetch_row(); ?>
-						<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" value="" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" <?php if ($firma==1) {echo 'disabled checked'; }?> >
+						<input class="a" type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" value="" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" <?php if ($firma==1) {echo 'disabled checked'; }?> >
 <?php				} else if ( ($consulta2 != null) && ($consulta2->num_rows > $s) ){ // reservadas cuando hay firmadas
 						$libre = 0;
 						$s = $s+1;
@@ -348,33 +348,27 @@
 						}
 						if (!$yaFirmado) {
 ?>
-							<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" >
+							<input class="a" type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>" <?php if ( ( ($puedeConfirmar==0) || ($j != $posicionFirma) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo 'disabled';} ?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)" >
 <?php					} else { $j--;}
 					} else { // resto
 						if ( ($consulta2!=null)&&($consulta2->num_rows==0) ) { $libre=1;}
 ?>
-						<input type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>"  <?php if ( ( ($libre==0) || ($puedeConfirmar==0) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo "disabled"; }?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)">
+						<input class="a" type="checkbox" id="firma_<?php echo $i.'_'.$j; ?>"  <?php if ( ( ($libre==0) || ($puedeConfirmar==0) ) || ($incrementoFecha>0) || ($_SESSION['tipoUsuario'] == 2) ) {echo "disabled"; }?> onclick="firmar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i; ?>)">
 <?php			 	}
 				} // fin for
 				if ($_SESSION['tipoUsuario'] == 2) { ?>
-					<input type="text" disabled>
+					<input class="a" type="text" disabled>
 <?php			}
 			// cuando hay tarea
 			} else { ?>
 				<div id="dialogo_<?php echo $i;?>"><!-- echo $i.'__'.$_SESSION['tipoUsuario'];?>  -->
 <?php			if ($_SESSION['tipoUsuario'] == 2) {?>
-					<a class="tareas_ico" href="#miModal_<?php echo $i;?>"><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal"></a>
-					<div id="miModal_<?php echo $i;?>" class="modal">
-						<style>
-							#miModal_<?php echo $i;?>:target {
-								opacity:1;
-								pointer-events:auto;
-							}
-						</style>
+					<div><img src="<?php echo $ruta;?>img/icon-cal.png" alt="Cal" onclick="mostrarDialogo(<?php echo $i;?>)"></div>
+					<div id="modal_<?php echo $i;?>" class="modal" style="display:none">
 						<div class="modal-contenido">
 							<div class="title">
 								<h4><?php echo $reserva[1]; ?></h4>
-								<a href="#">X</a>
+								<p onclick="cerrarDialogo(<?php echo $i;?>)">X</p>
 							</div>
 							<div class="dias-semana">
 								<table>
@@ -407,8 +401,9 @@
 									<input class="fechasIF_<?php echo $i;?> F" type="text" value="<?php echo date("d-m-Y");?>">
 							</div>
 							<div class="botones-repeticiones">
-								<button id="repetir_<?php echo $i;?>" onclick="repetir(this.id, <?php echo '\''.$deporte.'\'';?>, <?php echo $pista;?>, <?php echo $reserva[6]; ?>, true)">REPETIR</button>
-								<button   id="unico_<?php echo $i;?>" onclick="repetir(this.id, <?php echo '\''.$deporte.'\'';?>, <?php echo $pista;?>, <?php echo $reserva[6]; ?>, false)">UNICO</button>
+								<input class="b" type="button" id="repetir_<?php echo $i;?>" onclick="repetir(this.id, <?php echo '\''.$deporte.'\'';?>, <?php echo $pista;?>, <?php echo $reserva[6]; ?>, true)" value="REPETIR"></input>
+								<input class="b" type="button" id="unico_<?php echo $i;?>" onclick="repetir(this.id, <?php echo '\''.$deporte.'\'';?>, <?php echo $pista;?>, <?php echo $reserva[6]; ?>, false)" value="UNICO">
+								</input>
 							</div>
 						</div>
 
