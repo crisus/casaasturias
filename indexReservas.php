@@ -373,22 +373,20 @@
 							<div class="dias-semana">
 								<table>
 									<tr class="nombres-campos">
-										<th class="dias L">L</th>
-										<th class="dias M">M</th>
-										<th class="dias X">X</th>
-										<th class="dias J">J</th>
-										<th class="dias V">V</th>
-										<th class="dias S">S</th>
-										<th class="dias D">D</th>
+<?php $semana = ['L','M','X','J','V','S','D'];
+									$length = count($semana);
+									for ($d_sem=0; $d_sem < $length; $d_sem++) { ?>
+										<th class="dias <?php echo $semana[$d_sem]; ?>"><?php echo $semana[$d_sem]; ?></th>
+<?php								} ?>
 									</tr>
 									<tr>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> L" ></th>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> M" ></th>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> X" ></th>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> J" ></th>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> V" ></th>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> S" ></th>
-										<th><input type="checkbox"  class="checkbox_<?php echo $i;?> D" ></th>
+<?php 								for ($d_sem=0; $d_sem < $length; $d_sem++) {
+										if (date('N') != $d_sem+1) { ?>
+											<th><input type="checkbox" class="checkbox_<?php echo $i;?> <?php echo $semana[$d_sem]; ?>" ></th>
+<?php									} else { ?>
+											<th><input type="checkbox" class="checkbox_<?php echo $i;?> <?php echo $semana[$d_sem]; ?>" checked></th>
+<?php									}
+									} ?>
 									</tr>
 								</table>
 							</div>

@@ -43,15 +43,24 @@ function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
 		if (data[0] == 'repetir') {
 			cheks = document.getElementsByClassName('checkbox_'+data[1]);
 			fets = document.getElementsByClassName('fechasIF_'+data[1]);
-			for (var i=0; i<cheks.length; i++) {
-				if (cheks[i].checked) {
-					mensaje = mensaje +'&'+semana[i]+'=1';
-				} else {
-					mensaje = mensaje +'&'+semana[i]+'=0';
+			var diasReserva = '';
+			var primeraPosicion = 0;
+			for (var i=1; i<=cheks.length; i++) {
+				if (cheks[i-1].checked) {
+					if (diasReserva === '') {
+						diasReserva = diasReserva +'&reserva_semana='+i;
+						primeraPosicion = i;
+					} else {
+						diasReserva = diasReserva+'_'+(i-primeraPosicion);
+					}
 				}
 			}
-			mensaje = mensaje + '&fechaI='+fets[0].value+'&fechaF='+fets[1].value;
-			alert(mensaje);
+			if (diasReserva !== '') {
+				mensaje = mensaje +diasReserva+'&fechaI='+fets[0].value+'&fechaF='+fets[1].value;
+				alert(mensaje);
+			} else {
+				alert('No hay repeticiones señaladas');
+			}
 		} else if (data[0] == 'unico') {
 			// para mejora de borrado de la continuidad
 		} else {
