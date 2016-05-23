@@ -34,7 +34,7 @@ function reservar(id, deporte, pista, nbTiempo, nbtActual) {
 
 function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
 	var data = id.split('_');
-	var mensaje = 'accion=continuidad&deporte='+deporte+'&pista='+pista+'&tarea='+id_tarea;
+	var mensaje = 'accion=continuidad&deporte='+deporte+'&pista='+pista+'&tarea='+id_tarea+'&nbTiempo='+data[1];
 	var semana = ['L','M','X','J','V','S','D'];
 	var cheks =[];
 	var fets =[];
@@ -58,7 +58,7 @@ function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
 			if (diasReserva !== '') {
 				mensaje = mensaje +diasReserva+'&fechaI='+fets[0].value+'&fechaF='+fets[1].value;
 				alert(mensaje);
-				//comunicacion(id,mensaje);
+				comunicacion(id,mensaje);
 			} else {
 				alert('No hay repeticiones señaladas');
 			}
@@ -170,13 +170,15 @@ function recibir(id,salida) {
 			out.value = "";
 			entrada.disabled = false;
 			entrada.value = 'xxxxx/xx';
-		} else if (er[2] == '3') {
+		} else if (er[2] == '3') { // tarea archivada
 			alert ("TAREA ARCHIVADA");
 		} else if (er[2] == '4') { // reservar
 			s = 'nombre_'+data[1]+'_'+data[2];
 			out = document.getElementById(s);
 			out.value = er[3];
 			entrada.disabled = true;
+		} else if (er[2] == '6') { // tarea con continuidad (semanal)
+			alert('tarea semanal');
 		}
 		window.location.reload();
 	} else if (er[1] == 'ERROR') {
@@ -195,6 +197,8 @@ function recibir(id,salida) {
 		} else if (er[2] == '5') {
 			alert('YA HAS FIRMADO UNA RESERVA\n A ESTA HORA');
 			window.location.reload();
+		} else if (er[2] == '6') {
+			alert('IMPOSIBLE ESTABLECER CONTINUIDAD')
 		} else if (er[2] == '100') { // errores lanzados para pruebas
 			confirm(salida);
 		}

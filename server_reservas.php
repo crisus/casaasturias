@@ -55,6 +55,20 @@
 			} else {
 				echo '_ERROR_5_';
 			}
+		} else if ($accion == 'continuidad') {
+			//
+			$deporte = $_POST['deporte'];
+			$pista = $_POST['pista'];
+			$id_tarea = $_POST['tarea'];
+			$fecha_inicial = $_POST['fechaI'];
+			$fecha_final = $_POST['fechaF'];
+			$reserva_semana = $_POST['reserva_semana'];
+			$nbt = $_POST['nbTiempo'];
+			if (1) {
+				echo '_OK_6_';
+			} else {
+				echo '_ERROR_6_';
+			}
 		} else if ($accion == 'finSesion'){
 			$estado = $_POST['estado'];
 			// mantener sesion
