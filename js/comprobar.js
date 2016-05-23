@@ -34,7 +34,7 @@ function reservar(id, deporte, pista, nbTiempo, nbtActual) {
 
 function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
 	var data = id.split('_');
-	var mensaje = 'deporte='+deporte+'&pista='+pista+'&tarea='+id_tarea;
+	var mensaje = 'accion=continuidad&deporte='+deporte+'&pista='+pista+'&tarea='+id_tarea;
 	var semana = ['L','M','X','J','V','S','D'];
 	var cheks =[];
 	var fets =[];
@@ -58,6 +58,7 @@ function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
 			if (diasReserva !== '') {
 				mensaje = mensaje +diasReserva+'&fechaI='+fets[0].value+'&fechaF='+fets[1].value;
 				alert(mensaje);
+				//comunicacion(id,mensaje);
 			} else {
 				alert('No hay repeticiones señaladas');
 			}
