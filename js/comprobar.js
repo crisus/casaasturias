@@ -49,9 +49,8 @@ function repetir(id, deporte, pista, id_tarea, realizarRepeticion) {
 				if (cheks[i-1].checked) {
 					if (diasReserva === '') {
 						diasReserva = diasReserva +'&reserva_semana='+i;
-						primeraPosicion = i;
 					} else {
-						diasReserva = diasReserva+'_'+(i-primeraPosicion);
+						diasReserva = diasReserva+'_'+i;
 					}
 				}
 			}

@@ -630,29 +630,26 @@
 		$diasReserva =  explode('_', $reservaSemana );
 		$length = count($diasReserva);
 		
-		if ( $fechaI == $hoy ) {
-			$fecha = $fechaI;
-		} else if ( $fechaI > $hoy ) {
-			$salto = $fechaI - $hoy;
-			$fecha = $fechaI+$salto;
-		} else {
+		if ( ( $fechaI < $hoy ) || ($fechaI > $fechaF) ){
 			return false;
 		}
 		$correcto = true;
 		
+		$diaInicio = date("N",$fechaI);
+		$fechaLunes = $fechaI-($diaInicio*24*60*60);
+		$fecha = $fechaLunes;
+		
 		//return 'dia fecha: '.date("d",$fechaI);
 		$i=1; // El primer elemento ya dispone de reserva
-		while ( ($fecha < $fechaF ) && ($correcto) ) {
-			$fechaOperacion = $fecha;
+		while ( ($fecha <= $fechaF ) && ($correcto) ) {
 			// repeticiones internas a la semana
 			while ( ($i < $length) && ($correcto) ) {
-				if ($i==0) {
-					$salto=0;
-				} else {
-					$salto = $diasReserva[$i]*24*60*60;
+				$salto = ($diasReserva[$i])*24*60*60; // convertir posicion en salto desde lunes
+				
+				$fechaOperacion = $fecha+$salto;
+				if ( ($fechaOperacion >= $fechaI ) && ($fechaOperacion <= $fechaF) ) {
+					$correcto = reservarTarea ($enlace,$tarea,$deporte, $pista, date("d-m-Y" ,$fechaOperacion), $nbt );
 				}
-				$fechaOperacion = date("d-m-Y" ,($fecha+$salto) );
-				$correcto = reservarTarea ($enlace,$tarea,$deporte, $pista, $fechaOperacion, $nbt );
 				$i++;
 			}
 			$fecha = $fecha+$saltoSemanal;
