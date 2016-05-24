@@ -178,7 +178,7 @@ function recibir(id,salida) {
 			out.value = er[3];
 			entrada.disabled = true;
 		} else if (er[2] == '6') { // tarea con continuidad (semanal)
-			alert('tarea semanal');
+			alert('tarea semanal'+er[3]);
 		}
 		window.location.reload();
 	} else if (er[1] == 'ERROR') {
@@ -209,10 +209,10 @@ function recibir(id,salida) {
 			alert("Sesion sigue activa");
 		}
 	} else {
-		//alert("DESCONOCIDO _"+salida+"_");
+		alert("DESCONOCIDO _"+salida+"_");
 		//window.location.reload();
 
-		alert("LA SESION DEL SERVIDOR\n HABIA FINALIZADO");
+		//alert("LA SESION DEL SERVIDOR\n HABIA FINALIZADO");
 		window.location=ruta+"index.html";
 	}
 }

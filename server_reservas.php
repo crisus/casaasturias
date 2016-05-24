@@ -60,14 +60,15 @@
 			$deporte = $_POST['deporte'];
 			$pista = $_POST['pista'];
 			$id_tarea = $_POST['tarea'];
-			$fecha_inicial = $_POST['fechaI'];
-			$fecha_final = $_POST['fechaF'];
-			$reserva_semana = $_POST['reserva_semana'];
+			$fechaI = $_POST['fechaI'];
+			$fechaF = $_POST['fechaF'];
+			$reservaSemana = $_POST['reserva_semana'];
 			$nbt = $_POST['nbTiempo'];
-			if (1) {
-				echo '_OK_6_';
+			$response = reservarTareaContinua ($enlace,$id_tarea,$deporte, $pista, $fechaI, $fechaF, $reservaSemana,$nbt );
+			if ($response) {
+				echo '_OK_6_'.$response.'_';
 			} else {
-				echo '_ERROR_6_';
+				echo '_ERROR_6_'.$response.'_';
 			}
 		} else if ($accion == 'finSesion'){
 			$estado = $_POST['estado'];

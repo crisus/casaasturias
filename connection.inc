@@ -619,6 +619,47 @@
 		}
 		return $consulta;
 	}
+	
+	function reservarTareaContinua ($enlace,$tarea,$deporte, $pista, $fechaI, $fechaF, $reservaSemana, $nbt ) {
+		$fechaI = strtotime($fechaI);
+		$fechaF = strtotime($fechaF);
+		$hoy = date ('d-m-Y');
+		$hoy = strtotime($hoy);
+		
+		$saltoSemanal = 7*24*60*60; // dias semana en segundos
+		$diasReserva =  explode('_', $reservaSemana );
+		$length = count($diasReserva);
+		
+		if ( $fechaI == $hoy ) {
+			$fecha = $fechaI;
+		} else if ( $fechaI > $hoy ) {
+			$salto = $fechaI - $hoy;
+			$fecha = $fechaI+$salto;
+		} else {
+			return false;
+		}
+		$correcto = true;
+		
+		//return 'dia fecha: '.date("d",$fechaI);
+		$i=1; // El primer elemento ya dispone de reserva
+		while ( ($fecha < $fechaF ) && ($correcto) ) {
+			$fechaOperacion = $fecha;
+			// repeticiones internas a la semana
+			while ( ($i < $length) && ($correcto) ) {
+				if ($i==0) {
+					$salto=0;
+				} else {
+					$salto = $diasReserva[$i]*24*60*60;
+				}
+				$fechaOperacion = date("d-m-Y" ,($fecha+$salto) );
+				$correcto = reservarTarea ($enlace,$tarea,$deporte, $pista, $fechaOperacion, $nbt );
+				$i++;
+			}
+			$fecha = $fecha+$saltoSemanal;
+			$i=0;
+		}
+		return $correcto;
+	}
 
 	function eliminarReserva ($enlace, $deporte, $pista, $fecha, $nbt ) {
 		$datetime = new DateTime($fecha);
