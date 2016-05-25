@@ -52,14 +52,11 @@
 		<nav id="menu">
 			<div class="identificacion">
 				USUARIO:
-<?php
-
-	if ($_SESSION['tipoUsuario'] == 1) {
-		echo 'SOCIO '.$_SESSION['nUsuario'];
-	} else if ($_SESSION['tipoUsuario'] == 2) {
-		echo 'EMPLEADO '.$_SESSION['nUsuario'];
-	}
-?>
+<?php if ($_SESSION['tipoUsuario'] == 1) { ?>
+			SOCIO <span id='usuarioRegistrado'><?php echo $_SESSION['nUsuario'];?></span>
+<?php	} else if ($_SESSION['tipoUsuario'] == 2) { ?>
+			EMPLEADO <span id='usuarioRegistrado'><?php echo $_SESSION['nUsuario'];?></span>
+<?php	} ?>
 			</div>
 			<div class="menu-zona">
 				<ul class = "lista_menu">
@@ -186,7 +183,7 @@
 						$hayFirmada = true; // solo es utilizado en caso de existir consulta2
 						$consulta->data_seek($t);
 						$reserva = $consulta->fetch_row(); ?>
-						<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
+						<input class="a nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
 <?php						if ($reserva[0] == $_SESSION['nUsuario'])
 						{
 							$posicionFirma = $j;
@@ -216,9 +213,9 @@
 						}
 						if (!$yaFirmado) {
 							if ($puedeConfirmar == 1) {?>
-								<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
+								<input class="a  nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>"
 <?php						} else { ?>
-								<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx"
+								<input class="a  nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx"
 <?php						}
 							if ($reserva[0] == $_SESSION['nUsuario']) {
 								$posicionFirma = $j;
@@ -232,7 +229,7 @@
 <?php						}?>
 <?php					} else { $j--;}
 					} else { ?>
-						<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)"
+						<input class="a nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)"
 <?php 					if ( ((($i-1)*$segBloque)+$principio <= $segActual) && ($incrementoFecha ==0) )
 						{ ?>
 							disabled>
@@ -242,10 +239,10 @@
 					}
 				} // fin for
 			} else {?>
-				<input class="a" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>" disabled>
+				<input class="a nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="<?php echo $reserva[0]; ?>" disabled>
 <?php		}
 			if ($_SESSION['tipoUsuario'] == 2) {?>
-				<input class="a" class="select_tareas" type="text" disabled>
+				<input class="a nUsuario_<?php echo $i;?>" class="select_tareas" type="text" disabled>
 <?php		}?>
 							</th>
 							<th class="nombre">

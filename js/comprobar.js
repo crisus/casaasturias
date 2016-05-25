@@ -103,7 +103,12 @@ function comprobar(id, deporte, pista, nbTiempo, nbtActual) {
 	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
 		entrada.style.color='green';
 		//alert("aqui");
-		reservar(id, deporte, pista, nbTiempo, nbtActual);
+		if (estasEnLaReserva(id) ) {
+			reservar(id, deporte, pista, nbTiempo, nbtActual);
+		} else {
+			alert('DEBES ESTAR EN LA RESERVA\n PARA RESERVAR A OTRO SOCIO');
+			entrada.style.color='red';
+		}
 	} else if (entrada.value == "") {
 		eliminarReserva(id, deporte, pista, nbTiempo);
 	} else {
@@ -230,4 +235,21 @@ function reloadPage() {
 	}
 }
 
+function estasEnLaReserva(id) {
+	//nUsuario_<?php echo $i.'_'.$j; ?>
+	var data = id.split('_');
+	var usuariosReserva = document.getElementsByClassName('nUsuario_'+data[1]);
+	var idUser='usuarioRegistrado';
+	var usuarioRegistrado = document.getElementById(idUser);
+	//alert ('user|'+usuarioRegistrado.innerHTML+'| reserva|'+document.getElementById(id).value+'|');
+	if (document.getElementById(id).value !== usuarioRegistrado.innerHTML) {
+		for (var i=0; i < usuariosReserva.length; i++) {
+			if 	(usuariosReserva[i].value === usuarioRegistrado.innerHTML) {
+				return true;
+			}
+		}
+		return false;
+	}
+	return true;
+}
 setInterval(function(){reloadPage(); },60000);
