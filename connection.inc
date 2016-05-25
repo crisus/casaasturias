@@ -639,15 +639,15 @@
 		$fechaLunes = $fechaI-($diaInicio*24*60*60);
 		$fecha = $fechaLunes;
 		
-		//return 'dia fecha: '.date("d",$fechaI);
-		$i=1; // El primer elemento ya dispone de reserva
+		//return 'dia fecha: '.date("d-m-Y",$fecha);
+		$i=0; // El primer elemento ya dispone de reserva
 		while ( ($fecha <= $fechaF ) && ($correcto) ) {
 			// repeticiones internas a la semana
 			while ( ($i < $length) && ($correcto) ) {
 				$salto = ($diasReserva[$i])*24*60*60; // convertir posicion en salto desde lunes
 				
 				$fechaOperacion = $fecha+$salto;
-				if ( ($fechaOperacion >= $fechaI ) && ($fechaOperacion <= $fechaF) ) {
+				if ( ($fechaOperacion!=$hoy) && ($fechaOperacion >= $fechaI ) && ($fechaOperacion <= $fechaF) ) {
 					$correcto = reservarTarea ($enlace,$tarea,$deporte, $pista, date("d-m-Y" ,$fechaOperacion), $nbt );
 				}
 				$i++;
