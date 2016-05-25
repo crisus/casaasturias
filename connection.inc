@@ -336,6 +336,8 @@
 	}
 
 	function reservar ($enlace, $usuario ,$deporte, $pista, $nbTiempo, $nbtActual, $fecha ) {
+		eliminarRegistros ($enlace, 50);
+		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
 
@@ -361,6 +363,7 @@
 				return "_ERROR_1_";
 			}
 		} 
+		
 		return "_ERROR_2_";
 	}
 	
@@ -521,6 +524,8 @@
 	}
 
 	function firmar ($enlace, $deporte, $pista, $fecha, $nbt ) {
+		eliminarRegistros ($enlace, 50);
+		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
 
@@ -544,6 +549,7 @@
 		// Se añade la reserva a la tabla de firmadas
 		$peticion = "INSERT INTO `programador`.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('".$_SESSION['nUsuario']."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbt."');";
 		$consulta = $enlace->query($peticion);
+		
 		//echo $peticion;
 		return '_OK_1_';
 	}
@@ -595,6 +601,8 @@
 	}
 
 	function reservarTarea ($enlace,$tarea,$deporte, $pista, $fecha, $nbt ) {
+		eliminarRegistros ($enlace, 50);
+		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
 		
@@ -656,6 +664,28 @@
 			$i=0;
 		}
 		return $correcto;
+	}
+	
+	function eliminarRegistros ($enlace, $tiempo) {
+		//DELETE FROM programador.reservas WHERE reservas.fecha <= '2016-04-05';
+	
+		$hoy = date('d-m-Y');
+		$hoy = strtotime($hoy);
+		// pre: $tiempo ha de estar en dias
+		$fechaLimite = $hoy - ($tiempo*24*60*60);
+		//echo 'hoy: '.date('Y-m-d',$hoy).' limite: '.date('Y-m-d',$fechaLimite);
+		
+		$peticion = 'DELETE FROM `programador`.`reservas` WHERE `reservas`.`fecha` <= \''.date('Y-m-d',$fechaLimite).'\';';
+		$consulta = $enlace->query($peticion);
+		//echo $peticion;
+		if (!$consulta) return false;
+		
+		$peticion = 'DELETE FROM `programador`.`firmadas` WHERE `firmadas`.`fecha` <= \''.date('Y-m-d',$fechaLimite).'\';';
+		$consulta = $enlace->query($peticion);
+		
+		//echo $peticion;
+		if (!$consulta) return false;
+		return true;
 	}
 
 	function eliminarReserva ($enlace, $deporte, $pista, $fecha, $nbt ) {
