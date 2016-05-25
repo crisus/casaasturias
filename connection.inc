@@ -336,7 +336,7 @@
 	}
 
 	function reservar ($enlace, $usuario ,$deporte, $pista, $nbTiempo, $nbtActual, $fecha ) {
-		eliminarRegistros ($enlace, 50);
+		eliminarRegistros ($enlace, 50, true);
 		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
@@ -524,7 +524,7 @@
 	}
 
 	function firmar ($enlace, $deporte, $pista, $fecha, $nbt ) {
-		eliminarRegistros ($enlace, 50);
+		eliminarRegistros ($enlace, 50, true);
 		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
@@ -601,7 +601,7 @@
 	}
 
 	function reservarTarea ($enlace,$tarea,$deporte, $pista, $fecha, $nbt ) {
-		eliminarRegistros ($enlace, 50);
+		eliminarRegistros ($enlace, 50, true);
 		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
@@ -666,7 +666,16 @@
 		return $correcto;
 	}
 	
-	function eliminarRegistros ($enlace, $tiempo) {
+	function eliminarRegistros ($enlace,$tiempoImpuesto,$aplicarTiempo) {
+		$caracteristicas = getCaracteristicas($enlace);
+		$caracteristicas->data_seek(0);
+		$caracteristica = $caracteristicas->fetch_row();
+		if ($aplicarTiempo) {
+			$tiempo = $caracteristica[6];
+		} else {
+			$tiempo = $tiempoImpuesto;
+		}
+	
 		//DELETE FROM programador.reservas WHERE reservas.fecha <= '2016-04-05';
 	
 		$hoy = date('d-m-Y');
