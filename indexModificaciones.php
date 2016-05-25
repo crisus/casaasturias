@@ -91,6 +91,7 @@
 							<th class="nom_t">Antes</th>
 							<th class="nom_t">Despues</th>
 							<th class="nom_t">Dias</th>
+							<th class="nom_t">Conservar datos</th>
 						</tr>
 						<tr class="campos_caracteristicas">
 							<th>
@@ -107,6 +108,9 @@
 							</th>
 							<th>
 								<input type="text" class="caracteristica" id="dias" value="<?php echo $caracteristica[5]; ?>" onchange="validar(this.id)">
+							</th>
+							<th>
+								<input type="text" class="caracteristica" id="periodo_guarda" value="<?php echo $caracteristica[6]; ?>" onchange="validar(this.id)">
 							</th>
 							<th >
 								<input class="actualizar" type="button" id="actualizar_caracteristicas" value="(o)" onclick="modificarCaracteristicas()">

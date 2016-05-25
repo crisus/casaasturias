@@ -222,8 +222,8 @@
 		return $resultado;
 	}
 
-	function setCaracteristicas ($enlace, $horaInicial, $horaFinal, $margenTiempoAntesR, $margenTiempoDespuesR, $maxDiasReservas){
-		$peticion = "UPDATE `programador`.`caracteristicas` SET `hora_apertura` = '$horaInicial', `hora_cierre` = '$horaFinal', `minutos_antes_reserva` = '$margenTiempoAntesR', `minutos_despues_reserva` = '$margenTiempoDespuesR', `dias_para_reservar` = '$maxDiasReservas' WHERE `caracteristicas`.`id` =1;";
+	function setCaracteristicas ($enlace, $horaInicial, $horaFinal, $margenTiempoAntesR, $margenTiempoDespuesR, $maxDiasReservas, $periodoConsevacion){
+		$peticion = "UPDATE `programador`.`caracteristicas` SET `hora_apertura` = '$horaInicial', `hora_cierre` = '$horaFinal', `minutos_antes_reserva` = '$margenTiempoAntesR', `minutos_despues_reserva` = '$margenTiempoDespuesR', `dias_para_reservar` = '$maxDiasReservas', `periodo_conservacion_datos` = '$periodoConsevacion' WHERE `caracteristicas`.`id` =1;";
 		$resultado = $enlace->query($peticion);
 		return "_OK_";
 	}

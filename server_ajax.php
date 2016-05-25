@@ -121,7 +121,8 @@
 			$margenTiempoAntesR = $_POST['dat2'];
 			$margenTiempoDespuesR = $_POST['dat3'];
 			$maxDiasReservas = $_POST['dat4'];
-			echo setCaracteristicas($enlace,$horaInicial,$horaFinal,$margenTiempoAntesR,$margenTiempoDespuesR,$maxDiasReservas);
+			$periodoConsevacionDatos = $_POST['dat5'];
+			echo setCaracteristicas($enlace,$horaInicial,$horaFinal,$margenTiempoAntesR,$margenTiempoDespuesR,$maxDiasReservas,$periodoConsevacionDatos);
 		} else if ($accion == 'finSesion'){
 			$estado = $_POST['estado'];
 			// mantener sesion
