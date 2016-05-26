@@ -240,9 +240,12 @@ function estasEnLaReserva(id) {
 	var data = id.split('_');
 	var usuariosReserva = document.getElementsByClassName('nUsuario_'+data[1]);
 	var idUser='usuarioRegistrado';
+	var idTipo='tipoUsuario';
 	var usuarioRegistrado = document.getElementById(idUser);
+	var tipoUsuario = document.getElementById(idTipo);
 	//alert ('user|'+usuarioRegistrado.innerHTML+'| reserva|'+document.getElementById(id).value+'|');
-	if (document.getElementById(id).value !== usuarioRegistrado.innerHTML) {
+	//alert ('tipo: '+tipoUsuario.innerHTML);
+	if ( (tipoUsuario.innerHTML === 'SOCIO') && (document.getElementById(id).value !== usuarioRegistrado.innerHTML) ) {
 		for (var i=0; i < usuariosReserva.length; i++) {
 			if 	(usuariosReserva[i].value === usuarioRegistrado.innerHTML) {
 				return true;

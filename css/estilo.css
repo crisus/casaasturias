@@ -9,6 +9,9 @@ body {
   width: 100%;
   color:#FFF;
   float: left;
+  position: absolute;
+	top: 0;
+	left: 0;
 }
 #cabecera .logo {
   float: left;
@@ -38,6 +41,9 @@ body {
   padding-left: 2%;
   padding-right: 0.5%;
   overflow: hidden;
+	position: absolute;
+	top: 13ex;
+	left:0;
 }
 #menu .identificacion {
   width: 50%;
@@ -58,6 +64,19 @@ body {
   float:right;
   background-color: #27A;
 }
+
+#contenido {
+	width: 100%;
+
+	top: 16ex;
+	left: 0;
+
+	position: fixed;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 100%;
+}
+
 .flecha{
   width: 9em;
   float: left;

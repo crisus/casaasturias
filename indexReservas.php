@@ -53,9 +53,9 @@
 			<div class="identificacion">
 				USUARIO:
 <?php if ($_SESSION['tipoUsuario'] == 1) { ?>
-			SOCIO <span id='usuarioRegistrado'><?php echo $_SESSION['nUsuario'];?></span>
+			<span id="tipoUsuario">SOCIO</span> <span id='usuarioRegistrado'><?php echo $_SESSION['nUsuario'];?></span>
 <?php	} else if ($_SESSION['tipoUsuario'] == 2) { ?>
-			EMPLEADO <span id='usuarioRegistrado'><?php echo $_SESSION['nUsuario'];?></span>
+			<span id="tipoUsuario">EMPLEADO</span> <span id='usuarioRegistrado'><?php echo $_SESSION['nUsuario'];?></span>
 <?php	} ?>
 			</div>
 			<div class="menu-zona">
