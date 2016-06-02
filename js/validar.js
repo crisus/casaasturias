@@ -12,16 +12,54 @@ function comprobar() {
 	}
 }
 
+function key(){
+	var mensaje="accion=gamal";
+	if (comprobar() ){
+		solicitarKey(mensaje);
+	} else {
+		alert ('FORMATO DE NUMERO\n DE SOCIO ERRONEO');
+	}
+}
+function solicitarKey(mensaje) {
+	var ruta='/casaasturias/';
+	var xmlhttp;
+	var salida="";
+	if (window.XMLHttpRequest) { // code ie7+,
+		xmlhttp = new XMLHttpRequest();
+	} else { // code ie6-
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange= function() {
+		if ( (xmlhttp.readyState==4) && (xmlhttp.status==200) ) {
+			salida = xmlhttp.responseText;
+			getkey(salida);
+		}
+	};
+	//alert ("enviando ,"+mensaje+", ");
+	xmlhttp.open("POST",ruta+"encriptador.php",true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send(mensaje);
+}
+
+function getkey(salida) {
+    //alert("respuesta servidor: "+salida);
+	var er = salida.split("_");
+	//alert ("_"+recibido+"_");
+	if (er[1] == "ERROR") {
+		alert ('ERROR DE SERVIDOR\n'+er[2]);
+	} if (er[1] == "OK"){
+		alert('encriptando clave');
+		validar();
+	}
+}
+
 function validar() {
 	var entrada = document.getElementById('nUsuario');
 	var con = document.getElementById('pass');
 	var mensaje = "";
-	if (comprobar() ) {
-		mensaje="nUsuario="+entrada.value+"&pass="+con.value;
-		comunicacion(mensaje);
-	} else {
-		alert ('FORMATO DE NUMERO\n DE SOCIO ERRONEO');
-	}
+
+	mensaje="nUsuario="+entrada.value+"&pass="+con.value;
+	comunicacion(mensaje);
 }
 
 function comunicacion(mensaje) {
