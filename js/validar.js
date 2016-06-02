@@ -48,7 +48,7 @@ function getkey(salida) {
 	if (er[1] == "ERROR") {
 		alert ('ERROR DE SERVIDOR\n'+er[2]);
 	} if (er[1] == "OK"){
-		alert('encriptando clave');
+		alert('encriptando clave '+er[2]+' privada: '+er[3]);
 		validar();
 	}
 }
