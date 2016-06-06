@@ -44,11 +44,19 @@ function solicitarKey(mensaje) {
 function getkey(salida) {
     //alert("respuesta servidor: "+salida);
 	var er = salida.split("_");
-	//alert ("_"+recibido+"_");
+	//alert ("_"+salida+"_");
 	if (er[1] == "ERROR") {
 		alert ('ERROR DE SERVIDOR\n'+er[2]);
-	} if (er[1] == "OK"){
+	} else if (er[1] == "OK"){
 		alert('encriptando clave '+er[2]+' privada: '+er[3]);
+		var pgk = er[2].split(':');
+		// p, g, k, a
+		//pruebaCifrado(pgk[0],pgk[1],pgk[2],er[3]);
+		var data= cifrar('ABCDEFGHIJKLMNÑOPQRS',pgk[0],pgk[1],pgk[2]);
+		enviarMensajeCifrado(data.y1,data.y2);
+
+	} else if (er[1] == "OK2"){
+		alert('descifrado: '+er[2]);
 		validar();
 	}
 }

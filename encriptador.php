@@ -6,7 +6,14 @@
 		if ( $accion == 'gamal') {
 			getKey();
 			$clavePublica = $GLOBALS['key_public'];
-			echo "_OK_g:".$clavePublica[0]." p:".$clavePublica[1]." k:".$clavePublica[2]."_".$GLOBALS['key_private']."_";
+			// p:g:k
+			echo "_OK_".$clavePublica[0].":".$clavePublica[1].":".$clavePublica[2]."_".$GLOBALS['key_private']."_";
+		} else if ( $accion == 'desencriptar') {
+			$y1 = $_POST['y1'];
+			$y2 = explode(',', $_POST['y2'] );
+			//echo "_OK2_descifrarPHP".$y1.":".$y2[2];
+			$palabra = descifrar($y1, $y2);
+			echo "_OK2_".$palabra;
 		} else {
 			echo "_ERROR_000_";
 		}
@@ -14,17 +21,21 @@
 
 	function getKey() {
 		$p = generarPrimos(100);
-		$a = gmp_random_range(0,$p-1);
-		$g = gmp_random_range(0,$p-1);
+		$a = gmp_random_range(2,$p-3);
+		$g = gmp_random_range(2,$p-3);
+		//$p=103;$a=38;$g=19;
 		$k = ExpModP($g, $a, $p);
-		$GLOBALS['key_public'] = [$g,$p,$k];
+		//$k = gmp_powm($g,$a,$p);
+		$GLOBALS['key_public'] = [$p,$g,$k];
 		$GLOBALS['key_private'] = $a;
+		$_SESSION['key_public'] = $GLOBALS['key_public'];
+		$_SESSION['key_private'] = $GLOBALS['key_private'];
 	}
 
 	function ExpModP($g,$a,$p){
-		$k=$g;
-		for ($i=0; $i<$p; $i++) {
-			$k = ($k * $k)%$p;
+		$k=1;
+		for ($i=0; $i<$a; $i++) {
+			$k = ($k*$g)%$p;
 		}
 		return $k;
 	}
