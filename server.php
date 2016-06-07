@@ -2,14 +2,26 @@
 	ini_set("session.cookie_lifetime","72000");
 	ini_set("session.gc_maxlifetime","72000");
 	//session_start();
-	include_once "sesiones.inc";
+	include_once "cifrar.php";
 	include_once "respuestasWeb.inc";
 	include_once "connection.inc";
+
 	$ruta = '/casaasturias/';
 	// identificar socios, y devolver el enlace de acceso
+	//echo '_OK3_'.$_SESSION['key_public'][0].':'.$_SESSION['key_public'][1].':'.$_SESSION['key_public'][2].':'.$_SESSION['key_private'];
 	if ($_POST) {
 		$numeroUsuario = $_POST['nUsuario'];
-		$clave = $_POST['pass'];
+		$y1 = $_POST['y1'];
+		if ($_POST['y2'] !== '') {
+			$y2 = explode(',', $_POST['y2'] );
+			$clave = descifrar($y1, $y2, $_SESSION['key_public'], $_SESSION['key_private']);
+		} else {
+			$clave = '';
+		}
+
+		//echo '_OK2_'.$clave.' '.$_SESSION['key_private'];
+		//echo "_OK2_".$palabra;
+		//$clave = $_POST['pass'];
 		//echo 'CONECTANDO';
         $enlace = enlazarBBDD();
 		//echo 'CONECTADO';

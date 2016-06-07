@@ -48,25 +48,28 @@ function getkey(salida) {
 	if (er[1] == "ERROR") {
 		alert ('ERROR DE SERVIDOR\n'+er[2]);
 	} else if (er[1] == "OK"){
-		alert('encriptando clave '+er[2]+' privada: '+er[3]);
+		//alert('encriptando clave '+er[2]+' privada: '+er[3]);
 		var pgk = er[2].split(':');
-		// p, g, k, a
-		//pruebaCifrado(pgk[0],pgk[1],pgk[2],er[3]);
-		var data= cifrar('ABCDEFGHIJKLMNÑOPQRS',pgk[0],pgk[1],pgk[2]);
-		enviarMensajeCifrado(data.y1,data.y2);
-
+		validar(pgk);
 	} else if (er[1] == "OK2"){
-		alert('descifrado: '+er[2]);
-		validar();
+		alert('Modo Prueba');
+		//alert('descifrado: '+er[2]);
 	}
 }
 
-function validar() {
+function validar(pgk) {
 	var entrada = document.getElementById('nUsuario');
 	var con = document.getElementById('pass');
-	var mensaje = "";
 
-	mensaje="nUsuario="+entrada.value+"&pass="+con.value;
+	// p, g, k, a
+	//pruebaCifrado(pgk[0],pgk[1],pgk[2],er[3]);
+	//alert(con.value);
+	var data= cifrar(con.value,pgk[0],pgk[1],pgk[2]);
+	//enviarMensajeCifrado(data.y1,data.y2);
+
+	var mensaje = "";
+	mensaje="nUsuario="+entrada.value+"&y1="+data.y1+"&y2="+data.y2;
+	//alert('enviando '+mensaje);
 	comunicacion(mensaje);
 }
 
@@ -95,10 +98,11 @@ function recibir(salida) {
 	var ruta='/casaasturias/';
     //alert("respuesta servidor: "+salida);
 	var er = salida.split("_");
-	//alert ("_"+recibido+"_");
+	//alert ("_"+salida+"_");
 	if (er[1] == "ERROR") {
 		alert ('ERROR DE USUARIO POR\n'+er[2]);
-	} if (er[1] == "OK"){
+		location.reload(true);
+	} else if (er[1] == "OK"){
 		if (er[2]=='11') {
 			alert("COMPUTADOR ADECUADO A LA\nCONFIRMACION DE USO DE PISTAS");
 			location.reload(true);
@@ -106,5 +110,8 @@ function recibir(salida) {
 			//alert (ruta+'server.php?inicio='+er[3]);
 			location.href=ruta+'server.php?inicio='+er[3];
 		}
+	} else if (er[1] == "OK2"){
+		alert("Modo Prueba");
+		//alert('clave descifrada: '+er[2]);
 	}
 }

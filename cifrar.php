@@ -1,11 +1,11 @@
 <?php
-	session_start();
+	include_once "sesiones.inc";
 	$GLOBALS['Alf'] = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,Ñ,O,P,Q,R,S,T,U,V,W,X,Y,Z, ,.,:,-,_,$,%,0,1,2,3,4,5,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,ñ,o,p,q,r,s,t,u,v,w,x,y,z";
 
 	function generarPrimos($base) {
 		$primo = 2;
 		// random_int para aleatoriedad segura
-		$seleccionPrimo = mt_rand (0, 10);
+		$seleccionPrimo = mt_rand (0, 100);
 
 		for ($i=0; $i < $seleccionPrimo; $i++) {
 			$primo = gmp_nextprime ($base );
@@ -20,10 +20,10 @@
 	}
 
 	// y1 numero g^b, y2 array de mensaje
-	function descifrar($y1, $y2) {
+	function descifrar($y1, $y2, $pgk, $a) {
 		//echo "_OK2_hola1";
-		$pgk = $_SESSION['key_public'];
-		$a = $_SESSION['key_private'];
+		//$pgk = $_SESSION['key_public'];
+		//$a = $_SESSION['key_private'];
 
 		//echo "_OK2_hola2";
 
@@ -37,7 +37,11 @@
 			//m[i] = m[i]%p;
 			$res[$i] = ($y1X * $y2[$i] )%$pgk[0];
 		}
-		return numletras($res);
+		if ($length > 0) {
+			return numletras($res);
+		} else {
+			return "";
+		}
 	}
 
 	// $numeros array de numeros representativos de caracteres
