@@ -22,7 +22,7 @@
 	}
 
 	function getKey() {
-		$p = generarPrimos(10000);
+		$p = generarPrimos(1000);
 		$a = gmp_random_range(0,$p-3)+2;
 		$g = gmp_random_range(0,$p-3)+2;
 		//$p=103;$a=38;$g=19;

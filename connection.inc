@@ -7,7 +7,7 @@
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
-        $port="3306";
+        $port="33060";
         $socket="MySQL57";
 		$enlace = new MySQLi($host,$user,$passBBDD,$nombreBBDD,$port);
 		if (!$enlace) {
@@ -25,7 +25,7 @@
 		$user="reservas";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
-        $port="3306";
+        $port="33060";
         $socket="MySQL57";
 
 		$backup_file = $nombreBBDD.date("Y-m-d-H-i-s").".sql";

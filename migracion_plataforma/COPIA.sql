@@ -15,6 +15,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+CREATE DATABASE IF NOT EXITS `programador`;
+
 --
 -- Table structure for table `actividades`
 --
@@ -53,6 +55,7 @@ CREATE TABLE `programador`.`caracteristicas` (
   `minutos_despues_reserva` int(2) NOT NULL,
   `id` int(11) NOT NULL,
   `dias_para_reservar` int(11) NOT NULL,
+    `periodo_conservacion_datos` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -63,7 +66,7 @@ CREATE TABLE `programador`.`caracteristicas` (
 
 LOCK TABLES `programador`.`caracteristicas` WRITE;
 /*!40000 ALTER TABLE `programador`.`caracteristicas` DISABLE KEYS */;
-INSERT INTO `programador`.`caracteristicas` VALUES ('9:00','23:30',5,10,1,4);
+INSERT INTO `programador`.`caracteristicas` VALUES ('9:00','23:30',5,10,1,4,100);
 /*!40000 ALTER TABLE `programador`.`caracteristicas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,9 +92,6 @@ CREATE TABLE `programador`.`observaciones` (
   ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `observaciones`
---
 
 --
 -- Table structure for table `deportes`
@@ -131,19 +131,10 @@ CREATE TABLE `programador`.`firmadas` (
   `fecha` date NOT NULL,
   `deporte` varchar(45) NOT NULL,
   `np` int(2) NOT NULL,
-  `nbTiempo` int(2) NOT NULL
+  `nbTiempo` int(2) NOT NULL,
+    `id_tareas` INT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `firmadas`
---
-
-LOCK TABLES `programador`.`firmadas` WRITE;
-/*!40000 ALTER TABLE `programador`.`firmadas` DISABLE KEYS */;
-INSERT INTO `programador`.`firmadas` VALUES ('PERSONAL','','2016-01-25','tenis',3,0),('00002/00','adolfo','2016-01-25','tenis',3,5),('00004/00','isabel','2016-01-25','tenis',3,6),('00004/00','isabel','2016-01-26','padel',4,11),('00004/00','isabel','2016-01-26','padel',4,13),('00004/00','isabel','2016-01-26','padel',4,13),('00003/00','LUCIANO','2016-01-26','padel',4,11),('00003/00','LUCIANO','2016-01-26','tenis',2,13),('00003/00','LUCIANO','2016-01-26','tenis',1,13),('PERSONAL','CURSO TENIS NORTE','2016-01-27','tenis',4,1),('PERSONAL','CURSO TENIS NORTE','2016-01-27','tenis',4,2),('00002/00','adolfo','2016-01-27','tenis',1,5),('00001/00','maite','2016-01-27','tenis',4,6),('00002/00','adolfo','2016-01-27','tenis',4,7),('00002/00','adolfo','2016-01-27','tenis',4,8),('00004/00','isabel','2016-01-27','padel',4,8),('00001/00','maite','2016-01-27','padel',3,5),('00001/01','belen','2016-01-27','fronton',1,5),('00003/00','LUCIANO','2016-01-27','fronton',1,5),('00005/00','veronica','2016-01-27','tenis',2,10),('00001/00','maite','2016-01-27','tenis',4,10),('PERSONAL','CURSO TENIS NORTE','2016-01-27','padel',3,8),('00002/00','adolfo','2016-01-27','padel',4,11),('00002/00','adolfo','2016-01-27','tenis',2,12),('00004/00','isabel','2016-01-27','tenis',1,12),('00020/00','ANA','2016-01-28','tenis',2,4),('PERSONAL','CURSO TENIS NORTE','2016-01-28','padel',2,5),('PERSONAL','CURSO TENIS NORTE','2016-01-28','padel',2,6),('00002/00','adolfo','2016-01-28','tenis',1,12),('00002/00','adolfo','2016-01-28','tenis',3,14),('PERSONAL','CURSO PADEL 5K','2016-01-29','padel',3,2),('PERSONAL','CURSO PADEL 5K','2016-01-29','padel',3,3),('00006/00','carlos','2016-01-30','tenis',2,6),('00005/00','veronica','2016-01-30','padel',2,6),('00001/00','maite','2016-01-30','padel',1,4),('','','2016-01-30','padel',1,5),('00001/00','maite','2016-01-30','padel',2,7),('00004/00','isabel','2016-01-30','tenis',3,8),('00002/00','adolfo','2016-01-30','padel',3,6),('00001/00','maite','2016-01-30','padel',3,6),('00007/01','lucia','2016-01-30','tenis',1,11),('00007/01','lucia','2016-01-30','FRONTON',1,6),('00007/01','lucia','2016-01-30','FRONTON',2,11),('00007/01','lucia','2016-01-30','padel',2,8),('00007/00','mario','2016-01-30','padel',4,8),('PERSONAL','REPARACION DE RED','2016-01-30','fronton',2,8),('PERSONAL','TORNEO VETERANOS','2016-01-31','fronton',2,1);
-/*!40000 ALTER TABLE `programador`.`firmadas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `fronton`
@@ -210,19 +201,10 @@ CREATE TABLE `programador`.`reservas` (
   `fecha` date NOT NULL,
   `deporte` varchar(45) NOT NULL,
   `np` int(2) NOT NULL,
-  `nbTiempo` int(2) NOT NULL
+  `nbTiempo` int(2) NOT NULL,
+    `id_tareas` INT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `reservas`
---
-
-LOCK TABLES `programador`.`reservas` WRITE;
-/*!40000 ALTER TABLE `programador`.`reservas` DISABLE KEYS */;
-INSERT INTO `programador`.`reservas` VALUES ('00020/00','ana','2015-12-29','tenis',2,3),('00020/00','ANA','0000-00-00','tenis',0,9),('00020/00','ANA','0000-00-00','tenis',0,9),('00020/00','ANA','0000-00-00','tenis',0,9),('00020/00','ANA','0000-00-00','tenis',0,9),('00020/00','ANA','0000-00-00','tenis',2,8),('00020/00','ANA','2015-12-29','tenis',2,1),('00002/00','adolfo','2015-12-29','tenis',2,1),('00020/00','ANA','2015-12-29','tenis',2,7),('00020/00','ANA','2015-12-29','tenis',2,8),('00002/00','adolfo','2015-12-29','tenis',2,7),('00002/01','laura','2015-12-29','tenis',2,8),('00020/00','ANA','2015-12-29','tenis',2,10),('00002/00','adolfo','2015-12-29','tenis',2,10),('00002/01','laura','2015-12-29','tenis',2,10),('00020/00','ANA','2015-12-29','tenis',2,12),('00002/01','laura','2015-12-29','tenis',2,12),('00020/00','ANA','2015-12-29','tenis',2,13),('00002/00','adolfo','2015-12-29','tenis',2,13),('00002/01','laura','2015-12-29','tenis',2,13),('00002/01','laura','2015-12-29','tenis',2,14),('00020/00','ANA','2015-12-31','tenis',2,10),('00002/00','adolfo','2015-12-31','tenis',2,10),('00002/01','laura','2015-12-31','tenis',2,10),('00002/00','adolfo','2015-12-31','tenis',2,11),('00002/00','adolfo','2015-12-31','padel',2,12),('00002/00','adolfo','2015-12-31','padel',2,13),('00002/00','adolfo','2015-12-31','padel',2,14),('00002/00','adolfo','2015-12-31','futbol',1,1),('00002/00','adolfo','2016-01-02','tenis',3,4),('00002/01','laura','2016-01-02','tenis',3,4),('00002/00','adolfo','2016-01-02','padel',2,3),('00002/01','laura','2016-01-02','padel',2,3),('00020/00','ANA','2016-01-02','tenis',1,13),('00003/00','LUCIANO','2016-01-02','padel',2,14),('00001/00','maite','2016-01-03','padel',2,2),('00001/01','belen','2016-01-03','padel',2,2),('00002/00','adolfo','2016-01-03','padel',2,3),('00003/00','LUCIANO','2016-01-03','padel',2,4),('00003/01','MARIBEL','2016-01-03','padel',2,5),('PERSONAL','2','2016-01-03','padel',2,0),('PERSONAL','2','2016-01-03','padel',2,0),('PERSONAL','1','2016-01-03','padel',2,0),('PERSONAL','2','2016-01-03','padel',2,0),('PERSONAL','2','2016-01-03','padel',2,0),('PERSONAL','1','2016-01-03','padel',2,0),('PERSONAL','2','2016-01-03','padel',2,0),('PERSONAL','2','2016-01-03','padel',2,0),('PERSONAL','LIMPIEZA','2016-01-03','padel',2,13),('00002/00','adolfo','2016-01-13','tenis',2,2),('00001/00','maite','2016-01-14','tenis',2,2),('00002/00','adolfo','2016-01-14','tenis',2,2),('00002/01','laura','2016-01-15','tenis',2,3),('00001/00','maite','2016-01-15','tenis',2,4),('00001/00','maite','2016-01-13','tenis',2,3),('00002/01','laura','2016-01-25','tenis',3,1),('00003/00','LUCIANO','2016-01-25','tenis',3,2),('00003/01','MARIBEL','2016-01-25','tenis',3,3),('00020/00','ANA','2016-01-25','tenis',3,4),('00003/00','LUCIANO','2016-01-26','tenis',3,2),('00002/01','laura','2016-01-25','padel',1,3),('00002/00','adolfo','2016-01-25','padel',1,4),('00003/00','LUCIANO','2016-01-25','padel',1,5),('00003/01','MARIBEL','2016-01-25','padel',1,6),('00004/01','raquel','2016-01-25','tenis',3,7),('00001/01','belen','2016-01-25','tenis',3,8),('00001/00','maite','2016-01-25','tenis',3,6),('00004/00','isabel','2016-01-25','tenis',3,9),('00004/00','isabel','2016-01-25','padel',1,7),('00004/01','raquel','2016-01-25','padel',1,7),('00002/00','adolfo','2016-01-26','tenis',1,1),('00001/00','maite','2016-01-26','tenis',1,2),('00004/00','isabel','2016-01-26','padel',4,3),('00004/01','raquel','2016-01-26','padel',4,3),('00003/00','LUCIANO','2016-01-26','padel',4,4),('00003/01','MARIBEL','2016-01-26','padel',4,4),('00002/00','adolfo','2016-01-26','padel',1,5),('00002/01','laura','2016-01-26','padel',1,5),('00002/00','adolfo','2016-01-26','tenis',1,6),('00002/00','adolfo','2016-01-26','tenis',1,7),('00002/01','laura','2016-01-26','tenis',1,7),('00002/00','adolfo','2016-01-26','tenis',1,8),('00001/00','maite','2016-01-26','padel',4,7),('00001/00','maite','2016-01-26','padel',4,8),('00001/00','maite','2016-01-26','padel',4,9),('00001/01','belen','2016-01-26','padel',4,10),('00001/00','maite','2016-01-26','padel',2,7),('00001/00','maite','2016-01-26','padel',2,8),('00001/00','maite','2016-01-26','padel',1,6),('00001/00','maite','2016-01-26','padel',1,7),('00001/00','maite','2016-01-26','padel',3,7),('00004/01','raquel','2016-01-26','padel',4,9),('00001/00','maite','2016-01-26','padel',4,12),('00003/00','LUCIANO','2016-01-26','padel',4,11),('00003/01','MARIBEL','2016-01-26','padel',4,12),('00004/00','isabel','2016-01-26','tenis',1,12),('00004/01','raquel','2016-01-26','tenis',1,12),('PERSONAL','CURSO TENIS NORTE','2016-01-27','tenis',4,1),('PERSONAL','CURSO TENIS NORTE','2016-01-27','tenis',4,2),('00003/00','LUCIANO','2016-01-27','tenis',4,7),('00001/01','belen','2016-01-27','tenis',4,6),('00003/01','MARIBEL','2016-01-27','tenis',4,7),('00003/00','LUCIANO','2016-01-27','padel',3,6),('00003/01','MARIBEL','2016-01-27','padel',3,6),('00004/00','isabel','2016-01-27','padel',3,7),('00004/01','raquel','2016-01-27','padel',3,7),('00001/00','maite','2016-01-27','fronton',1,5),('00003/01','MARIBEL','2016-01-27','fronton',1,5),('00006/00','carlos','2016-01-27','tenis',2,9),('00006/01','miguel','2016-01-27','tenis',2,9),('00005/01','luis','2016-01-27','tenis',2,10),('00005/00','veronica','2016-01-27','fronton',2,5),('00005/01','luis','2016-01-27','fronton',2,5),('00006/00','carlos','2016-01-27','fronton',2,6),('00006/01','miguel','2016-01-27','fronton',2,6),('PERSONAL','CURSO TENIS NORTE','2016-01-27','padel',3,8),('00001/00','maite','2016-01-28','tenis',1,4),('00001/01','belen','2016-01-28','tenis',1,4),('00002/00','adolfo','2016-01-28','tenis',1,5),('00003/00','LUCIANO','2016-01-28','tenis',1,5),('00004/00','isabel','2016-01-28','tenis',1,6),('00005/00','veronica','2016-01-28','tenis',1,6),('PERSONAL','CURSO TENIS NORTE','2016-01-28','padel',2,5),('PERSONAL','CURSO TENIS NORTE','2016-01-28','padel',2,6),('00002/00','adolfo','2016-01-28','tenis',4,14),('00001/00','maite','2016-01-28','tenis',4,14),('00002/00','adolfo','2016-01-29','tenis',3,1),('00003/00','LUCIANO','2016-01-29','tenis',3,3),('00004/00','isabel','2016-01-29','tenis',3,4),('PERSONAL','CURSO PADEL 5K','2016-01-29','padel',3,2),('PERSONAL','CURSO PADEL 5K','2016-01-29','padel',3,3),('00001/00','maite','2016-01-29','tenis',3,3),('00002/00','adolfo','2016-01-31','FRONTON',2,10),('00001/00','maite','2016-01-31','FRONTON',2,9),('00003/00','LUCIANO','2016-01-31','FRONTON',2,3),('00004/00','isabel','2016-01-30','FRONTON',2,9),('00005/00','veronica','2016-01-30','FRONTON',2,9),('00006/00','carlos','2016-01-30','tenis',2,9),('00005/00','veronica','2016-01-30','padel',2,9),('00004/00','isabel','2016-01-30','padel',2,10),('00001/00','maite','2016-01-31','padel',1,6),('00007/00','mario','2016-01-30','tenis',4,12),('00001/00','maite','2016-01-30','tenis',1,15),('00007/01','lucia','2016-01-30','tenis',1,16),('00007/01','lucia','2016-01-31','tenis',1,6),('00007/00','mario','2016-01-31','tenis',4,5),('00007/01','lucia','2016-01-30','padel',2,10),('PERSONAL','REPARACION DE RED','2016-01-30','fronton',2,8),('PERSONAL','TORNEO VETERANOS','2016-01-31','fronton',2,1);
-/*!40000 ALTER TABLE `programador`.`reservas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tenis`
@@ -272,7 +254,7 @@ CREATE TABLE `programador`.`usuario` (
 
 LOCK TABLES `programador`.`usuario` WRITE;
 /*!40000 ALTER TABLE `programador`.`usuario` DISABLE KEYS */;
-INSERT INTO `programador`.`usuario` VALUES ('00001/00','maite','',1),('00001/01','belen','',1),('00002/00','adolfo','',1),('00002/01','laura','',1),('00003/00','LUCIANO','',1),('00003/01','MARIBEL','',1),('00004/00','isabel','',1),('00004/01','raquel','',1),('00005/00','veronica','',1),('00005/01','luis','',1),('00006/00','carlos','',1),('00006/01','miguel','',1),('00007/00','mario','',1),('00007/01','lucia','',1),('00020/00','ANA','14689',1),('20000/00','Cristian','235711',2);
+INSERT INTO `programador`.`usuario` VALUES ('00001/00','maite','',1),('00001/01','belen','',1),('00002/00','adolfo','',1),('00002/01','laura','',1),('00003/00','LUCIANO','',1),('00003/01','MARIBEL','',1),('00004/00','isabel','',1),('00004/01','raquel','',1),('00005/00','veronica','',1),('00005/01','luis','',1),('00006/00','carlos','',1),('00006/01','miguel','',1),('00007/00','mario','',1),('00007/01','lucia','',1),('00020/00','ANA','14689',1),('20000/00','Cristian','235711',2),('00000/00','ADMIN','010101',3);
 /*!40000 ALTER TABLE `programador`.`usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

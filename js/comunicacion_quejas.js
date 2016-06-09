@@ -1,5 +1,5 @@
 function generarObservacion(entrada) {
-    var data =[];
+    var data = [];
 	data = entrada.split('_');
 	var id = 'observaciones_'+data[4];
 	//alert(id);
@@ -47,7 +47,7 @@ function obtenerQuejas() {
 		}
 	}
 	var mensaje = 'accion=verQuejas&re='+estados[0]+'&ar='+estados[1]+'&nole='+estados[2];
-	alert (mensaje);
+	//alert (mensaje);
 	if (estados[0] || estados[1] || estados[2]) {
 		comunicacion2(mensaje);
 	} else {
