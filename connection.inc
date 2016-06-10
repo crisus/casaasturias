@@ -22,7 +22,7 @@
 	function copiaSeguridad($descargar) {
 		$ruta="/casaasturias/";
 		$host="localhost";
-		$user="reservas";
+		$user="root";
 		$passBBDD="sekret";
 		$nombreBBDD="programador";
         $port="3306";
@@ -354,7 +354,7 @@
 			$resultado = $consulta->fetch_row();
 			$nombre = $resultado[1];
 // INSERT INTO `programador`.`reservas` (`n_socio`, `nombre`, `fecha`, `deporte`, `np`, `nbTiempo`, `confirmacion`) VALUES ('00020/00', 'ana', '2015-12-29', 'tenis', '2', '3', '0');		
-			$peticion = "INSERT INTO `programador`.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('".$usuario."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbTiempo."');";
+			$peticion = "INSERT INTO `programador`.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$usuario."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbTiempo."', '0');";
 			//echo $peticion;
 			$consulta = $enlace->query($peticion);
 			if ($consulta) {
