@@ -29,7 +29,7 @@
         $socket="MySQL57";
 
 		$backup_file = $nombreBBDD.date("Y-m-d-H-i-s").".sql";
-		$command = "mysqldump --opt -h $host  $nombreBBDD -u $user -p$passBBDD --default-character-set=utf8 -r \"./backup/$backup_file\"";
+		$command = "mysqldump --opt -h $host  $nombreBBDD -u $user -p$passBBDD --default-character-set=utf8 > ./backup/$backup_file";
 		system($command,$output);
 		if ($descargar==1) {
 			//$_SERVER['SERVER_NAME'].

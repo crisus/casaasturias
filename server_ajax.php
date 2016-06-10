@@ -28,8 +28,9 @@
 		//echo 'CONECTADO';
 
 		$accion = $_POST['accion'];
-		$objeto = $_POST['objeto'];
+
 		if ($accion == 'anadir') {
+            $objeto = $_POST['objeto'];
 			if ($objeto == 'deporte') {
 				// necesitamos el nombre del deporte
 				$elemento = $_POST['elemento'];
@@ -56,6 +57,7 @@
 				}
 			}
 		} else if ($accion == 'eliminar') {
+            $objeto = $_POST['objeto'];
 			if ($objeto == 'deporte') {
 				// necesitamos el nombre del deporte
 				$elemento = $_POST['elemento'];
