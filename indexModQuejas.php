@@ -78,10 +78,10 @@
 <?php				} else if ( ($quejas[7]==1) && ($quejas[8] == 1) ) { ?>
 						<label class="d1l_25" id="estado_<?php echo $quejas[0];?>">ARCHIVADA Y REALIZADA</label>
 <?php				}?>
-						<label class="d1l_25" id="deporte-observacion_<?php echo $quejas[0];?>"><?php echo strtoupper($quejas[1]);?> </label>
-						<label class="d1l_25" id="pista-deporte_<?php echo $quejas[0];?>">Pista: <?php echo $quejas[2];?> </label>
-						<label class="d1l_50" id="asunto_<?php echo $quejas[0];?>">Asunto: <?php echo $quejas[3];?> </label>
-						<textarea class="d2l_100" id="observacion_<?php echo $quejas[0];?>" rows="4"><?php echo $quejas[4];?> </textarea>
+						<label class="d1l_25" id="deporte-observacion_<?php echo $quejas[0];?>"><?php echo strtoupper($quejas[3]);?> </label>
+						<label class="d1l_25" id="pista-deporte_<?php echo $quejas[0];?>">Pista: <?php echo $quejas[4];?> </label>
+						<label class="d1l_50" id="asunto_<?php echo $quejas[0];?>">Asunto: <?php echo $quejas[5];?> </label>
+						<textarea class="d2l_100" id="observacion_<?php echo $quejas[0];?>" rows="4"><?php echo $quejas[6];?> </textarea>
 					</div>
 					<div class="botones-observacion">
 						<button class="accion" type="button" id="archivar_<?php echo $quejas[0];?>" onclick="archivar(this.id)" >Archivar</button>

@@ -35,7 +35,7 @@
 				if ($datas) {
 					for ($i=0; $i < $datas->num_rows; $i++) {
 					$data = $datas->fetch_row();
-						$resultado = $resultado.$data[0].'_'.$data[1].'_'.$data[2].'_'.$data[3].'_'.$data[4].'_'.$data[7].'_'.$data[8].'_';
+						$resultado = $resultado.$data[0].'_'.$data[3].'_'.$data[4].'_'.$data[5].'_'.$data[6].'_'.$data[7].'_'.$data[8].'_';
 					}
 					echo '_OK_2_'.$resultado.'_';
 				} else {
