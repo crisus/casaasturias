@@ -28,7 +28,7 @@ function enviarObservacion(deporte, pista, bloque) {
 	if ( (queja.length > 0) && (asunto.length > 0) ) {
 		mensaje = mensaje+'&observacion='+queja;
 		mensaje = mensaje+'&asunto='+asunto;
-		alert(mensaje);
+		//alert(mensaje);
 		comunicacion2(mensaje);
 	} else {
 		alert('Campos incompletos');
