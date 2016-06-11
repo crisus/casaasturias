@@ -124,7 +124,7 @@ DROP TABLE IF EXISTS `programador`.`firmadas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `programador`.`firmadas` (
   `n_socio` varchar(8) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
   `deporte` varchar(45) NOT NULL,
   `np` int(2) NOT NULL,
@@ -198,7 +198,7 @@ DROP TABLE IF EXISTS `programador`.`reservas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `programador`.`reservas` (
   `n_socio` varchar(8) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
   `deporte` varchar(45) NOT NULL,
   `np` int(2) NOT NULL,
