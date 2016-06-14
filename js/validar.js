@@ -54,7 +54,9 @@ function getkey(salida) {
 	} else if (er[1] == "OK2"){
 		alert('Modo Prueba');
 		//alert('descifrado: '+er[2]);
-	}
+	} else {
+        alert ('_'+salida+'_');
+    }
 }
 
 function validar(pgk) {

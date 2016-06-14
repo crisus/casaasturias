@@ -1,24 +1,13 @@
-<?php 
+<?php
+	$GLOBALS['ruta'] = '/casaasturias/'; 
 	date_default_timezone_set("Europe/Madrid");
-   
-    $GLOBALS["host"]="localhost";
-    $GLOBALS["nombreBBDD"]="programador";
-    $GLOBALS["user"]="reservas";
-    $GLOBALS["pass_user"]="sekret";
-    $GLOBALS["socket"]="MySQL57";
-    $GLOBALS["port"]="3306";
     
-    
-    /*
-    $GLOBALS['host']='localhost';
-    $GLOBALS['nombreBBDD']='scascawe_programador';
-    $GLOBALS['user']='scascawe_reserva';
-    $GLOBALS['pass_user']='z}L3Q}S9Vu-e';
-    $GLOBALS['socket']='SCASCAWE';
-    $GLOBALS['port']='3306';
- */
-    
-    $GLOBALS['ruta']="/casaasturias/";
+    $GLOBALS['host']="localhost";
+    $GLOBALS['nombreBBDD']="programador";
+    $GLOBALS['user']="reservas";
+    $GLOBALS['pass_user']="sekret";
+    $GLOBALS['socket']="MySQL57";
+    $GLOBALS['port']="3306";
 
 	function enlazarBBDD() {
 		$host=$GLOBALS['host'];
@@ -26,7 +15,7 @@
 		$passBBDD=$GLOBALS['pass_user'];
 		$nombreBBDD=$GLOBALS['nombreBBDD'];
         $port=$GLOBALS['port'];
-        $socket=$GLOBALS['socket'];
+        $socket="MySQL57";
 		$enlace = new MySQLi($host,$user,$passBBDD,$nombreBBDD,$port);
 		if (!$enlace) {
 			echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
@@ -58,12 +47,10 @@
 	}
 
 	function restaurarCopia($n_file, $tipo) {
-		
 		$host=$GLOBALS['host'];
 		$user=$GLOBALS['user'];
 		$passBBDD=$GLOBALS['pass_user'];
 		$nombreBBDD=$GLOBALS['nombreBBDD'];
-        
 		//crear bbdd
 		$datos_de_conexion = mysqli_connect($host, $user, $passBBDD);
 		$consulta = "CREATE DATABASE IF NOT EXITS $nombreBBDD"; 
@@ -127,7 +114,7 @@
 	
 	function getCaracteristicas($enlace) {
 		$tabla = '`caracteristicas`';
-		$nombreBBDD="`".$GLOBALS['nombreBBDD']."`.";
+		$nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tabla;
@@ -142,8 +129,8 @@
 		$tablaDeportes = '`deportes`';
 		$campoRutaIcono = '`deportes`.`iconA`';
 		$campoDeporte = '`deportes`.`deporte`';
-		$nombreBBDD="`".$GLOBALS['nombreBBDD']."`.";
-       
+		$nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
+		
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaDeportes;
 		$consulta = $consulta.'; ';
@@ -153,25 +140,26 @@
 	}
 
 	function getActividades($enlace) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`.";
+        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$tablaActividades = $nombreBBDD.'`actividades`';
 		
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaActividades;
-		$consulta = $consulta.';';
+		$consulta = $consulta.'; ';
 		// SELECT * FROM `actividades`
 		$resultado = $enlace->query($consulta);
 		return $resultado;
 	}
 
 	function getPistas($enlace, $deporte) {
+        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$tablaDeporte = "`".$deporte.'`';
 		$campoNumeroPista = $tablaDeporte.'`np`';
-		$nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
+		
 
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaDeporte;
-		$consulta = $consulta.';';
+		$consulta = $consulta.'; ';
 
 		// SELECT * FROM `programador`.`tenis`;
 		$resultado = $enlace->query($consulta);
@@ -179,9 +167,9 @@
 	}
 
 	function getTareas($enlace) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`.";
+        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$tabla = '`actividades`';
-
+		
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tabla;
 		$consulta = $consulta.'; ';
@@ -193,11 +181,10 @@
 
 	function nuevoDeporte($enlace, $deporte) {
         $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
-    
+        
 		$deporte = strtolower($deporte);
 		//INSERT INTO `programador`.`deportes` (`deporte`, `iconA`, `numero_pistas`) VALUES ('tenis', NULL, NULL);
-		$peticion1 = "INSERT INTO $nombreBBDD.
-        `deportes` (`deporte`,`iconA`, `numero_pistas`) VALUES ('".$deporte."', NULL, NULL);";
+		$peticion1 = "INSERT INTO $nombreBBDD.`deportes` (`deporte`,`iconA`, `numero_pistas`) VALUES ('".$deporte."', NULL, NULL);";
 		//"CREATE TABLE IF NOT EXISTS `programador`.`pistas_tenis` (`np` INT(2) NOT NULL,`tiempo` INT(3),`min` INT(1),`max` INT(1),PRIMARY KEY (`np`)	);";
 		$peticion2 = "CREATE TABLE IF NOT EXISTS $nombreBBDD.`".$deporte."` (`np` INT(2) NOT NULL,`tiempo` INT(3) NULL,`min` INT(2) NULL,`max` INT(2) NULL,PRIMARY KEY (`np`));";
 		$resultado = $enlace->query($peticion1);
@@ -234,31 +221,28 @@
 		}
 		//INSERT INTO `programador`.`tenis` (`np` ,`tiempo` ,`min` ,`max`)VALUES ('1', '60', '2', '6');
 		//INSERT INTO `programador`.`tenis` (`np`, `tiempo`, `min`, `max`) VALUES ('1',NULL, NULL, NULL);
-		$peticion1 = "INSERT INTO $nombreBBDD.`".$deporte."` (`np`,`tiempo`, `min`, `max`) VALUES ('".$numero."',NULL, NULL, NULL);";
+		$peticion1 = "INSERT INTO `programador`.`".$deporte."` (`np`,`tiempo`, `min`, `max`) VALUES ('".$numero."',NULL, NULL, NULL);";
 		$resultado = $enlace->query($peticion1);
 		return $resultado;
 	}
 
 	function eliminarPista($enlace, $deporte, $posicion) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		//DELETE FROM `programador`.`tenis` WHERE `tenis`.`np` = 2
-		$peticion1 = "DELETE FROM $nombreBBDD.`".$deporte."` WHERE `".$deporte."`.`np`=".$posicion.";";
+		$peticion1 = "DELETE FROM `programador`.`".$deporte."` WHERE `".$deporte."`.`np`=".$posicion.";";
 		//echo $peticion1;
 		$resultado = $enlace->query($peticion1);
 		return $resultado;
 	}
 
 	function setCaracteristicas ($enlace, $horaInicial, $horaFinal, $margenTiempoAntesR, $margenTiempoDespuesR, $maxDiasReservas, $periodoConsevacion){
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
-		$peticion = "UPDATE $nombreBBDD.`caracteristicas` SET `hora_apertura` = '$horaInicial', `hora_cierre` = '$horaFinal', `minutos_antes_reserva` = '$margenTiempoAntesR', `minutos_despues_reserva` = '$margenTiempoDespuesR', `dias_para_reservar` = '$maxDiasReservas', `periodo_conservacion_datos` = '$periodoConsevacion' WHERE `caracteristicas`.`id` =1;";
+		$peticion = "UPDATE `programador`.`caracteristicas` SET `hora_apertura` = '$horaInicial', `hora_cierre` = '$horaFinal', `minutos_antes_reserva` = '$margenTiempoAntesR', `minutos_despues_reserva` = '$margenTiempoDespuesR', `dias_para_reservar` = '$maxDiasReservas', `periodo_conservacion_datos` = '$periodoConsevacion' WHERE `caracteristicas`.`id` =1;";
 		$resultado = $enlace->query($peticion);
 		return "_OK_";
 	}
 	
 	function actualizar ($enlace, $deporte, $posicion, $tiempo, $minimo, $maximo) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		// UPDATE `programador`.`futbol` SET `tiempo` = '120', `min` = '22', `max` = '22' WHERE `futbol`.`np` =1;
-		$peticion1 = "UPDATE $nombreBBDD.`".$deporte."` SET `tiempo`='".$tiempo."', `min`='".$minimo."', `max`='".$maximo."'  WHERE `".$deporte."`.`np`=".$posicion.";";
+		$peticion1 = "UPDATE `programador`.`".$deporte."` SET `tiempo`='".$tiempo."', `min`='".$minimo."', `max`='".$maximo."'  WHERE `".$deporte."`.`np`=".$posicion.";";
 		$resultado = $enlace->query($peticion1);
 		return $resultado;
 	}
@@ -267,7 +251,6 @@
 // SELECT * FROM `reservas` WHERE `fecha` = '2015-12-29' AND `deporte` LIKE 'tenis' AND `np` =2 AND `nbTiempo` =3
 
 	function getReservas ($enlace, $deporte,$pista,$fecha,$nbt ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
 		
@@ -286,7 +269,6 @@
 	}
 
 	function getFirmadas ($enlace, $deporte,$pista,$fecha,$nbt ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
 		
@@ -305,7 +287,6 @@
 	}
 
 	function buscarSocio($enlace, $usuario, $date, $deporte) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$hoy = date("Y-m-d");
 		//$date = $datetime->format('Y-m-d');
 		
@@ -346,7 +327,7 @@
 			
 			// reservas, a partir de la hora actual, no puede haber mas reservas, antes si puede haberlas estando sin firmar, en caso de firmadas se evalua en el siguiente bloque
 			$pista = $i+1;
-			$peticion= " SELECT * FROM $nombreBBDD.`reservas` WHERE `reservas`.`n_socio` LIKE '".$usuario."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`=$pista AND `reservas`.`nbTiempo` >= $nbtActual;";
+			$peticion= " SELECT * FROM `programador`.`reservas` WHERE `reservas`.`n_socio` LIKE '".$usuario."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`=$pista AND `reservas`.`nbTiempo` >= $nbtActual;";
 			
 			//echo $peticion;
 			$consulta = $enlace->query($peticion);
@@ -355,7 +336,7 @@
 			}
 			
 			// firmadas, todo el dia no puede contenr otra pista firmada
-			$peticion= " SELECT * FROM $nombreBBDD.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$usuario."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista ;";
+			$peticion= " SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$usuario."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista ;";
 			$consulta = $enlace->query($peticion);
 			if ($consulta->num_rows >= 1) {
 				return true;
@@ -367,7 +348,6 @@
 	}
 
 	function reservar ($enlace, $usuario ,$deporte, $pista, $nbTiempo, $nbtActual, $fecha ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		eliminarRegistros ($enlace, 50, true);
 		
 		$datetime = new DateTime($fecha);
@@ -378,7 +358,7 @@
 			return "_ERROR_3_";
 		}
 		// Si no has reservado, ni jugado, localizamos tu nombre para registrarte la reserva
-		$peticion= " SELECT * FROM $nombreBBDD.`usuario` WHERE `id_usuario` LIKE '".$usuario."';";
+		$peticion= " SELECT * FROM `programador`.`usuario` WHERE `id_usuario` LIKE '".$usuario."';";
 		$consulta = $enlace->query($peticion);
 		
 		if ($consulta->num_rows == 1) {
@@ -386,7 +366,7 @@
 			$resultado = $consulta->fetch_row();
 			$nombre = $resultado[1];
 // INSERT INTO `programador`.`reservas` (`n_socio`, `nombre`, `fecha`, `deporte`, `np`, `nbTiempo`, `confirmacion`) VALUES ('00020/00', 'ana', '2015-12-29', 'tenis', '2', '3', '0');		
-			$peticion = "INSERT INTO $nombreBBDD.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$usuario."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbTiempo."', '0');";
+			$peticion = "INSERT INTO `programador`.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$usuario."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbTiempo."', '0');";
 			//echo $peticion;
 			$consulta = $enlace->query($peticion);
 			if ($consulta) {
@@ -401,14 +381,13 @@
 	
 
 	function setQueja($enlace, $deporte, $pista, $observacion, $asunto) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$hoy = date("Y-m-d");
 		$user = $_SESSION['nUsuario'];
 
 // INSERT INTO `programador`.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`, `archivada`, `realizada`) VALUES ('padel', '2', 'mal estado', 'red alta', '00001/00', '2016/03/05', '0', '0');
 	
 	
-		$peticion = "INSERT INTO $nombreBBDD.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`,   `archivada`, `realizada`) VALUES ('".$deporte."','".$pista."','".$asunto."','".$observacion."', '".$user."' , '".$hoy."',  '0', '0');";
+		$peticion = "INSERT INTO `programador`.`observaciones` (`deporte`, `pista`, `asunto`, `observacion`, `n_socio`, `fecha`,   `archivada`, `realizada`) VALUES ('".$deporte."','".$pista."','".$asunto."','".$observacion."', '".$user."' , '".$hoy."',  '0', '0');";
 		
 		//echo '_'.$peticion.'_';
 		$consulta = $enlace->query($peticion);
@@ -424,10 +403,9 @@
 	* 	Se ha desarrollado en base a la prueba de equivalencia, de datos buscados
 	*/
 	function getQuejas($enlace, $realizada, $archivada, $sinVer) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`.";
 		$hoy = date("Y-m-d");
 	
-		$tablaReservas = $nombreBBDD.'`observaciones`';
+		$tablaReservas = '`programador`.`observaciones`';
 		$consulta = 'SELECT * FROM ';
 		$consulta = $consulta.$tablaReservas;
 		if ($sinVer==0) {
@@ -470,23 +448,21 @@
 	
 	function archivarQueja($enlace, $id) {
 		// UPDATE `programador`.`observaciones` SET `archivada`='1' WHERE `id`='1';
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
-		$peticion = "UPDATE $nombreBBDD.`observaciones` SET `archivada`='1' WHERE `observaciones`.`id`='".$id."';";
+
+		$peticion = "UPDATE `programador`.`observaciones` SET `archivada`='1' WHERE `observaciones`.`id`='".$id."';";
 		$data = $enlace->query($peticion);
 		echo $peticion;
 		return $data;
 	}
 	
 	function agregarQueja($enlace, $id) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
-		$peticion = "UPDATE $nombreBBDD.`observaciones` SET `realizada`='1' WHERE `observaciones`.`id` LIKE '".$id."';";
+		$peticion = "UPDATE `programador`.`observaciones` SET `realizada`='1' WHERE `observaciones`.`id` LIKE '".$id."';";
 		$data = $enlace->query($peticion);
 		echo $peticion;
 		return $data;
 	}
 
-	function bucarSiEstasEnOtroLugar($enlace, $date) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
+	function bucarSiEstasEnOtroLugar($enlace, $date) {	
 		$hoy = date("Y-m-d");
 		//$date = $datetime->format('Y-m-d');
 		
@@ -540,7 +516,7 @@
 				
 				// SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '00002/00' AND `firmadas`.`fecha`='2016-03-20' AND `firmadas`.`deporte` LIKE 'padel' AND `firmadas`.`np`=3 AND `firmadas`.`nbTiempo`=7;
 				
-				$peticion= "SELECT * FROM $nombreBBDD.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista[0] AND `firmadas`.`nbTiempo`=".$nbtActual.";";
+				$peticion= "SELECT * FROM `programador`.`firmadas` WHERE `firmadas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`=$pista[0] AND `firmadas`.`nbTiempo`=".$nbtActual.";";
 				
 				$consulta = $enlace->query($peticion);
 				if ( $consulta->num_rows >= 1 ) {
@@ -560,7 +536,6 @@
 	}
 
 	function firmar ($enlace, $deporte, $pista, $fecha, $nbt ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		eliminarRegistros ($enlace, 50, true);
 		
 		$datetime = new DateTime($fecha);
@@ -572,7 +547,7 @@
 			return "_ERROR_5_";
 		}
 		// Se obtiene el nombre del firmante
-		$peticion= "SELECT * FROM $nombreBBDD.`usuario` WHERE `id_usuario` LIKE '".$_SESSION['nUsuario']."';";
+		$peticion= "SELECT * FROM `programador`.`usuario` WHERE `id_usuario` LIKE '".$_SESSION['nUsuario']."';";
 		$consulta = $enlace->query($peticion);
 		if ($consulta->num_rows == 1) {
 			$consulta->data_seek(0);
@@ -584,7 +559,7 @@
 		eliminarReservaFutura($enlace, $usuario, $date, $deporte);
 		
 		// Se añade la reserva a la tabla de firmadas
-		$peticion = "INSERT INTO $nombreBBDD.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('".$_SESSION['nUsuario']."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbt."');";
+		$peticion = "INSERT INTO `programador`.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`) VALUES ('".$_SESSION['nUsuario']."','".$nombre."','".$date."', '".$deporte."', '".$pista."','".$nbt."');";
 		$consulta = $enlace->query($peticion);
 		
 		//echo $peticion;
@@ -592,7 +567,6 @@
 	}
 
 	function eliminarReservaFutura($enlace, $usuario, $date, $deporte) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$hoy = date("Y-m-d");
 		//$date = $datetime->format('Y-m-d');
 		
@@ -631,7 +605,7 @@
 			//$nbtActual2 = ($segActual-$segInicial) / $segBloque;
 			$pista = $i+1;
 					// Se borra de la tabla de reservas las reservas posteriores a la hora actual de ejecucion
-			$peticion = "DELETE FROM $nombreBBDD.`reservas` WHERE `reservas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`=$pista AND `reservas`.`nbTiempo` > $nbtActual;";
+			$peticion = "DELETE FROM `programador`.`reservas` WHERE `reservas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`=$pista AND `reservas`.`nbTiempo` > $nbtActual;";
 			$consulta = $enlace->query($peticion);
 
 			$i++;
@@ -639,36 +613,34 @@
 	}
 
 	function reservarTarea ($enlace,$tarea,$deporte, $pista, $fecha, $nbt ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		eliminarRegistros ($enlace, 50, true);
 		
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
 		
-		$peticion = "SELECT * from $nombreBBDD.`actividades` WHERE `id`=".$tarea.";";
+		$peticion = "SELECT * from `programador`.`actividades` WHERE `id`=".$tarea.";";
 		$consulta = $enlace->query($peticion);
 		$consulta->data_seek(0);
 		$row = $consulta->fetch_row();
 		$nombreTarea = $row[1];
 
-		$peticion = "DELETE FROM $nombreBBDD.`reservas` WHERE `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`='".$pista."' AND `reservas`.`nbTiempo`='".$nbt."';";
+		$peticion = "DELETE FROM `programador`.`reservas` WHERE `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`='".$pista."' AND `reservas`.`nbTiempo`='".$nbt."';";
 		$consulta = $enlace->query($peticion);
 		
-		$peticion = "DELETE FROM $nombreBBDD.`firmadas` WHERE `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`='".$pista."' AND `firmadas`.`nbTiempo`='".$nbt."';";
+		$peticion = "DELETE FROM `programador`.`firmadas` WHERE `firmadas`.`fecha`='".$date."' AND `firmadas`.`deporte` LIKE '".$deporte."' AND `firmadas`.`np`='".$pista."' AND `firmadas`.`nbTiempo`='".$nbt."';";
 		$consulta = $enlace->query($peticion);
 
 		if ($tarea > 0) {
-			$peticion = "INSERT INTO $nombreBBDD.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$_SESSION['nUsuario']."','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."','".$tarea."');";
+			$peticion = "INSERT INTO `programador`.`reservas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$_SESSION['nUsuario']."','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."','".$tarea."');";
 			$consulta = $enlace->query($peticion);
 
-			$peticion = "INSERT INTO $nombreBBDD.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$_SESSION['nUsuario']."','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."','".$tarea."');";
+			$peticion = "INSERT INTO `programador`.`firmadas` (`n_socio`,`nombre`,`fecha`, `deporte`, `np`, `nbTiempo`, `id_tareas`) VALUES ('".$_SESSION['nUsuario']."','".$nombreTarea."','".$date."', '".$deporte."', '".$pista."','".$nbt."','".$tarea."');";
 			$consulta = $enlace->query($peticion);
 		}
 		return $consulta;
 	}
 	
 	function reservarTareaContinua ($enlace,$tarea,$deporte, $pista, $fechaI, $fechaF, $reservaSemana, $nbt ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$fechaI = strtotime($fechaI);
 		$fechaF = strtotime($fechaF);
 		$hoy = date ('d-m-Y');
@@ -707,7 +679,6 @@
 	}
 	
 	function eliminarRegistros ($enlace,$tiempoImpuesto,$aplicarTiempo) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$caracteristicas = getCaracteristicas($enlace);
 		$caracteristicas->data_seek(0);
 		$caracteristica = $caracteristicas->fetch_row();
@@ -725,12 +696,12 @@
 		$fechaLimite = $hoy - ($tiempo*24*60*60);
 		//echo 'hoy: '.date('Y-m-d',$hoy).' limite: '.date('Y-m-d',$fechaLimite);
 		
-		$peticion = "DELETE FROM $nombreBBDD.`reservas` WHERE `reservas`.`fecha` <= \''.date('Y-m-d',$fechaLimite).'\';";
+		$peticion = 'DELETE FROM `programador`.`reservas` WHERE `reservas`.`fecha` <= \''.date('Y-m-d',$fechaLimite).'\';';
 		$consulta = $enlace->query($peticion);
 		//echo $peticion;
 		if (!$consulta) return false;
 		
-		$peticion = "DELETE FROM $nombreBBDD.`firmadas` WHERE `firmadas`.`fecha` <= \''.date('Y-m-d',$fechaLimite).'\';";
+		$peticion = 'DELETE FROM `programador`.`firmadas` WHERE `firmadas`.`fecha` <= \''.date('Y-m-d',$fechaLimite).'\';';
 		$consulta = $enlace->query($peticion);
 		
 		//echo $peticion;
@@ -739,20 +710,18 @@
 	}
 
 	function eliminarReserva ($enlace, $deporte, $pista, $fecha, $nbt ) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$datetime = new DateTime($fecha);
 		$date = $datetime->format('Y-m-d');
-		$peticion = "DELETE FROM $nombreBBDD.`reservas` WHERE `reservas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`='".$pista."' AND `reservas`.`nbTiempo`='".$nbt."';";
+		$peticion = "DELETE FROM `programador`.`reservas` WHERE `reservas`.`n_socio` LIKE '".$_SESSION['nUsuario']."' AND `reservas`.`fecha`='".$date."' AND `reservas`.`deporte` LIKE '".$deporte."' AND `reservas`.`np`='".$pista."' AND `reservas`.`nbTiempo`='".$nbt."';";
 		//echo $peticion;
 		$consulta = $enlace->query($peticion);
 		return $consulta;
 	}
 
 	function nuevaTarea($enlace, $elemento) {
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		$tareas = getTareas($enlace);
 		$numero = $tareas->num_rows;
-		$peticion1 = "INSERT INTO $nombreBBDD.`actividades` (`id`,`actividad`) VALUES (".$numero.",'".$elemento."');";
+		$peticion1 = "INSERT INTO `programador`.`actividades` (`id`,`actividad`) VALUES (".$numero.",'".$elemento."');";
 		$resultado = $enlace->query($peticion1);
 		return $resultado;
 	}
@@ -761,9 +730,8 @@
 		if ($posicion == 0) {
 			return;
 		}
-        $nombreBBDD="`".$GLOBALS['nombreBBDD']."`";
 		//DELETE FROM `programador`.`actividades` WHERE `tenis`.`np` = 2
-		$peticion1 = "DELETE FROM $nombreBBDD.`actividades` WHERE `actividades`.`id`=".$posicion.";";
+		$peticion1 = "DELETE FROM `programador`.`actividades` WHERE `actividades`.`id`=".$posicion.";";
 		//echo $peticion1;
 		$resultado = $enlace->query($peticion1);
 
@@ -774,7 +742,7 @@
 			$tareas->data_seek($j);
 			$tarea = $tareas->fetch_row();
 			$numero = $j-1;
-			$peticion1 = "UPDATE $nombreBBDD.`actividades` SET `id`=".$numero." WHERE `actividades`.`id`=".$j.";";
+			$peticion1 = "UPDATE `programador`.`actividades` SET `id`=".$numero." WHERE `actividades`.`id`=".$j.";";
 			$enlace->query($peticion1);
 			$j++;
 		}
