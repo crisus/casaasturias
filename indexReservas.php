@@ -191,7 +191,7 @@
 						// Modificar la propia reserva
 						if ( ( ($reserva[0] == $_SESSION['nUsuario']) || ($_SESSION['tipoUsuario'] == 2) ) && ( ( (($i-1)*$segBloque)+$principio > $segActual) || ($incrementoFecha>0 ) ) )
 						{?>
-							   onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)">
+							 onkeyup="simple_input(this.id)" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)">
 <?php					} else	{?>
 							disabled>
 <?php					}
@@ -223,13 +223,13 @@
 							// Modificar la propia reserva
 							if ( ( ($reserva[0] == $_SESSION['nUsuario']) || ($_SESSION['tipoUsuario'] == 2) ) && ( ( (($i-1)*$segBloque)+$principio > $segActual) || ($incrementoFecha>0 ) ) )
 							{?>
-								onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)">
+								onkeyup="simple_input(this.id)" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)">
 <?php						} else {?>
 								disabled>
 <?php						}?>
 <?php					} else { $j--;}
 					} else { ?>
-						<input class="a nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)"
+						<input class="a nUsuario_<?php echo $i;?>" type="text" id="nUsuario_<?php echo $i.'_'.$j; ?>" value="xxxxx/xx" onkeyup="simple_input(this.id)" onchange="comprobar(this.id, '<?php echo $deporte; ?>' , <?php echo $pista.' , '.$i.' , '.$nbtActual; ?>)"
 <?php 					if ( ((($i-1)*$segBloque)+$principio <= $segActual) && ($incrementoFecha ==0) )
 						{ ?>
 							disabled>

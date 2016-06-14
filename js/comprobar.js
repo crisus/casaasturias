@@ -1,3 +1,18 @@
+function simple_input(id/*, deporte, pista, nbTiempo, nbtActual*/) {
+    //alert(id);
+	var entrada = document.getElementById(id);
+	if (entrada.value.length == 5) {
+		entrada.value = entrada.value + "/";
+	}
+	if ( (/^\d{5}\\|\/\d{2}/.test(entrada.value) ) && (entrada.value.length == 8) ){
+		entrada.style.color='green';
+		//comprobar(id, deporte, pista, nbTiempo, nbtActual);
+	} else {
+		entrada.style.color='red';
+
+	}
+}
+
 function reservarPista(entrada) {
 	var ruta = '/casaasturias/';
 	var data=[];
