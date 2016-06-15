@@ -90,7 +90,7 @@ function comunicacion(mensaje) {
 			recibir(salida);
 		}
 	};
-	//alert ("enviando ,"+mensaje+", ");
+	alert ("enviando:\n_"+mensaje+"_");
 	xmlhttp.open("POST",ruta+"server.php",true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send(mensaje);
